@@ -54,9 +54,12 @@ Note that this may not be the best format, but I suggest we start here and evolv
 
 |Data column                             |Unit              |Type    |Definition                                                                |Notes                                                                                                                       |
 |----------------------------------------|------------------|--------|--------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
-|power_net_battery_discharge_avg         |MW                |numeric |Aggregate generation or storage from battery technology                   |This includes technologies such as utility-scale battery energy storage. Positive when discharging, negative when charging  |
-|power_net_hydro_discharge_avg           |MW                |numeric |Aggregate generation or storage from pumped-hydro                         |Positive when discharging, negative when charging                                                                           |
-|power_net_import_{neighbouring_zone}_avg|MW                |numeric |Net import at exchange from neighbouring grid zone                        |Positive when importing, negative when exporting                                                                            |
+|power_net_battery_discharge         |MW                |numeric |Generation from battery technology                   |This includes technologies such as utility-scale battery energy storage.|
+|power_net_battery_charge         |MW                |numeric |Charging from battery technology                   |This includes technologies such as utility-scale battery energy storage.|
+|power_hydro_discharge          |MW                |numeric |Discharge from pumped-hydro                          |   |
+|power_hydro_charge          |MW                |numeric |Charging from pumped-hydro                          |   | 
+|power_import_{neighbouring_zone}|MW                |numeric |import at exchange from neighbouring grid zone                        |   |
+|power_export_{neighbouring_zone}|MW                |numeric |export at exchange from neighbouring grid zone                        |   |
 
 <br>
 
