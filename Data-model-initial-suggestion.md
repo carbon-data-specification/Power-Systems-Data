@@ -23,15 +23,6 @@ Note that this may not be the best format, but I suggest we start here and evolv
 
 <br>
 
-### Carbon data
-
-|Data column                             |Unit              |Type    |Definition                                                                |Notes                                                                                                                       |
-|----------------------------------------|------------------|--------|--------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
-|emission_factor_{production_mode}_avg   |gCO2eq/kWh        |numeric |The emission intensity when generating using a specific mode of production|This can be lifecycle, direct...                                                                                            |
-|carbon_intensity_average_avg            |gCO2eq/kWh        |numeric |The carbon intensity of the grid in eq. grams of CO2                      |This accounts for all imports/exports, as well as any storage/discharge in the grid                                         |
-
-<br>
-
 ### Production
 
 ***NOTE:*** Many of these production modes are aggregates of multiple production types. By production type, we refer to the kind of process that lead to the electricity generation e.g. geothermal, hydro... etc.
