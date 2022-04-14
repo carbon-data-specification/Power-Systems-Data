@@ -32,6 +32,15 @@ Note that this may not be the best format, but I suggest we start here and evolv
 
 <br>
 
+### Curtailment
+
+|Data column                             |Unit              |Type    |Definition                                                                |Notes                                                                                                                       |
+|----------------------------------------|------------------|--------|--------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
+|curtailment_generator type   |MWh        |numeric |Curtailment of a renewable resource | this can be any resource type |
+                                       |
+
+<br>
+
 ### Production
 
 ***NOTE:*** Many of these production modes are aggregates of multiple production types. By production type, we refer to the kind of process that lead to the electricity generation e.g. geothermal, hydro... etc.
