@@ -38,8 +38,6 @@ These data describe grid charateristics that are updated frequently.
 
 <br>
 
-##DYNAMIC DATA
-
 ### Production
 
 ***NOTE:*** Many of these production modes are aggregates of multiple production types. By production type, we refer to the kind of process that lead to the electricity generation e.g. geothermal, hydro... etc.
