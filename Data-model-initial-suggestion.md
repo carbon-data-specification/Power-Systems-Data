@@ -12,6 +12,9 @@ Note that this may not be the best format, but I suggest we start here and evolv
 
 <br>
 
+## STATIC DATA
+These data describe grid charateristics that change infrequently, but needs to be updated and tracked. 
+
 ### Grid zone properties
 
 |Data column                             |Unit              |Type    |Definition                                                                |Notes                                                                                                                       |
@@ -19,9 +22,12 @@ Note that this may not be the best format, but I suggest we start here and evolv
 |zone                                    |n/a               |string  |Zone name represented using ISO 3166 country codes                        |This is typically at the market bidding zone level, though may differ                                                       |
 |datetime                                |ISO format (UTC)  |datetime|ex: 2018-31-01T00:00:00+00:00                                             |The datetime represents the start of hour e.g. 16:00 represents data from 16:00-16:59                                       |
 |local_datetime                          |ISO format        |datetime|                                                                          |                                                                                                                            |
-|timestamp                               |n/a               |numeric |unique timestamp corresponding to the "datetime"                          |                                                                                                                            |
+|timestamp                               |n/a               |numeric |unique timestamp corresponding to the "datetime"                          |                       
 
-<br>
+<br>       
+
+## DYNAMIC DATA
+These data describe grid charateristics that are updated frequently. 
 
 ### Carbon data
 
