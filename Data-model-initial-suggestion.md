@@ -10,7 +10,64 @@ Note that this may not be the best format, but I suggest we start here and evolv
 
 ***NOTE:*** All of the following data are at an hourly temporal granularity. We can discuss whether / how to represent various temporal granularities.
 
-<br>
+Production class:
+- Biomass
+- Fossil
+- Geothermal
+- Hydro
+- Marine
+- Nuclear
+- Other renewable
+- Solar
+- Waste
+- Wind
+- Other non-renewable
+- Storage Discharge
+
+Fuel type:
+- Brown coal/Lignite
+- Hard coal
+- Coal-derived gas
+- Other coal
+- Natural gas
+- Landfill gas
+- Other gas
+- Wood / Wood waste
+- Municipal waste
+- Propane oil
+- Shale oil
+- Distillate oil
+- Other oil
+- Peat
+- Uranium, Thorium, Plutonium
+- Solar
+- Wind
+- Geothermal
+- Water
+
+Technology:
+- Energy Storage, Battery
+- Energy Storage, Compressed Air
+- Energy Storage, Concentrated Solar Power
+- Energy Storage, Flywheel
+- Energy Storage, Reversible Hydraulic Turbine
+- Energy Storage, Other
+- Fuel Cell
+- Turbine, Binary Cycle
+- Turbine, Combined-Cycle
+- Turbine, Steam
+- Turbine, Gas Combustion
+- Hydrokinetic, Axial Flow Turbine
+- Hydrokinetic, Wave Buoy
+- Hydrokinectic, Other
+- Hydraulic Turbine
+- Internal Combustion
+- Other
+- Photovoltaic
+- Wind Turbine, Onshore
+- Wind Turbine, Offshore
+
+Sub-Class - a combination of Class + Technology + Fuel
 
 ## STATIC DATA
 These data describe grid charateristics that change infrequently, but needs to be updated and tracked. 
