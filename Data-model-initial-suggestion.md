@@ -15,20 +15,38 @@ Note that this may not be the best format, but I suggest we start here and evolv
 ## STATIC DATA
 These data describe grid charateristics that change infrequently, but needs to be updated and tracked. 
 
-### Grid zone properties
+### Endpoint attributes
+For each data timeseries, it should be associated with the most granular node/edge in the topological definition. 
+
+
+<br>     
+
+### Node Attributes
+This refers to nodes on the topological mapping of the power sytem. A node could be an actual node, or a region. 
 
 |Data column                             |Unit              |Type    |Definition                                                                |Notes                                                                                                                       |
 |----------------------------------------|------------------|--------|--------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
-|zone                                    |n/a               |string  |Zone name represented using ISO 3166 country codes                        |This is typically at the market bidding zone level, though may differ                                                       |
-|datetime                                |ISO format (UTC)  |datetime|ex: 2018-31-01T00:00:00+00:00                                             |The datetime represents the start of hour e.g. 16:00 represents data from 16:00-16:59                                       |
-|local_datetime                          |ISO format        |datetime|                                                                          |                                                                                                                            |
-|timestamp                               |n/a               |numeric |unique timestamp corresponding to the "datetime"                          |                       
+|latitude                                |Decimal Degrees  |float|Latitude|If the node represents a region, the lat/long should represent the region's centroid. Lat/long will be used to identify the local prevailing time zone for each data endpoint.  
+|longitude                                |Decimal Degrees  |float|Longitude|If the node represents a region, the lat/long should represent the region's centroid. Lat/long will be used to identify the local prevailing time zone for each data endpoint. 
 
-<br>       
+
+<br> 
+
+### Edge Attributes
+This refers to edges that connect nodes at each level of spatial granularity. This edges should generally represent distribution or transmission lines that connect each node, and thus the static properties will generally represent the characteristics of these lines.
+
+<br> 
 
 ## DYNAMIC DATA
 These data describe grid charateristics that are updated frequently. 
 
+### Timestamp
+***NOTE:*** Timestamps should only be provided in UTC. Information to convert timestamp into local prevailing time will be a static property of the spatial "node" with which each data source is associated.
+
+|Data column                             |Unit              |Type    |Definition                                                                |Notes                                                                                                                       |
+|----------------------------------------|------------------|--------|--------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
+|datetime_utc                                |ISO format (UTC)  |datetime|ex: 2018-31-01T00:00:00+00:00                                             |The datetime represents the start of hour e.g. 16:00 represents data from 16:00-16:59   
+<br> 
 ### Carbon data
 
 |Data column                             |Unit              |Type    |Definition                                                                |Notes                                                                                                                       |
