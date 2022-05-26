@@ -29,15 +29,6 @@ These data describe grid charateristics that change infrequently, but needs to b
 ## DYNAMIC DATA
 These data describe grid charateristics that are updated frequently. 
 
-### Carbon data
-
-|Data column                             |Unit              |Type    |Definition                                                                |Notes                                                                                                                       |
-|----------------------------------------|------------------|--------|--------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
-|emission_factor_{production_mode}_avg   |gCO2eq/kWh        |numeric |The emission intensity when generating using a specific mode of production|This can be lifecycle, direct...                                                                                            |
-|carbon_intensity_average_avg            |gCO2eq/kWh        |numeric |The carbon intensity of the grid in eq. grams of CO2                      |This accounts for all imports/exports, as well as any storage/discharge in the grid                                         |
-
-<br>
-
 ### Production
 
 ***NOTE:*** Many of these production modes are aggregates of multiple production types. By production type, we refer to the kind of process that lead to the electricity generation e.g. geothermal, hydro... etc.
@@ -82,20 +73,6 @@ These data describe grid charateristics that are updated frequently.
 |power_consumption_unknown_avg           |MW                |numeric |Same as for production, though accounting for imports/exports             |                                                                                                                            |
 |power_consumption_battery_discharge_avg |MW                |numeric |Same as for production, though accounting for imports/exports             |                                                                                                                            |
 |power_consumption_hydro_discharge_avg   |MW                |numeric |Same as for production, though accounting for imports/exports             |                                                                                                                            |
-
-<br>
-
-### Weather
-
-|Data column                             |Unit              |Type    |Definition                                                                |Notes                                                                                                                       |
-|----------------------------------------|------------------|--------|--------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
-|latest_forecasted_dewpoint_avg          |°K                |numeric |2 metre dewpoint temperature                                              |                                                                                                                            |
-|latest_forecasted_precipitation_avg     |kg/m2             |numeric |Total Precipitation                                                       |                                                                                                                            |
-|latest_forecasted_solar_avg             |W/m2              |numeric |Downward short-wave radiation flux at ground level                        |                                                                                                                            |
-|latest_forecasted_temperature_avg       |°K                |numeric |2 metre temperature                                                       |                                                                                                                            |
-|latest_forecasted_wind_speed_avg        |m/s               |numeric |10 metre wind speed                                                       |                                                                                                                            |
-|latest_forecasted_wind_direction_x_avg  |n/a               |numeric |10 metre X wind component                                                 |                                                                                                                            |
-|latest_forecasted_wind_direction_y_avg  |n/a               |numeric |10 metre Y wind component                                                 |                                                                                                                            |
 
 <br>
 
