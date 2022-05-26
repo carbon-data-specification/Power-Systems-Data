@@ -103,20 +103,6 @@ These data describe grid charateristics that are updated frequently.
 
 <br>
 
-### Weather
-
-|Data column                             |Unit              |Type    |Definition                                                                |Notes                                                                                                                       |
-|----------------------------------------|------------------|--------|--------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
-|latest_forecasted_dewpoint_avg          |°K                |numeric |2 metre dewpoint temperature                                              |                                                                                                                            |
-|latest_forecasted_precipitation_avg     |kg/m2             |numeric |Total Precipitation                                                       |                                                                                                                            |
-|latest_forecasted_solar_avg             |W/m2              |numeric |Downward short-wave radiation flux at ground level                        |                                                                                                                            |
-|latest_forecasted_temperature_avg       |°K                |numeric |2 metre temperature                                                       |                                                                                                                            |
-|latest_forecasted_wind_speed_avg        |m/s               |numeric |10 metre wind speed                                                       |                                                                                                                            |
-|latest_forecasted_wind_direction_x_avg  |n/a               |numeric |10 metre X wind component                                                 |                                                                                                                            |
-|latest_forecasted_wind_direction_y_avg  |n/a               |numeric |10 metre Y wind component                                                 |                                                                                                                            |
-
-<br>
-
 ### Price
 
 |Data column                             |Unit              |Type    |Definition                                                                |Notes                                                                                                                       |
