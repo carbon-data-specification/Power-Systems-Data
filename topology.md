@@ -1,6 +1,6 @@
 # Topology / graph model
 
-Please use this google sheet to comment/exapand on this topology: https://docs.google.com/spreadsheets/d/1apj5IY8eBmA-w7UpN1zKBudUVk8eKj5Z7P5bcRe9A90/edit#gid=0
+Please use this google sheet to comment/expand on this topology: https://docs.google.com/spreadsheets/d/1apj5IY8eBmA-w7UpN1zKBudUVk8eKj5Z7P5bcRe9A90/edit#gid=0
 
 ## Granularity Levels
 We might not want to strictly define specific named levels in the hierarchy, since each grid might be structured slightly differently. There can be a different number of levels for each region, but we should make sure that equivalent structures in each region use the same level numbers (this may mean that in some regions, certain levels are skipped).
