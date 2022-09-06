@@ -10,4 +10,4 @@ Power System data might include, but is not limited to:
 - Power imports and exports
 - Power market data
 
-This common standard shall facilitate a systematic and more accurate approach to account for grid emissions. It should further enable grid decarbonisation pathways and decision-making.
+This common standard shall facilitate a systematic and more accurate approach to report grid emissions. It should further enable grid decarbonisation pathways and decision-making.
