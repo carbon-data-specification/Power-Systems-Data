@@ -1,4 +1,4 @@
-# Power Systems Data WG
+# Power Systems Data Working Group
 
 This repository is dedicated to the Power Systems Data Working Group. You can get involved in a number of ways.
 
