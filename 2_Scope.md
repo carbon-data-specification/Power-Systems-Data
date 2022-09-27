@@ -1,7 +1,13 @@
 # Scope
 
-```
-Include a detailed description of this Working Group’s Scope.  This Scope is important is it establishes the bounds of each contributor's and licensee's patent commitment. For guidance on drafting an appropriate Scope, you may find [ISO's guidance (see page 5)](https://www.iso.org/files/live/sites/isoorg/files/developing_standards/docs/en/how-to-write-standards.pdf "ISO How To Write Standards Guide") helpful.
-```
+This working group focuses on creating a specification for raw power system data, usually retrieved from Power System Operators.
 
-Any changes of Scope are not retroactive. 
+Power System data might include, but is not limited to:
+
+- Power generation emissions
+- Delivery capacities and/or constraints
+- Generation mix
+- Power imports and exports
+- Power market data
+
+This common standard shall facilitate a systematic and more accurate approach to report grid emissions. It should further enable grid decarbonisation pathways and decision-making.
