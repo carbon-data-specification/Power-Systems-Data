@@ -2,21 +2,48 @@
 
 We envision that any electric power grid can be described as a directed graph where nodes are different components of the power system elements and edges are connections between them.
 
-```
+```mermaid
 flowchart TB
-    c1-->a2
-    subgraph one
-    a1-->a2
+    subgraph node1[Transmission Node]
+        subgraph node1metadata[Metadata]
+            node1id[ID]
+            node1name[Name]
+            node1etc[...]
+        end
+        subgraph node1dynamic[Dynamic]
+            node1gen[Generation mix]
+            node1capacity[Capacity]
+            node1dynamicetc[...]
+        end
     end
-    subgraph two
-    b1-->b2
+    subgraph node2[Plant Node 2 - Coal Power Plant]
+        subgraph node2metadata[Metadata]
+            node2metadataid[ID]
+            node2metadataname[Name]
+            node2metadataetc[...]
+        end
+        subgraph node2dynamic[Dynamic]
+            node2gen[Generation mix]
+            node2capacity[Capacity]
+            node2dynamicetc[...]
+        end
     end
-    subgraph three
-    c1-->c2
+    subgraph node3[Plant Node 1 - Wind Farm]
+        subgraph node3metadata[Metadata]
+            node3metadataid[ID]
+            node3metadataname[Name]
+            node3metadataetc[...]
+        end
+        subgraph node3dynamic[Dynamic]
+            node3gen[Generation mix]
+            node3capacity[Capacity]
+            node3dynamicetc[...]
+        end
     end
-    one --> two
-    three --> two
-    two --> c2
+    nodeetc[...]
+    node3dynamic-->node1dynamic
+    node2dynamic-->node1dynamic
+    node1dynamic-->nodeetc
 ```
 
 
