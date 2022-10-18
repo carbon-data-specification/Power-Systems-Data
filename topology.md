@@ -55,9 +55,9 @@ We might not want to strictly define specific named levels in the hierarchy, sin
 
 |Level|US Grid|European Grid|Other Region 1|Definition|
 |--|--|--|--|--|
-|0|Interconnect| | | |
+|0|Interconnect|Synchronous grid| | |
 |1|Balancing Area| | | |
-|2|Trading Hub / Transmission-congested zone| | | |
+|2|Trading Hub / Transmission-congested zone|Bidding zone| | |
 |3|Transmission Node/Substation| | | |
 |4|Distribution Node/Substation or Power Plant| | | |
 |5|Meter (Generator or Load)| | | |
