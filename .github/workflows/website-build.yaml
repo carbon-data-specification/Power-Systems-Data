@@ -60,20 +60,24 @@ jobs:
           # default base url is root of domain
           echo "baseurl: /" \
             >> ${{ github.workspace }}/main-branch/website/_config.yml
+
       - name: Non-production builds use Github Page's default base url (/Power-Systems-Data/)
         if: ${{ github.repository != 'carbon-data-specification/Power-Systems-Data' }}
         run: |
           sed -i \
             's|baseurl: \/|baseurl: /Power-Systems-Data/|g' \
             ${{ github.workspace }}/main-branch/website/_config.yml
+
       - name: Build static website
         run: |
           cd ${{ github.workspace }}/main-branch/website
           bundle exec jekyll build -d ${{ github.workspace }}/gh-pages-branch
+
       - name: Set production domain
         if: ${{ github.repository == 'carbon-data-specification/Power-Systems-Data' }}
         run: |
           echo -n "powersystemsdata.carbondataspec.org" > ${{ github.workspace }}/gh-pages-branch/CNAME
+
       - name: Push static site to gh-pages branch
         run: |
           cd ${{ github.workspace }}/gh-pages-branch
