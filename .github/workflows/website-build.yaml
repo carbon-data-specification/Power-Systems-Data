@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - ps/create_website_scaffolding
 jobs:
   WebsiteBuild:
     runs-on: ubuntu-latest

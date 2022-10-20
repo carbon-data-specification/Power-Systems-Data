@@ -1,3 +1,5 @@
+.DS_Store
+
 # Jekyll website
 website/_site
 website/Gemfile.lock
