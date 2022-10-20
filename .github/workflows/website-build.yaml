@@ -21,12 +21,6 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v2
 
-      - name: Setup ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.0'
-          bundler-cache: true
-
       - name: Replace placeholder files with original files
         run: |
           # set source and website directories
@@ -66,10 +60,11 @@ jobs:
             's|baseurl: \/|baseurl: /Power-Systems-Data/|g' \
             ${{ github.workspace }}/main-branch/website/_config.yml
 
-      - name: Build static website
-        run: |
-          cd ${{ github.workspace }}/main-branch/website
-          bundle exec jekyll build -d ${{ github.workspace }}/gh-pages-branch
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./website
+          destination: ./website_site
 
       - name: Set production domain
         if: ${{ github.repository == 'carbon-data-specification/Power-Systems-Data' }}
