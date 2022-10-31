@@ -21,6 +21,14 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v2
 
+      - name: Test
+        run: |
+          echo ${{ env.BRANCH_NAME }}
+          echo ${{ env.BUNDLE_GEMFILE }}
+
+          ls -la
+          ls -la ${{ env.BRANCH_NAME }}/website
+
       - name: Replace placeholder files with original files
         run: |
           # set source and website directories
