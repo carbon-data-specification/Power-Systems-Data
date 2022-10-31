@@ -9,7 +9,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      BUNDLE_GEMFILE: ${{ github.workspace }}/main-branch/website/Gemfile
+      BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+      BUNDLE_GEMFILE: ${{ github.head_ref || github.ref_name }}/website/Gemfile
 
     steps:
       - name: Checkout main branch
@@ -24,8 +25,8 @@ jobs:
       - name: Replace placeholder files with original files
         run: |
           # set source and website directories
-          export WEBSITE_DIR="${{ github.workspace }}/main-branch/website/_includes/spec_copies"
-          export SOURCE_DIR="${{ github.workspace }}/main-branch/specifications"
+          export WEBSITE_DIR="$BRANCH_NAME/website/_includes/spec_copies"
+          export SOURCE_DIR="$BRANCH_NAME/specifications"
 
           # remove any existing placeholder files
           find \
@@ -47,24 +48,24 @@ jobs:
 
           # update specifications source base url with current repo and branch
           echo "github_specs_base_url: \"https://github.com/${{ github.repository }}/blob/${{ github.ref_name }}/specifications\"" \
-            >> ${{ github.workspace }}/main-branch/website/_config.yml
+            >> $BRANCH_NAME/website/_config.yml
 
           # default base url is root of domain
           echo "baseurl: /" \
-            >> ${{ github.workspace }}/main-branch/website/_config.yml
+            >> $BRANCH_NAME/website/_config.yml
 
       - name: Non-production builds use Github Page's default base url (/Power-Systems-Data/)
         if: ${{ github.repository != 'carbon-data-specification/Power-Systems-Data' }}
         run: |
           sed -i \
             's|baseurl: \/|baseurl: /Power-Systems-Data/|g' \
-            ${{ github.workspace }}/main-branch/website/_config.yml
+            $BRANCH_NAME/website/_config.yml
 
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
           source: ./website
-          destination: ./website_site
+          destination: ./website/site
 
       - name: Set production domain
         if: ${{ github.repository == 'carbon-data-specification/Power-Systems-Data' }}
