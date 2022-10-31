@@ -16,8 +16,7 @@ jobs:
       - name: Checkout main branch
         uses: actions/checkout@v3
         with:
-          ref: main
-          path: main-branch
+          ref: ${{ env.BRANCH_NAME }}
 
       - name: Setup Pages
         uses: actions/configure-pages@v2
