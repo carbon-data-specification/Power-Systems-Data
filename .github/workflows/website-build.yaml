@@ -21,19 +21,11 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v2
 
-      - name: Test
-        run: |
-          echo ${{ env.BRANCH_NAME }}
-          echo ${{ env.BUNDLE_GEMFILE }}
-
-          ls -la
-          ls -la ${{ env.BRANCH_NAME }}/website
-
       - name: Replace placeholder files with original files
         run: |
           # set source and website directories
-          export WEBSITE_DIR="$BRANCH_NAME/website/_includes/spec_copies"
-          export SOURCE_DIR="$BRANCH_NAME/specifications"
+          export WEBSITE_DIR="website/_includes/spec_copies"
+          export SOURCE_DIR="specifications"
 
           # remove any existing placeholder files
           find \
@@ -55,18 +47,18 @@ jobs:
 
           # update specifications source base url with current repo and branch
           echo "github_specs_base_url: \"https://github.com/${{ github.repository }}/blob/${{ github.ref_name }}/specifications\"" \
-            >> $BRANCH_NAME/website/_config.yml
+            >> website/_config.yml
 
           # default base url is root of domain
           echo "baseurl: /" \
-            >> $BRANCH_NAME/website/_config.yml
+            >> website/_config.yml
 
       - name: Non-production builds use Github Page's default base url (/Power-Systems-Data/)
         if: ${{ github.repository != 'carbon-data-specification/Power-Systems-Data' }}
         run: |
           sed -i \
             's|baseurl: \/|baseurl: /Power-Systems-Data/|g' \
-            $BRANCH_NAME/website/_config.yml
+            website/_config.yml
 
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
