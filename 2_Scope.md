@@ -1,18 +1,5 @@
 # Scope
 
-<<<<<<< HEAD
-This working group focuses on creating a specification for raw power system data, usually retrieved from Power System Operators.
-
-Power System data might include, but is not limited to:
-
-- Power generation emissions
-- Delivery capacities and/or constraints
-- Generation mix
-- Power imports and exports
-- Power market data
-
-This common standard shall facilitate a systematic and more accurate approach to report grid emissions. It should further enable grid decarbonisation pathways and decision-making.
-=======
 __An open specification for raw electric power system data to facilitate a systematic and more accurate approach to report grid emissions.__
 
 This working group focuses on creating a unified specification for data retrieved from power system operators.
@@ -26,4 +13,3 @@ Power system data might include, but is not limited to:
 * Power generation emissions
 
 This common standard shall enable grid decarbonisation pathways and decision-making. By aligning the definition of the data shared by power system operators, this specification will make it easier for third parties to consistently compute (using their own carbon models) and report grid emissions worldwide.
->>>>>>> main

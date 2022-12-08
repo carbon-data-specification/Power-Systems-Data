@@ -1,5 +1,8 @@
 # Data interfacing
 
+The definition of the data interface specification is realised by building a working prototype that will generate automatically the specification as documentation.
+The work is realised in [this repository](https://github.com/carbon-data-specification/Power-Systems-Data-API-Demonstrator).
+
 ### Timestamp
 ***NOTE:*** Timestamps should only be provided in UTC. Information to convert timestamp into local prevailing time will be a static property of the spatial "node" with which each data source is associated.
 
