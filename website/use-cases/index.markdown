@@ -49,9 +49,18 @@ For both the location-based and market-based (if not fully matched) approaches, 
 
 ## Use Case 2: Consumption Optimisation <a id="use-case-consumption-optimisation" href="#use-case-consumption-optimisation" class="permalink">🔗</a>
 
+Decarbonation of electricity grids can be accelerated by optimising the consumption of electricity to match the production of renewable energy. This is called consumption optimisation or load shifting. Two conditions are required to enable this. First, accurate forecasts of the grid mix is required. It is indeed paramount to know precisely when more carbon-free electricity will be available for consumption. Second, the ability or flexibility to shift consumption is required. This happens when the time at which consumption happens is not critical. Examples include [load shifting car charges](https://www.electricitymaps.com/blog/carbon-savings-load-shifting) or [compute jobs](https://blog.google/inside-google/infrastructure/data-centers-work-harder-sun-shines-wind-blows/).
 ### Needs
 
+* __Grid mix data__: Temporaly and spatially granular data is a prerequisite to forecast accurately carbon emissions. Power system operators should therefore disclose grid mix data, with a per production mode breakdown (e.g. coal, gas, nuclear, hydro, wind, solar, etc.). This data should be available at a minimum of hourly granularity, at the lowest possible geographical level (e.g. substation, feeder, etc.). It is also important to have access to historical data to train forecasting models.
+
+* __Forecasted grid mix data__: Power system operators should provide forecasts of some of the grid components. This data should be available at a minimum of hourly granularity, at the lowest possible geographical level (e.g. substation, feeder, etc.). This will enable training of better forecasting models.
+
 ### Example users
+
+* Organisations forecasting grid mixes and carbon emissions to help others optimise their electricity consumption ([Electricity Maps](https://www.electricitymaps.com/guides/accounting-guide), [Singularity](https://singularity.energy/), [WattTime](https://www.watttime.org/), etc.)
+
+* Organisations with climate goals that have the flexibility to shift their consumption ([Google](https://www.google.com/about/datacenters/cleanenergy/), [Apple](https://www.apple.com/newsroom/2020/07/apple-commits-to-be-100-percent-carbon-neutral-for-its-supply-chain-and-products-by-2030/), [Microsoft](https://www.microsoft.com/en-us/corporate-responsibility/sustainability/operations), etc.)
 
 
 ## Use cases NOT in scope for this working group <a id="not-in-scope" href="#not-in-scope" class="permalink">🔗</a>
