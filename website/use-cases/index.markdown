@@ -8,35 +8,33 @@ meta_description: What are the use cases that the Power System Data specificatio
 
 # Use Cases
 
-The Power Systems Data working group is defining specifications. They must address several use cases where a standardised access to power data can enable decarbonation pathways.
+The Power Systems Data working group is defining specifications for standardized grid data. They must address several use cases where a standardised access to power data can enable decarbonation pathways.
 
 These use cases highlight the need for consistent data reporting accross different power system operators. They indeed all require the collaboration between that data and modelling tools that estimate physical properties of the grids. Typically, running a carbon model to compute emissions across grids is only possible if the data is consistent and reliable.
 
 ## Use Case 1: Carbon Accounting <a id="use-case-carbon-accounting" href="#use-case-carbon-accounting" class="permalink">🔗</a>
 
-Many companies, organizations, and governments around the world are working to
-measure and track their carbon emissions. This is called
+Many companies, organizations, and governments around the world are working to measure and track their carbon emissions. This is called
 [carbon accounting](https://en.wikipedia.org/wiki/Carbon_accounting).
 
 There are multiple methods to account for carbon emissions from power systems.
-They can be classified into two main categories:
+They can be classified into some categories:
 
 * __Location based__:
 
-In this paradigm, carbon emissions are computed using the grid mix at the location of the consumption.
+In this paradigm, carbon emissions are computed using the average emissions factor at the location of the consumption.
 
 * __Market based__:
 
-In this paradigm, electricity consumption can be matched with renewable energy certificates (_RECs_), bought from renewable generators.
-Carbon emissions are then computed using two mechanisms. Consumption matched with RECs is claimed as carbon-free, and the rest of the unmatched consumption's emissions are computed from the grid mix at the location of the consumption, accounting for already claimed certificates (residual mix).
+In this paradigm, electricity consumption can be matched with renewable energy certificates (_RECs_) on a MWh basis, bought from renewable generators. Consumption matched with RECs is claimed as carbon-free, and the rest of the unmatched consumption's emissions are computed from the residual mix (average emissions factor at the location of the consumption, accounting for already claimed certificates).
+
+* __Impact based__:
+
+In this paradigm, the emissions impact of electricity consumption and generation are calculated using marginal emissions. 
 
 ### Needs
 
-For both the location-based and market-based (if not fully matched) approaches, it is required to have access to accurate grid mix data.
-
-* __Grid mix data__: Temporaly and spatially granular data is a prerequisite to compute accurate carbon emissions. Power system operators should therefore disclose grid mix data, with a per production mode breakdown (e.g. coal, gas, nuclear, hydro, wind, solar, etc.). This data should be available at a minimum of hourly granularity, at the lowest possible geographical level (e.g. substation, feeder, etc.).
-
-* __Consistency__: A lot of organisations doing carbon accounting have operations in different regions of the world. It is therefore important that the data is consistent across different power system operators. This means that the same production mode should be reported with the same name, and that the same geographical level should be reported with the same name.
+For all of these accounting approaches, it is required to have access to accurate and detailed grid emissions and generation data.
 
 ### Example users
 
@@ -46,23 +44,25 @@ For both the location-based and market-based (if not fully matched) approaches, 
 
 * Organisations that have pledged to be carbon free ([Google](https://www.google.com/about/datacenters/cleanenergy/), [Apple](https://www.apple.com/newsroom/2020/07/apple-commits-to-be-100-percent-carbon-neutral-for-its-supply-chain-and-products-by-2030/), [Microsoft](https://www.microsoft.com/en-us/corporate-responsibility/sustainability/operations), etc.)
 
+* Organisations that are measuring the impact of their electricity consumption and renewable energy generation as part of the ([Emissions First Partnership](https://www.emissionsfirst.com/)
+
 
 ## Use Case 2: Consumption Optimisation <a id="use-case-consumption-optimisation" href="#use-case-consumption-optimisation" class="permalink">🔗</a>
 
-Decarbonation of electricity grids can be accelerated by optimising the consumption of electricity to match the production of renewable energy. This is called consumption optimisation or load shifting. Two conditions are required to enable this. First, accurate forecasts of the grid mix is required. It is indeed paramount to know precisely when more carbon-free electricity will be available for consumption. Second, the ability or flexibility to shift consumption is required. This happens when the time at which consumption happens is not critical. Examples include [load shifting car charges](https://www.electricitymaps.com/blog/carbon-savings-load-shifting) or [compute jobs](https://blog.google/inside-google/infrastructure/data-centers-work-harder-sun-shines-wind-blows/).
+Decarbonization of electricity grids can be accelerated by optimising the consumption of electricity to match low emissions periods. This is called consumption optimisation or load shifting.  Examples include [load shifting car charges](https://evcharging.enelx.com/products/juicenet-green) or [compute jobs](https://blog.google/inside-google/infrastructure/data-centers-work-harder-sun-shines-wind-blows/).
+
 ### Needs
 
-* __Grid mix data__: Temporaly and spatially granular data is a prerequisite to forecast accurately carbon emissions. Power system operators should therefore disclose grid mix data, with a per production mode breakdown (e.g. coal, gas, nuclear, hydro, wind, solar, etc.). This data should be available at a minimum of hourly granularity, at the lowest possible geographical level (e.g. substation, feeder, etc.). It is also important to have access to historical data to train forecasting models.
-
-* __Forecasted grid mix data__: Power system operators should provide forecasts of some of the grid components. This data should be available at a minimum of hourly granularity, at the lowest possible geographical level (e.g. substation, feeder, etc.). This will enable training of better forecasting models.
+For these active load management strategies, it is required to have access to accurate and detailed grid emissions and generation data.
 
 ### Example users
 
-* Organisations forecasting grid mixes and carbon emissions to help others optimise their electricity consumption ([Electricity Maps](https://www.electricitymaps.com/guides/accounting-guide), [Singularity](https://singularity.energy/), [WattTime](https://www.watttime.org/), etc.)
+* Organisations forecasting grid emissions to help others optimise their electricity consumption ([Electricity Maps](https://www.electricitymaps.com/guides/accounting-guide), [Singularity](https://singularity.energy/), [WattTime](https://www.watttime.org/), etc.)
 
 * Organisations with climate goals that have the flexibility to shift their consumption ([Google](https://www.google.com/about/datacenters/cleanenergy/), [Apple](https://www.apple.com/newsroom/2020/07/apple-commits-to-be-100-percent-carbon-neutral-for-its-supply-chain-and-products-by-2030/), [Microsoft](https://www.microsoft.com/en-us/corporate-responsibility/sustainability/operations), etc.)
 
-
 ## Use cases NOT in scope for this working group <a id="not-in-scope" href="#not-in-scope" class="permalink">🔗</a>
+
+* __Emissions Models__: This working group is not currently working on defining the models for calculating emissions factors based on the grid data. 
 
 * __Certificates__: Any work involving gathering RECs data is not technically power systems data. It is therefore not part of this scope. For this, see the work of the [customer data working group](https://customerdata.carbondataspec.org/)
