@@ -31,7 +31,8 @@ This common standard shall enable grid decarbonisation pathways and decision-mak
 
 ## Use Cases
 
-TODO
+* [Carbon accounting]({{ "/use-cases" | relative_url }})
+* [Consumption optimisation]({{ "/use-cases" | relative_url }})
 
 ## Specifications
 
