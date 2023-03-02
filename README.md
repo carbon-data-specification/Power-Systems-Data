@@ -18,11 +18,11 @@ A good place to start is to look at our website: [https://powersystemsdata.carbo
 
 ### Latest drafts
 
-[Updated 2021-11-01]
+[Updated 2023-03-02]
 
-* [Power systems data types](https://github.com/carbon-data-specification/Power-Systems-Data/blob/draft-0.0.1/datatypes.md)
-* [Power systems data topology](https://github.com/carbon-data-specification/Power-Systems-Data/blob/draft-0.0.1/topology.md)
-* [Power systems data interfacing](https://github.com/carbon-data-specification/Power-Systems-Data/blob/draft-0.0.1/interface.md)
+* [Power systems data types](https://github.com/carbon-data-specification/Power-Systems-Data/blob/main/datatypes.md)
+* [Power systems data topology](https://github.com/carbon-data-specification/Power-Systems-Data/blob/main/topology.md)
+* [Power systems data interfacing](https://github.com/carbon-data-specification/Power-Systems-Data/blob/main/interface.md)
 ### Join the Working Group
 
 - Review the [contribution guidelines](https://github.com/carbon-data-specification/Power-Systems-Data/blob/main/CONTRIBUTING.md) to learn how to contribute to the spec.
