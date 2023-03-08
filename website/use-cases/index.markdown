@@ -61,6 +61,21 @@ For these active load management strategies, it is required to have access to ac
 
 * Organisations with climate goals that have the flexibility to shift their consumption ([Google](https://www.google.com/about/datacenters/cleanenergy/), [Apple](https://www.apple.com/newsroom/2020/07/apple-commits-to-be-100-percent-carbon-neutral-for-its-supply-chain-and-products-by-2030/), [Microsoft](https://www.microsoft.com/en-us/corporate-responsibility/sustainability/operations), etc.)
 
+## Use Case 3: Renewable Project Siting <a id="use-case-renewable-siting" href="#use-case-renewable-siting" class="permalink">🔗</a>
+
+Decarbonization can be accelerated by siting clean energy projects in electricity grids with higher emissions. 
+
+### Needs
+
+To make impactful clean energy siting decisions and to measure the carbon impact of existing clean energy projects, access to accurate and detailed grid data is required to calculate long-run grid emissions.
+
+### Example users
+
+* Organisations forecasting grid emissions to help others optimize their clean energy investments.
+
+* Organisations with climate goals that can target their clean energy investments to grids with higher emissions.
+
+
 ## Use cases NOT in scope for this working group <a id="not-in-scope" href="#not-in-scope" class="permalink">🔗</a>
 
 * __Emissions Models__: This working group is not currently working on defining the models for calculating emissions factors based on the grid data. 
