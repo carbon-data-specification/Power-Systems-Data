@@ -67,7 +67,7 @@ Decarbonization can be accelerated by siting clean energy projects in electricit
 
 ### Needs
 
-To make impactful clean energy siting decisions and to measure the carbon impact of existing clean energy projects, access to accurate and detailed long-run grid emissions and generation data is required.
+To make impactful clean energy siting decisions and to measure the carbon impact of existing clean energy projects, access to accurate and detailed grid data is required to calculate long-run grid emissions.
 
 ### Example users
 
