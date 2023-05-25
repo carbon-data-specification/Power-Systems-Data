@@ -156,17 +156,17 @@ Named levels are not part of the specification, since each grid might be structu
 |5|Meter (Generator or Load)|Metering Grid Area, MeteringPoint|GeneratingUnit |
 
 ### Graph Edges<a id="topology--graph-edges" href="#topology--graph-edges" class="permalink">🔗</a>
-|Level or Inter-level|Description|Type|Data|
-|--|--|--|--|--|
-|0|Between Interconnects|Physical: DC transmission lines|Line capacity, etc| |
-|0-1|Balancing Area to Interconnect Mapping|Virtual|Mapping table| |
-|1|Between Balancing Areas|Physical: Transmission lines | | |
-|1-2|Hubs to BAs|Virtual|Mapping table| |
-|2|Between Trading Hubs / Transmission-congested zones|Physical: Transmission lines | | |
-|2-3|Transmission Substation to Hub|Virtual|Mapping table| |
-|3|Between Transmission Nodes/Substation|Physical: Transmission lines | | |
-|3-4|Distribution Substations/Plants to Transmission Nodes|Physical: subtransmission lines||Line |
-|4|Between Distribution Node/Substation or Power Plant|N/A | | |
-|4-5|Meters to substations/plants|Physical: distribution lines|| |
-|5|Between Meters (Generator or Load)|N/A| | |
 
+|Level or Inter-level|Description|Type|Data|
+|--|--|--|--|
+|0|Between Interconnects|Physical: DC transmission lines|Line capacity, etc|
+|0-1|Balancing Area to Interconnect Mapping|Virtual|Mapping table|
+|1|Between Balancing Areas|Physical: Transmission lines | |
+|1-2|Hubs to BAs|Virtual|Mapping table|
+|2|Between Trading Hubs / Transmission-congested zones|Physical: Transmission lines | |
+|2-3|Transmission Substation to Hub|Virtual|Mapping table|
+|3|Between Transmission Nodes/Substation|Physical: Transmission lines | |
+|3-4|Distribution Substations/Plants to Transmission Nodes|Physical: subtransmission lines||
+|4|Between Distribution Node/Substation or Power Plant|N/A? | |
+|4-5|Meters to substations/plants|Physical: distribution lines||
+|5|Between Meters (Generator or Load)|N/A?| |
