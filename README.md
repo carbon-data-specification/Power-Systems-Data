@@ -16,19 +16,20 @@ You can get involved in a number of ways. We gather contributors that bring tech
 
 A good place to start is to look at our website: [https://powersystemsdata.carbondataspec.org/](https://powersystemsdata.carbondataspec.org/).
 
-### Latest drafts
+## Specifications
 
-[Updated 2023-03-02]
+* [CDSC-WG2-01 - Grid Topologies](https://powersystemsdata.carbondataspec.org/specs/cdsc-wg2-01/)
+* [CDSC-WG2-02 - Data types](https://powersystemsdata.carbondataspec.org/specs/cdsc-wg2-02/)
+* [CDSC-WG2-03 - API Interface](https://powersystemsdata.carbondataspec.org/specs/cdsc-wg2-03/)
 
-* [Power systems data types](https://github.com/carbon-data-specification/Power-Systems-Data/blob/main/datatypes.md)
-* [Power systems data topology](https://github.com/carbon-data-specification/Power-Systems-Data/blob/main/topology.md)
-* [Power systems data interfacing](https://github.com/carbon-data-specification/Power-Systems-Data/blob/main/interface.md)
+`CDSC-WG2-01 - Grid Topologies` is used to develop a shared terminology for various levels of granularity of grid entities and a convention for describing how those entities relate to each other. `CDSC-WG2-02 - Data Types` describes consensus around data fields that are either required or recommended in order to adequately describe the state of various grid entities. These two specifications are used in the development of `CDSC-WG2-03 - API Interface`, which describes an interface for power systems operators when sharing power system data. 
+
 ### Join the Working Group
 
 - Review the [contribution guidelines](https://github.com/carbon-data-specification/Power-Systems-Data/blob/main/CONTRIBUTING.md) to learn how to contribute to the spec.
 - Join the [mailing list](https://lists.lfenergy.org/g/cdsc-power-system-data-wg).
-- Take part in discussions in the **#cdsc-power-systems-data-wg** channel in the [LF Energy Slack](https://slack.lfenergy.org)
-- Participate in an [upcoming working group meeting](https://lists.lfenergy.org/g/cdsc-power-systems-data-wg/calendar)
+- Take part in discussions in the **#cdsc-power-system-data-wg** channel in the [LF Energy Slack](https://slack.lfenergy.org)
+- Participate in an [upcoming working group meeting](https://lists.lfenergy.org/g/cdsc-power-system-data-wg/calendar)
 
 ### How to contribute
 
