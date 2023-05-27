@@ -71,8 +71,8 @@ This specification was informed through conversations with multiple Transmission
 - <b>LFC Area</b>: A part of a synchronous area or an entire synchronous  area, physically demarcated by points of measurement at  interconnectors to other LFC Areas, operated by one or  more TSOs fulfilling the obligations of load-frequency control.
 - <b>Bidding Zone</b>: The largest geographical area within which market participants are able to exchange energy without capacity allocation.
 - <b>Control Area</b>: A coherent part of the interconnected system, operated  by a single System Operator and shall include connected  physical loads and/or generation units if any.
-- <b>Scheduling Area</b>: An area within which the TSOs' obligations regarding  scheduling apply due to operational or organisational needs.  This area consists of one or more Metering Grid Areas with common market rules for which the settlement responsible party carries out an imbalance settlement  and which has the same price for imbalance.
 - <b>Metering Grid Area</b>: A Metering Grid Area is a physical area where consumption, production and exchange can be measured. It is delimited by the placement of meters for continuous measurement for input to, and withdrawal from the area.
+- <b>Scheduling Area</b>: An area within which the TSOs' obligations regarding  scheduling apply due to operational or organisational needs.  This area consists of one or more Metering Grid Areas with common market rules for which the settlement responsible party carries out an imbalance settlement  and which has the same price for imbalance.
 - <b>Metering Point</b>: An entity where energy products are measured or computed.
 
 ***
@@ -84,8 +84,10 @@ resource balance within a Balancing Authority Area, and supports Interconnection
 Balancing Authority. The Balancing Authority maintains load-resource balance within this area.
 - <b>Interconnection</b>: A geographic area in which the operation of Bulk Power System components is synchronized  
 such that the failure of one or more of such components may adversely affect the ability of the operators of other components within the system to maintain Reliable Operation of the Facilities within their control. When capitalized, any one of the four major electric system networks in North America: Eastern, Western, ERCOT and Quebec.
-<b>Generating Plant</b>: One or more generators at a single physical location whereby any single  
+- <b>Generating Plant</b>: One or more generators at a single physical location whereby any single  
 contingency can affect all the generators at that location.
+
+Additional terminology was taken from PJM, a Balancing Authority on the US Grid, which has its own set of glossary terms that are helpful for the purposes of this specification. 
 
 #### PJM
 - <b>Zone</b>: A transmission owner's area within the PJM Region. (We use this to generally define an area with a shared price/ability to bid).
@@ -166,7 +168,7 @@ Named levels are not part of the specification, since each grid might be structu
 |2|Between Trading Hubs / Transmission-congested zones|Physical: Transmission lines | |
 |2-3|Transmission Substation to Hub|Virtual|Mapping table|
 |3|Between Transmission Nodes/Substation|Physical: Transmission lines | |
-|3-4|Distribution Substations/Plants to Transmission Nodes|Physical: subtransmission lines||
-|4|Between Distribution Node/Substation or Power Plant|N/A? | |
+|3-4|Distribution Substations/Plants to Transmission Nodes|Physical: Transmission lines||
+|4|Between Distribution Node/Substation or Power Plant|N/A | |
 |4-5|Meters to substations/plants|Physical: distribution lines||
-|5|Between Meters (Generator or Load)|N/A?| |
+|5|Between Meters (Generator or Load)|N/A| |
