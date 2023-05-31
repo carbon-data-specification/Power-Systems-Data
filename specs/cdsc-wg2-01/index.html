@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Linux Foundation Energy - Carbon Data Specification Consortium (CDSC) - Power Systems Data Working Group (WG2) - Specifications - cdsc-wg2-01 - Grid Topology">
+        <link rel="icon" type="image/png" href="/assets/favicon.png">
+        <meta name="robots" content="noindex, nofollow"/>
+        <title>CDSC-WG2 - CDSC-WG2 - 01 Grid Topology - Specification</title>
+        <link href="/assets/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            /* Permalink styling */
+            .permalink {
+                text-decoration:none;
+                font-size: 60%;
+                display: inline-block;
+                vertical-align: top;
+                padding-top: 0.4em;
+            }
+            /* SVG icons (based on https://github.com/diafygi/svg-font-to-svg-sprite-converter)
+               Example (put "svgicons: fa-link, fa-plus-circle" in front matter):
+               <svg class="svgicon"><use href="#fa-link"/></svg>
+               <svg class="svgicon"><use href="#fa-plus-circle"/></svg>
+            */
+            #svgicon-defs{
+                display: none;
+            }
+            .svgicon {
+                overflow: visible !important;
+                height: 0.7em;
+                width: 0.7em;
+                fill:currentColor;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- SVG Icons (see comment in css above on how to use) -->
+        <svg id="svgicon-defs" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <symbol id="fa-external-link" viewBox="0 0 1792 1792" overflow="visible">
+    <path d="M1408 928v320q0 119 -84.5 203.5t-203.5 84.5h-832q-119 0 -203.5 -84.5t-84.5 -203.5v-832q0 -119 84.5 -203.5t203.5 -84.5h704q14 0 23 9t9 23v64q0 14 -9 23t-23 9h-704q-66 0 -113 47t-47 113v832q0 66 47 113t113 47h832q66 0 113 -47t47 -113v-320q0 -14 9 -23t23 -9h64q14 0 23 9t9 23zM1792 64v512q0 26 -19 45t-45 19t-45 -19l-176 -176l-652 652q-10 10 -23 10t-23 -10l-114 -114q-10 -10 -10 -23t10 -23l652 -652l-176 -176q-19 -19 -19 -45t19 -45t45 -19h512q26 0 45 19t19 45z"></path>
+</symbol>
+
+                
+                
+            </defs>
+        </svg>
+
+        <!-- Non-production Warning -->
+        <div id="non-prod-warning" class="bg-danger text-light text-center p-2 d-none">
+            <strong>
+                WARNING: THIS IS A DEVELOPMENT VERSION OF THE CDSC-WG2 WEBSITE
+                <span class="d-inline-block">
+                    (this message does not appear on carbondataspec.org)
+                </span>
+            </strong>
+        </div>
+        <script>
+            if (window.location.hostname.indexOf("carbondataspec.org") === -1) {
+                document.getElementById("non-prod-warning").classList.remove("d-none");
+            }
+        </script>
+
+        <!-- Header -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a
+                    class="navbar-brand"
+                    href="/"
+                    >CDSC-WG2</a>
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#header"
+                    aria-controls="header"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="header">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                
+                                href="/"
+                                >Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                
+                                href="/use-cases"
+                                >Use Cases</a>
+                        </li>
+                        <li class="nav-item">
+                            <a
+                                class="nav-link active text-decoration-underline"
+                                
+                                href="/specs"
+                                >Specifications</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://github.com/carbon-data-specification/Power-Systems-Data/tree/main/minutes" target="_blank"
+                                >Meeting Minutes
+                                <svg class="svgicon"><use href="#fa-external-link"/></svg></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Content -->
+        <div role="main" class="container pt-3 pb-5">
+            <div class="row">
+                <div class="col">
+                    <p><a href="/">Home</a> / <a href="/specs">Specifications</a> / <code class="language-plaintext highlighter-rouge">cdsc-wg2-01</code> - Grid Topology</p>
+
+<h1 id="grid-topology">Grid Topology</h1>
+
+<p>Looking for a more human-readable summary of this specification? Check out our <a href="/specs/cdsc-wg2-01/overview">overview</a>.</p>
+
+<p>Below is a rendering of the original specification source: <a href="https://github.com/carbon-data-specification/Power-Systems-Data/blob/main/specifications/cdsc-wg2-01.md">https://github.com/carbon-data-specification/Power-Systems-Data/blob/main/specifications/cdsc-wg2-01.md</a></p>
+
+<hr />
+
+<h1 id="cdsc-wg2-01---topology"><em>CDSC-WG2-01 - Topology</em></h1>
+
+<p>Version: <em>0.0.1</em></p>
+
+<p>Status: Draft</p>
+
+<p>© <strong>__</strong><strong>__</strong>_____</p>
+
+<p>This specification is subject to the Community Specification License 1.0, available at <a href="https://github.com/CommunitySpecification/1.0">https://github.com/CommunitySpecification/1.0</a>.</p>
+
+<h2 id="contents-">Contents <a id="table-of-contents" href="#table-of-contents" class="permalink">🔗</a></h2>
+<ul>
+  <li><a href="#foreword">1. Foreword</a></li>
+  <li><a href="#introduction">2. Introduction</a></li>
+  <li><a href="#terms-and-definitions">3. Terms and Definitions</a></li>
+  <li><a href="#topology">4.  Topology</a>
+    <ul>
+      <li><a href="#topology--relationship">4.1  Topology Relationship</a></li>
+      <li><a href="#topology--granularity-levels">4.2  Granularity Levels</a></li>
+      <li><a href="#topology--graph-edges">4.2  Graph Edges</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="1-foreword-">1. Foreword <a id="foreword" href="#foreword" class="permalink">🔗</a></h2>
+
+<p>Attention is drawn to the possibility that some of the elements of this document may be the subject of patent rights. No party shall not be held responsible for identifying any or all such patent rights.</p>
+
+<p>Any trade name used in this document is information given for the convenience of users and does not constitute an endorsement.</p>
+
+<p>This document was prepared by the Carbon Data Specification Working Group 2 - Power Systems Data.</p>
+
+<p>Known patent licensing exclusions are available in the specification’s repository’s Notices.md file.</p>
+
+<p>THESE MATERIALS ARE PROVIDED “AS IS.” The Contributors and Licensees expressly disclaim any warranties (express, implied, or otherwise), including implied warranties of merchantability, non-infringement, fitness for a particular purpose, or title, related to the materials.  The entire risk as to implementing or otherwise using the materials is assumed by the implementer and user. IN NO EVENT WILL THE CONTRIBUTORS OR LICENSEES BE LIABLE TO ANY OTHER PARTY FOR LOST PROFITS OR ANY FORM OF INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES OF ANY CHARACTER FROM ANY CAUSES OF ACTION OF ANY KIND WITH RESPECT TO THIS DELIVERABLE OR ITS GOVERNING AGREEMENT, WHETHER BASED ON BREACH OF CONTRACT, TORT (INCLUDING NEGLIGENCE), OR OTHERWISE, AND WHETHER OR NOT THE OTHER MEMBER HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
+
+<h2 id="1-introduction-">1. Introduction <a id="introduction" href="#introduction" class="permalink">🔗</a></h2>
+<p>This specification was developed as part of the global effort to combat the climate crisis. Specifically, in order to scalably measure carbon emissions of organizations and calculate the impact of deploying and operating clean energy technologies, companies need an efficient means to discover the details and capabilities of energy utilities and other similar entities.</p>
+
+<p>This specification offers a topological graph model of electricity grids that has been defined by this working group, which is to be used for subsequent specifications. This specification is intended to be a starting point for defining the necessary terms of structure for developing a data streaming specification.</p>
+
+<h3 id="normative-references">Normative references</h3>
+
+<p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
+
+<ul>
+  <li>IEC 61968/61970: Common Information Model</li>
+  <li><a href="https://www.nerc.com/pa/Stand/Glossary%20of%20Terms/Glossary_of_Terms.pdf">Glossary of Terms Used in NERC Reliability Standards 2023</a></li>
+  <li><a href="https://www.pjm.com/Glossary">Glossary of Terms Used by PJM</a></li>
+  <li><a href="https://mwgstorage1.blob.core.windows.net/public/Ebix/Harmonised_Role_Model_2022-01.pdf">EBIX Harmonised Role Model 2022-01</a>
+    <h2 id="2-terms-and-definitions-">2. Terms and definitions <a id="terms-and-definitions" href="#terms-and-definitions" class="permalink">🔗</a></h2>
+  </li>
+</ul>
+
+<p>For the purposes of this document, the following terms and definitions apply.</p>
+
+<p>ISO and IEC maintain terminological databases for use in standardization at the following addresses:</p>
+
+<ul>
+  <li>ISO Online browsing platform: available at https://www.iso.org/obp</li>
+  <li>IEC Electropedia: available at http://www.electropedia.org/</li>
+</ul>
+
+<p>This specification was informed through conversations with multiple Transmission System Operators as well as consulting IEC-61968 and IEC-61970 and the NERC Glossary of Terms. The following terms will be specifically used (definitions taken from the standard).</p>
+
+<h3 id="cim">CIM</h3>
+<ul>
+  <li><b>PowerSystemResource</b>: A power system resource (PSR) can be an item of equipment such as a switch, an equipment container containing many individual items of equipment such as a substation, or an organisational entity such as sub-control area. Power system resources can have measurements associated.</li>
+  <li><b>GeographicalRegion</b>: A geographical region of a power system network model.</li>
+  <li><b>SubGeographicalRegion</b>: A subset of a geographical region of a power system network model.</li>
+  <li><b>Substation</b>: A collection of equipment for purposes other than generation or utilization, through which electric energy in bulk is passed for the purposes of switching or modifying its characteristics.</li>
+  <li><b>Feeder</b>:A collection of equipment for organizational purposes, used for grouping distribution resources. The organization a feeder does not necessarily reflect connectivity or current operation state.</li>
+  <li><b>GeneratingUnit</b>: A single or set of synchronous machines for converting mechanical power into alternating-current power. For example, individual machines within a set may be defined for scheduling purposes while a single control signal is derived for the set. In this case there would be a GeneratingUnit for each member of the set and an additional GeneratingUnit corresponding to the set.</li>
+</ul>
+
+<hr />
+<h3 id="europe">Europe</h3>
+<h4 id="ebix-harmonised-role-model">EBIX Harmonised Role Model</h4>
+<ul>
+  <li><b>Synchronous Area</b>:An area covered by synchronously interconnected LFC  blocks (Examples of Synchronous Areas are Continental Europe,  Great Britain, Ireland-Northern Ireland, Nordic and the  power systems of Lithuania, Latvia and Estonia, together  referred to as ‘Baltic’ which are part of a wider synchronous area (IPS/UPS))</li>
+  <li><b>LFC Block</b>:A part of a synchronous area or an entire synchronous  area, physically demarcated by points of measurement at  interconnectors to other LFC Blocks, consisting of one or  more LFC Areas, operated by one or more TSOs fulfilling  the obligations of load-frequency control.</li>
+  <li><b>LFC Area</b>: A part of a synchronous area or an entire synchronous  area, physically demarcated by points of measurement at  interconnectors to other LFC Areas, operated by one or  more TSOs fulfilling the obligations of load-frequency control.</li>
+  <li><b>Bidding Zone</b>: The largest geographical area within which market participants are able to exchange energy without capacity allocation.</li>
+  <li><b>Control Area</b>: A coherent part of the interconnected system, operated  by a single System Operator and shall include connected  physical loads and/or generation units if any.</li>
+  <li><b>Metering Grid Area</b>: A Metering Grid Area is a physical area where consumption, production and exchange can be measured. It is delimited by the placement of meters for continuous measurement for input to, and withdrawal from the area.</li>
+  <li><b>Scheduling Area</b>: An area within which the TSOs’ obligations regarding  scheduling apply due to operational or organisational needs.  This area consists of one or more Metering Grid Areas with common market rules for which the settlement responsible party carries out an imbalance settlement  and which has the same price for imbalance.</li>
+  <li><b>Metering Point</b>: An entity where energy products are measured or computed.</li>
+</ul>
+
+<hr />
+<h3 id="us">US</h3>
+<h4 id="nerc">NERC</h4>
+<ul>
+  <li><b>Balancing Authority</b>: The responsible entity that integrates resource plans ahead of time, maintains Demand and<br />
+resource balance within a Balancing Authority Area, and supports Interconnection frequency in  real time.</li>
+  <li><b>Balancing Authority Area</b>:The collection of generation, transmission, and loads within the metered boundaries of the<br />
+Balancing Authority. The Balancing Authority maintains load-resource balance within this area.</li>
+  <li><b>Interconnection</b>: A geographic area in which the operation of Bulk Power System components is synchronized<br />
+such that the failure of one or more of such components may adversely affect the ability of the operators of other components within the system to maintain Reliable Operation of the Facilities within their control. When capitalized, any one of the four major electric system networks in North America: Eastern, Western, ERCOT and Quebec.</li>
+  <li><b>Generating Plant</b>: One or more generators at a single physical location whereby any single<br />
+contingency can affect all the generators at that location.</li>
+</ul>
+
+<p>Additional terminology was taken from PJM, a Balancing Authority on the US Grid, which has its own set of glossary terms that are helpful for the purposes of this specification.</p>
+
+<h4 id="pjm">PJM</h4>
+<ul>
+  <li><b>Zone</b>: A transmission owner’s area within the PJM Region. (We use this to generally define an area with a shared price/ability to bid).</li>
+  <li><b>Substation</b>: A substation changes energy from one amount of voltage to another, often in the direction of a higher voltage to a lower voltage. A high-voltage transmission line will connect to a substation to move electricity into a low-voltage distribution system on its way to consumers.</li>
+  <li><b>Generator</b>: A machine that converts different forms of energy into electrical energy. A generator or power plant might burn coal, capture the sun’s energy through solar panels, convert moving air into electricity through windmills or transform the movement of water into energy as hydroelectric power. PJM has a diverse generation fuel mix that includes nuclear power, natural gas, fossil fuels coal and renewable generation such as wind and solar.</li>
+</ul>
+
+<h2 id="3-topology">3. Topology<a id="topology" href="#topology" class="permalink">🔗</a></h2>
+
+<h3 id="topology-relationship">Topology Relationship<a id="topology--relationship" href="#topology--relationship" class="permalink">🔗</a></h3>
+<p>We envision that any electric power grid can be described as a directed graph where nodes are different components of the power system elements and edges are connections between them.</p>
+
+<pre><code class="language-mermaid">flowchart TB
+    subgraph node1[Node 3 - Transmission Line]
+        subgraph node1metadata[Metadata]
+            node1id[ID]
+            node1name[Name]
+            node1etc[...]
+        end
+        subgraph node1dynamic[Dynamic]
+            node1gen[Generation mix]
+            node1capacity[Capacity]
+            node1dynamicetc[...]
+        end
+    end
+    subgraph node2[Node 2 - Coal Power Plant]
+        subgraph node2metadata[Metadata]
+            node2metadataid[ID]
+            node2metadataname[Name]
+            node2metadataetc[...]
+        end
+        subgraph node2dynamic[Dynamic]
+            node2gen[Generation mix]
+            node2capacity[Capacity]
+            node2dynamicetc[...]
+        end
+    end
+    subgraph node3[Node 1 - Wind Farm]
+        subgraph node3metadata[Metadata]
+            node3metadataid[ID]
+            node3metadataname[Name]
+            node3metadataetc[...]
+        end
+        subgraph node3dynamic[Dynamic]
+            node3gen[Generation mix]
+            node3capacity[Capacity]
+            node3dynamicetc[...]
+        end
+    end
+    nodeetc[...]
+    node3dynamic--&gt;node1dynamic
+    node2dynamic--&gt;node1dynamic
+    node1dynamic--&gt;nodeetc
+</code></pre>
+<p>To describe a power system topology we therefore need to enumerate the possible nodes, and edges, as well as their definitions.</p>
+
+<h3 id="granularity-levels">Granularity Levels<a id="topology--granularity-levels" href="#topology--granularity-levels" class="permalink">🔗</a></h3>
+
+<p>Named levels are not part of the specification, since each grid might be structured slightly differently, but implementers SHOULD use these numbered granularity levels. There can be a different number of levels for each region, but we should make sure that equivalent structures in each region use the same level numbers (this may mean that in some regions, certain levels are skipped).</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Level</th>
+      <th>US Grid</th>
+      <th>European Grid</th>
+      <th>CIM</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>Interconnection</td>
+      <td>Synchronous area</td>
+      <td>GeographicalRegion</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Balancing Authority Area</td>
+      <td>LFC block/LFC area</td>
+      <td>GeographicalRegion, SubGeographicalRegion</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Zone</td>
+      <td>Bidding zone</td>
+      <td>SubGeographicalRegion</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Transmission Node/Substation</td>
+      <td>Control area</td>
+      <td>Substation</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Generating Plant</td>
+      <td>Scheduling Area/Sub scheduling area</td>
+      <td>Feeder,GeneratingUnit</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Meter (Generator or Load)</td>
+      <td>Metering Grid Area, MeteringPoint</td>
+      <td>GeneratingUnit</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="graph-edges">Graph Edges<a id="topology--graph-edges" href="#topology--graph-edges" class="permalink">🔗</a></h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Level or Inter-level</th>
+      <th>Description</th>
+      <th>Type</th>
+      <th>Data</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>Between Interconnects</td>
+      <td>Physical: DC transmission lines</td>
+      <td>Line capacity, etc</td>
+    </tr>
+    <tr>
+      <td>0-1</td>
+      <td>Balancing Area to Interconnect Mapping</td>
+      <td>Virtual</td>
+      <td>Mapping table</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Between Balancing Areas</td>
+      <td>Physical: Transmission lines</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>1-2</td>
+      <td>Hubs to BAs</td>
+      <td>Virtual</td>
+      <td>Mapping table</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Between Trading Hubs / Transmission-congested zones</td>
+      <td>Physical: Transmission lines</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2-3</td>
+      <td>Transmission Substation to Hub</td>
+      <td>Virtual</td>
+      <td>Mapping table</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Between Transmission Nodes/Substation</td>
+      <td>Physical: Transmission lines</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3-4</td>
+      <td>Distribution Substations/Plants to Transmission Nodes</td>
+      <td>Physical: Transmission lines</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Between Distribution Node/Substation or Power Plant</td>
+      <td>N/A</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4-5</td>
+      <td>Meters to substations/plants</td>
+      <td>Physical: distribution lines</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Between Meters (Generator or Load)</td>
+      <td>N/A</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h1 id="other-drafts-">Other Drafts <a id="other-drafts" href="#other-drafts" class="permalink">🔗</a></h1>
+
+<ul>
+  <li>No drafts currently in progress.</li>
+</ul>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="bg-light pt-5 pb-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h4>Power Systems Data Working Group:</h4>
+                        <ul>
+                            <li>
+                                <a href="/"
+                                    >Working Group website</a>
+                                (this website!)
+                            </li>
+                            <li>
+                                <a href="/use-cases"
+                                    >Use Cases</a>
+                            </li>
+                            <li>
+                                <a href="/specs"
+                                    >Specifications</a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/carbon-data-specification/Power-Systems-Data" target="_blank"
+                                    >Github Repository
+                                    <svg class="svgicon"><use href="#fa-external-link"/></svg></a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/carbon-data-specification/Power-Systems-Data/tree/main/minutes" target="_blank"
+                                    >Meeting Minutes
+                                    <svg class="svgicon"><use href="#fa-external-link"/></svg></a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/carbon-data-specification/Power-Systems-Data/pulls" target="_blank"
+                                    >Active Pull Requests
+                                    <svg class="svgicon"><use href="#fa-external-link"/></svg></a>
+                            </li>
+                            <li>
+                                <a href="https://lists.lfenergy.org/g/cdsc-power-system-data-wg" target="_blank"
+                                    >Mailing List
+                                    <svg class="svgicon"><use href="#fa-external-link"/></svg></a>
+                            </li>
+                            <li>
+                                <a href="https://lists.lfenergy.org/g/cdsc-power-system-data-wg/calendar" target="_blank"
+                                    >Event Calendar
+                                    <svg class="svgicon"><use href="#fa-external-link"/></svg></a>
+                            </li>
+                            <li>
+                                <a href="https://slack.lfenergy.org/" target="_blank"
+                                    >Slack
+                                    <svg class="svgicon"><use href="#fa-external-link"/></svg></a>
+                                (channel: <code>#cdsc-power-system-data-wg</code>)
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h4>CDSC / Linux Foundation:</h4>
+                        <ul>
+                            <li>
+                                <a href="https://www.linuxfoundation.org/" target="_blank"
+                                    >Linux Foundation
+                                    <svg class="svgicon"><use href="#fa-external-link"/></svg></a>
+                                <ul>
+                                    <li>
+                                        <a href="https://www.lfenergy.org/" target="_blank"
+                                            >LF Energy
+                                            <svg class="svgicon"><use href="#fa-external-link"/></svg></a>
+                                        <ul>
+                                          <li>
+                                              <a href="https://www.lfenergy.org/projects/carbon-data-specification-cds/" target="_blank"
+                                                  >Carbon Data Specification Consortium (CDSC)
+                                                  <svg class="svgicon"><use href="#fa-external-link"/></svg></a>
+                                              <ul>
+                                                  <li>
+                                                      <a href="https://github.com/carbon-data-specification/Power-Systems-Data" target="_blank"
+                                                          >Power Systems Data Working Group (WG2)
+                                                          <svg class="svgicon"><use href="#fa-external-link"/></svg></a> (i.e. this working group)
+                                                  </li>
+                                                  <li>
+                                                      <a href="https://github.com/carbon-data-specification/Customer-Data" target="_blank"
+                                                          >Customer Data Working Group (WG1)
+                                                          <svg class="svgicon"><use href="#fa-external-link"/></svg></a>
+                                                  </li>
+                                              </ul>
+                                          </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Scripts -->
+        <script src="/assets/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+        
+        
+    </body>
+</html>
+

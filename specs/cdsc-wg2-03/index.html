@@ -3,10 +3,10 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Linux Foundation Energy - Carbon Data Specification Consortium (CDSC) - Power Systems Data Working Group (WG2)">
+        <meta name="description" content="Linux Foundation Energy - Carbon Data Specification Consortium (CDSC) - Power Systems Data Working Group (WG2) - Specifications - cdsc-wg2-03 - API Interface">
         <link rel="icon" type="image/png" href="/assets/favicon.png">
         <meta name="robots" content="noindex, nofollow"/>
-        <title>CDSC-WG2 - Power Systems Data Working Group</title>
+        <title>CDSC-WG2 - CDSC-WG2 - 03 API Interface - Specification</title>
         <link href="/assets/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet">
         <style>
             /* Permalink styling */
@@ -83,8 +83,8 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a
-                                class="nav-link active text-decoration-underline"
-                                aria-current="page"
+                                class="nav-link"
+                                
                                 href="/"
                                 >Home</a>
                         </li>
@@ -97,7 +97,7 @@
                         </li>
                         <li class="nav-item">
                             <a
-                                class="nav-link"
+                                class="nav-link active text-decoration-underline"
                                 
                                 href="/specs"
                                 >Specifications</a>
@@ -116,92 +116,25 @@
         <div role="main" class="container pt-3 pb-5">
             <div class="row">
                 <div class="col">
-                    <p><img src="https://artwork.lfenergy.org/projects/cdsc/horizontal/color/cdsc-horizontal-color.svg" style="width:100%;max-width:30em;display:inline-block;margin-bottom:3em;" /></p>
+                    <p><a href="/">Home</a> / <a href="/specs">Specifications</a> / <code class="language-plaintext highlighter-rouge">cdsc-wg2-03</code> - API Interface</p>
 
-<h1 id="power-systems-data-working-group-wg2">Power Systems Data Working Group (WG2)</h1>
+<h1 id="api-interface">API Interface</h1>
 
-<p>This is the homepage of the <a href="https://github.com/carbon-data-specification/Power-Systems-Data">Power Systems Data Working Group (WG2)</a>,
-part of the
-<a href="https://www.lfenergy.org/projects/carbon-data-specification-cds/">Carbon Data Specification Consortium (CDSC)</a>,
-an <a href="https://www.lfenergy.org/">LF Energy</a> project.</p>
+<p>Looking for a more human-readable summary of this specification? Check out our <a href="/specs/cdsc-wg1-03/overview">overview</a>.</p>
 
-<h2 id="scope">Scope</h2>
+<p>Below is a rendering of the original specification source: <a href="https://github.com/carbon-data-specification/Power-Systems-Data/blob/main/specifications/cdsc-wg2-03.md">https://github.com/carbon-data-specification/Power-Systems-Data/blob/main/specifications/cdsc-wg2-03.md</a></p>
 
-<p><strong>An open specification for raw electric power system data to facilitate a systematic and more accurate approach to report grid emissions.</strong></p>
+<hr />
 
-<p>This working group focuses on creating a unified specification for data retrieved from power system operators.</p>
+<p>[No main draft available yet] See Other Drafts section for in-progress and alternative drafts</p>
 
-<p>Power system data might include, but is not limited to:</p>
+<hr />
 
-<ul>
-  <li>Generation mix</li>
-  <li>Power imports and exports</li>
-  <li>Power market data</li>
-  <li>Delivery capacities and/or constraints</li>
-  <li>Power generation emissions</li>
-</ul>
-
-<p>This common standard shall enable grid decarbonisation pathways and decision-making. By aligning the definition of the data shared by power system operators, this specification will make it easier for third parties to consistently compute (using their own carbon models) and report grid emissions worldwide.</p>
-
-<h2 id="use-cases">Use Cases</h2>
+<h1 id="other-drafts-">Other Drafts <a id="other-drafts" href="#other-drafts" class="permalink">🔗</a></h1>
 
 <ul>
-  <li><a href="/use-cases/#use-case-carbon-accounting">Carbon accounting</a></li>
-  <li><a href="/use-cases/#use-case-consumption-optimisation">Consumption optimisation</a></li>
-  <li><a href="/use-cases/#use-case-renewable-siting">Renewable Project Siting</a></li>
+  <li>No drafts exist yet.</li>
 </ul>
-
-<h2 id="specifications">Specifications</h2>
-
-<p>These are the official <a href="/specs">specifications</a> written by this working group.</p>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">CDSC-WG2-01</code> - Grid Topologies [<a href="/specs/cdsc-wg2-01/overview">Overview</a>] [<a href="/specs/cdsc-wg2-01">Specification</a>] <code class="language-plaintext highlighter-rouge">(v0.0.1)</code></li>
-  <li><code class="language-plaintext highlighter-rouge">CDSC-WG2-02</code> - Data Types [<a href="/specs/cdsc-wg2-02/overview">Overview</a>] [<a href="/specs/cdsc-wg2-02">Specification</a>] <code class="language-plaintext highlighter-rouge">(v0.0.1)</code></li>
-  <li><code class="language-plaintext highlighter-rouge">CDSC-WG2-03</code> - API Interface [<a href="/specs/cdsc-wg2-03/overview">Overview</a>] [<a href="/specs/cdsc-wg2-03">Specification</a>] <code class="language-plaintext highlighter-rouge">(in progress)</code></li>
-  <li><code class="language-plaintext highlighter-rouge">CDSC-WG2-*</code> - Additional specifications will be added in the future</li>
-</ul>
-
-<p><code class="language-plaintext highlighter-rouge">CDSC-WG2-01 - Grid Topologies</code> is used to develop a shared terminology for various levels of granularity of grid entities and a convention for describing how those entities relate to each other. <code class="language-plaintext highlighter-rouge">CDSC-WG2-02 - Data Types</code> describes consensus around data fields that are either required or recommended in order to adequately describe the state of various grid entities. These two specifications are used in the development of <code class="language-plaintext highlighter-rouge">CDSC-WG2-03 - API Interface</code>, which describes an interface for power systems operators when sharing power system data.</p>
-
-<p>If you would like to contribute to these specifications, please see our docs on <a href="/#contributing">Contributing</a>.</p>
-
-<h2 id="contributing-">Contributing <a id="contributing" href="#contributing" class="permalink">🔗</a></h2>
-
-<p>Want to participate? Great! We’re an open organization, so we welcome any company or individual who wants to provide input.</p>
-
-<h4 id="things-anyone-can-do-no-membership-required-">Things anyone can do (no membership required): <a id="contributing-non-members" href="#contributing-non-members" class="permalink">🔗</a></h4>
-
-<ul>
-  <li>Read anything on our <a href="https://github.com/carbon-data-specification/Power-Systems-Data">repository</a>, <a href="https://powersystemsdata.carbondataspec.org/">website</a>, or <a href="https://lists.lfenergy.org/g/cdsc-power-system-data-wg">mailing list</a>.</li>
-  <li>Join and participate in general discussion on the <a href="https://lists.lfenergy.org/g/cdsc-power-system-data-wg">mailing list</a> or <a href="https://slack.lfenergy.org">Slack channel</a> (<code class="language-plaintext highlighter-rouge">#cdsc-power-system-data-wg</code>).</li>
-  <li>Ask or answer questions on the <a href="https://lists.lfenergy.org/g/cdsc-power-system-data-wg">mailing list</a> or <a href="https://slack.lfenergy.org">Slack channel</a> (<code class="language-plaintext highlighter-rouge">#cdsc-power-system-data-wg</code>).</li>
-  <li>Attend and participate in meetings on our <a href="https://lists.lfenergy.org/g/cdsc-power-system-data-wg/calendar">calendar</a>.</li>
-  <li>File or comment on an <a href="https://github.com/carbon-data-specification/Power-Systems-Data/issues">issue</a> in our <a href="https://github.com/carbon-data-specification/Power-Systems-Data">repository</a>.</li>
-  <li>Comment on <a href="https://github.com/carbon-data-specification/Power-Systems-Data/pulls">pull requests</a>.</li>
-  <li>Fork our <a href="https://github.com/carbon-data-specification/Power-Systems-Data">repository</a> and play around with our code and documentation on your own (we’re open source!).</li>
-</ul>
-
-<h4 id="things-you-can-do-if-you-become-an-lfess-member-its-free-">Things you can do if you become an <a href="/lfess">LFESS member</a> (it’s free!): <a id="contributing-members" href="#contributing-members" class="permalink">🔗</a></h4>
-
-<ul>
-  <li>Contribute comments, suggestions, or other content that will be included in our <a href="https://powersystemsdata.carbondataspec.org/specs">specifications</a>.</li>
-  <li>Open <a href="https://github.com/carbon-data-specification/Power-Systems-Data/pulls">pull requests</a> with proposed changes to our <a href="https://github.com/carbon-data-specification/Power-Systems-Data">repository</a> or <a href="https://powersystemsdata.carbondataspec.org/specs">specifications</a>.</li>
-</ul>
-
-<p>NOTE: It’s okay if you’re not yet an <a href="/lfess">LFESS member</a> and comment on something (spec, issue, pull request, mailing list, slack discussion, etc.), and we want your input to be incorporated into our specifications. We’ll just ask you to <a href="/lfess#join">join LFESS</a> before we can merge your suggestions into the specifications.</p>
-
-<h2 id="license">License</h2>
-
-<p>See our <a href="https://github.com/carbon-data-specification/Power-Systems-Data/blob/main/License.md">LICENSE.md</a>.</p>
-
-<p>Our specifications operate under the <a href="/lfess">Joint Development Foundation (JDF) project</a> model.</p>
-
-<p>Our code and documentation is released under the <a href="https://github.com/carbon-data-specification/Power-Systems-Data/blob/main/License.md">Apache 2.0 license</a>.</p>
-
-<h2 id="code-of-conduct">Code of Conduct</h2>
-
-<p>Contact for Code of Conduct issues or inquires: <a href="mailto:operations@lfess.org">operations@lfess.org</a></p>
 
                 </div>
             </div>
