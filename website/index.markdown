@@ -31,7 +31,6 @@ This common standard shall enable grid decarbonisation pathways and decision-mak
 
 ## Use Cases
 
-https://powersystemsdata.carbondataspec.org/use-cases/#use-case-carbon-accounting
 * [Carbon accounting]({{ "/use-cases/#use-case-carbon-accounting" | relative_url }})
 * [Consumption optimisation]({{ "/use-cases/#use-case-consumption-optimisation" | relative_url }})
 * [Renewable Project Siting]({{ "/use-cases/#use-case-renewable-siting" | relative_url }})
