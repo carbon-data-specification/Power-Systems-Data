@@ -44,6 +44,7 @@ The following documents are referred to in the text in such a way that some or a
 - [Glossary of Terms Used in NERC Reliability Standards 2023](https://www.nerc.com/pa/Stand/Glossary%20of%20Terms/Glossary_of_Terms.pdf)
 - [Glossary of Terms Used by PJM](https://www.pjm.com/Glossary)
 - [EBIX Harmonised Role Model 2022-01](https://mwgstorage1.blob.core.windows.net/public/Ebix/Harmonised_Role_Model_2022-01.pdf)
+
 ## 2. Terms and definitions <a id="terms-and-definitions" href="#terms-and-definitions" class="permalink">🔗</a>
 
 For the purposes of this document, the following terms and definitions apply.
