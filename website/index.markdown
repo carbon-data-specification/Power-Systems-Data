@@ -31,8 +31,9 @@ This common standard shall enable grid decarbonisation pathways and decision-mak
 
 ## Use Cases
 
-* [Carbon accounting]({{ "/use-cases" | relative_url }})
-* [Consumption optimisation]({{ "/use-cases" | relative_url }})
+* [Carbon accounting]({{ "/use-cases/#use-case-carbon-accounting" | relative_url }})
+* [Consumption optimisation]({{ "/use-cases/#use-case-consumption-optimisation" | relative_url }})
+* [Renewable Project Siting]({{ "/use-cases/#use-case-renewable-siting" | relative_url }})
 
 ## Specifications
 
@@ -40,16 +41,36 @@ These are the official [specifications]({{ "/specs" | relative_url }}) written b
 
 {% include spec_list.md %}
 
-## Get Involved
+## Contributing <a id="contributing" href="#contributing" class="permalink">🔗</a>
 
-See our git repository for the actual specifications under development:
-[https://github.com/carbon-data-specification/Power-Systems-Data](https://github.com/carbon-data-specification/Power-Systems-Data)
+Want to participate? Great! We're an open organization, so we welcome any company or individual who wants to provide input.
 
-Join our mailing list and see our events calendar:
-[https://lists.lfenergy.org/g/cdsc-power-system-data-wg](https://lists.lfenergy.org/g/cdsc-power-system-data-wg)
+#### Things anyone can do (no membership required): <a id="contributing-non-members" href="#contributing-non-members" class="permalink">🔗</a>
 
-Chat with us on Slack (channel: `#cdsc-power-system-data-wg`):
-[https://slack.lfenergy.org/](https://slack.lfenergy.org/)
+* Read anything on our [repository](https://github.com/carbon-data-specification/Power-Systems-Data), [website](https://powersystemsdata.carbondataspec.org/), or [mailing list](https://lists.lfenergy.org/g/cdsc-power-system-data-wg).
+* Join and participate in general discussion on the [mailing list](https://lists.lfenergy.org/g/cdsc-power-system-data-wg) or [Slack channel](https://slack.lfenergy.org) (`#cdsc-power-system-data-wg`).
+* Ask or answer questions on the [mailing list](https://lists.lfenergy.org/g/cdsc-power-system-data-wg) or [Slack channel](https://slack.lfenergy.org) (`#cdsc-power-system-data-wg`).
+* Attend and participate in meetings on our [calendar](https://lists.lfenergy.org/g/cdsc-power-system-data-wg/calendar).
+* File or comment on an [issue](https://github.com/carbon-data-specification/Power-Systems-Data/issues) in our [repository](https://github.com/carbon-data-specification/Power-Systems-Data).
+* Comment on [pull requests](https://github.com/carbon-data-specification/Power-Systems-Data/pulls).
+* Fork our [repository](https://github.com/carbon-data-specification/Power-Systems-Data) and play around with our code and documentation on your own (we're open source!).
 
-Read more about the CDSC and other working groups:
-[https://www.lfenergy.org/projects/carbon-data-specification-cds/](https://www.lfenergy.org/projects/carbon-data-specification-cds/)
+#### Things you can do if you become an [LFESS member]({{ "/lfess" | relative_url }}) (it's free!): <a id="contributing-members" href="#contributing-members" class="permalink">🔗</a>
+
+* Contribute comments, suggestions, or other content that will be included in our [specifications](https://powersystemsdata.carbondataspec.org/specs).
+* Open [pull requests](https://github.com/carbon-data-specification/Power-Systems-Data/pulls) with proposed changes to our [repository](https://github.com/carbon-data-specification/Power-Systems-Data) or [specifications](https://powersystemsdata.carbondataspec.org/specs).
+
+NOTE: It's okay if you're not yet an [LFESS member]({{ "/lfess" | relative_url }}) and comment on something (spec, issue, pull request, mailing list, slack discussion, etc.), and we want your input to be incorporated into our specifications. We'll just ask you to [join LFESS]({{ "/lfess" | relative_url }}#join) before we can merge your suggestions into the specifications.
+
+
+## License
+
+See our [LICENSE.md](https://github.com/carbon-data-specification/Power-Systems-Data/blob/main/License.md).
+
+Our specifications operate under the [Joint Development Foundation (JDF) project]({{ "/lfess" | relative_url }}) model.
+
+Our code and documentation is released under the [Apache 2.0 license](https://github.com/carbon-data-specification/Power-Systems-Data/blob/main/License.md).
+
+## Code of Conduct
+
+Contact for Code of Conduct issues or inquires: [operations@lfess.org](mailto:operations@lfess.org)
