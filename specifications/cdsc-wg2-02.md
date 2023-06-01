@@ -1,6 +1,3 @@
-
-
-
 # _CDSC-WG2-02 - Data Types_ 
 
 Version: _0.0.1_
@@ -27,11 +24,7 @@ Attention is drawn to the possibility that some of the elements of this document
 
 Any trade name used in this document is information given for the convenience of users and does not constitute an endorsement.
 
-This document was prepared by [Insert name of group].
-
-This second/third/… edition cancels and replaces the first/second/… edition (#####:####), which has been technically revised.
-The main changes compared to the previous edition are as follows:
-—	xxx xxxxxxx xxx xxxx
+This document was prepared by the Carbon Data Specification Working Group 2 - Power Systems Data.
 
 Known patent licensing exclusions are available in the specification’s repository’s Notices.md file.
 
@@ -72,13 +65,12 @@ We propose to define data types for three different kinds of entities. These ent
 
 | Data Type                           | Data definition                                                          | Unit / Data Format | Temporal Granularity          | Secondary Information                        | Minimum Locational Granularity | Time horizon        | Latency   | Maximum Latency | Requirement level |
 |-------------------------------------|--------------------------------------------------------------------------|--------------------|-------------------------------|----------------------------------------------|------------------------|---------------------|-----------|-----------------|-------------------|
-| Generation                          | Net generation output per time unit                                      | MW (Float)         | Market (hourly or sub hourly) | Locational Granularity                       | Balancing Region       | Real-time           | Real-time | Day +7          | Must-have         |
+| Generation                          | Net generation output per time unit                                      | MW (Float)         | Market (hourly or sub hourly) | Locational Granularity, Generation by Fuel Type                       | Balancing Region       | Real-time           | Real-time | Day +7          | Must-have         |
 | Demand                              | Total system demand                                                      | MW (Float)         | Market (hourly or sub hourly) | Locational Granularity                       | Balancing Region       | Real-time           | Real-time | Day +7          | Must-have         |
 | Total Emissions (by pollutant type) | Total operating (direct) emissions over time period                      | t (metric) (Float) | Market (hourly or sub hourly) | Locational Granularity, Pollutant type       | Balancing Region       | Real-time           | Real-time | Day +7          | Should-have       |
 | Imports                             | Imports by interconnect                                                  | MW (Float)         | Market (hourly or sub hourly) | Locational Granularity                       | Balancing Region       | Real-time           | Real-time | Day +7          | Must-have         |
 | Exports                             | Exports by interconnect                                                  | MW (Float)         | Market (hourly or sub hourly) | Locational Granularity                       | Balancing Region       | Real-time           | Real-time | Day +7          | Must-have         |
 | Renewable generation curtailment    | Curtailment of renewable generation                                      | MW (Float)         | Market (hourly or sub hourly) | Locational Granularity, fuel type (optional) | Balancing Region       | Real-time           | Real-time | Day +7          | Should-have       |
-| Generation by fuel type             | The full breakdown of generation per fuel type (e.g. wind, solar)        | MW (Float)         | Market (hourly or sub hourly) | Fuel Type List                               | Balancing Region       | Real-time           | Real-time | Day +7          | Must-have         |
 | Demand Forecast                     | Forecast of system demand over the next day                              | MW (Float)         | Market (hourly or sub hourly) | Locational Granularity                       | Balancing Region       | Short-term forecast | Day-ahead | N/A             | Should-have       |
 | Generation Forecast                 | Forecast of system generation by fuel type over the next day             | MW (Float)         | Market (hourly or sub hourly) | Fuel Type List, generation technology        | Balancing Region       | Short-term forecast | Day-ahead | N/A             | Should-have       |
 | Curtailment Forecast                | Forecast of renewable generation curtailment                             | MW (Float)         | Market (hourly or sub hourly) | Fuel Type List, generation technology        | Balancing Region       | Short-term forecast | Day-ahead | N/A             | May-have          |
@@ -91,7 +83,7 @@ We propose to define data types for three different kinds of entities. These ent
 | Data Type                                                    | Data definition                                                                    | Unit / Data Format   | Temporal Granularity          | Secondary Information  | Minimum Locational Granularity | Time horizon | Latency   | Maximum Latency | Requirement level |
 |--------------------------------------------------------------|------------------------------------------------------------------------------------|----------------------|-------------------------------|------------------------|------------------------|--------------|-----------|-----------------|-------------------|
 | Real-Time market price/ Locational Marginal Prices/ Balancing | LMP set by system operator at each node on the grid (assuming nodal market design) | Currency/MWh (Float) | Market (hourly or sub hourly) | Locational Granularity | Zonal / nodal          | Real-time    | Real-time | N/A             | Should-have       |
-| Locational Marginal Congestion Prices                        | The impact of congestion on LMP                                                    | Currency/MWh (Float) | Market (hourly or sub hourly) | Locational Granularity | Zonal / nodal          | Historical   | Day +?    | N/A             | Should-have       |
+| Locational Marginal Congestion Prices                        | The impact of congestion on LMP                                                    | Currency/MWh (Float) | Market (hourly or sub hourly) | Locational Granularity | Zonal / nodal          | Historical   | Day +7    | N/A             | Should-have       |
 | Day ahead price                                              | Day ahead prices set by market operator per market zone, by hour                   | Currency/MWh         | Market (hourly or sub hourly) | Locational granularity | Zonal / nodal          | Day ahead    |           |                 | Must-have         |
 
 ### Unit<a id="entities--unit" href="#entities--unit" class="permalink">🔗</a>
@@ -112,6 +104,9 @@ We propose to define data types for three different kinds of entities. These ent
 | Unit name                          |                                                                                                                                    | (String)                                 | Annual                        | Unit ID                 | unit                   | Historical   | Annual  | Year + 1        | May-have          |
 | Unit start year                    |                                                                                                                                    | (Integer)                                | Annual                        | Unit ID                 | unit                   | Historical   | Annual  | Year + 1        | Should-have       |
 | Co-generation Heat Output          | Total Heat produced in the cogeneration heation                                                                                    | J (Float)                                | Annual                        | Unit ID                 | unit                   | Historical   | Annual  | Year + 1        | May-have          |
+#### Secondary  Information
+This is information that will be included as part of one of the rows above.
+- Generation by fuel type: The full breakdown of generation per fuel type (e.g. wind, solar), based on the Fuel Type and Generation Technologies defined below.
 
 ### Other Entities <a id="entities--other-entities" href="#entities--other-entities" class="permalink">🔗</a>
 Some data types are defined for multiple variables. For example, emissions can be reported for multiple pollutants, or production can be reported for multiple fuel types.
