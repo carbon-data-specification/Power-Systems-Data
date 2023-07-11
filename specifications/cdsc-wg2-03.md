@@ -1,1 +1,360 @@
-[No main draft available yet] See Other Drafts section for in-progress and alternative drafts
+# _CDSC-WG2-03 - Endpoints_ 
+
+Version: _0.0.1_
+
+Status: Pre-Draft
+ 
+© _________________
+
+This specification is subject to the Community Specification License 1.0, available at [https://github.com/CommunitySpecification/1.0](https://github.com/CommunitySpecification/1.0).
+© _________________
+
+This specification is subject to the license, available [here][LICENSE].
+
+## Contents <a id="table-of-contents" href="#table-of-contents" class="permalink">🔗</a>
+* [1. Foreword](#foreword)  
+* [2. Introduction)(#introduction)
+* [3. Endpoint Categories](#endpoints)  
+  * [3.1 ResourceType](#endpoints-resourcetype)
+  * [3.2 FuelType](#endpoints-fueltype)
+  * [3.3 PowerSystemResource Metadata](#endpoints-psrmeta)
+  * [3.4 PowerSystemResource Timeseries Data](#endpoints-psrtime)
+
+
+## 1. Foreword <a id="foreword" href="#foreword" class="permalink">🔗</a>
+
+Attention is drawn to the possibility that some of the elements of this document may be the subject of patent rights. No party shall not be held responsible for identifying any or all such patent rights.
+
+Any trade name used in this document is information given for the convenience of users and does not constitute an endorsement.
+
+This document was prepared by [Insert name of group].
+
+This second/third/… edition cancels and replaces the first/second/… edition (#####:####), which has been technically revised.
+The main changes compared to the previous edition are as follows:
+—	xxx xxxxxxx xxx xxxx
+
+Known patent licensing exclusions are available in the specification’s repository’s Notices.md file.
+
+Any feedback or questions on this document should be directed to specifications repository, located at _________________.
+
+THESE MATERIALS ARE PROVIDED “AS IS.” The Contributors and Licensees expressly disclaim any warranties (express, implied, or otherwise), including implied warranties of merchantability, non-infringement, fitness for a particular purpose, or title, related to the materials.  The entire risk as to implementing or otherwise using the materials is assumed by the implementer and user. IN NO EVENT WILL THE CONTRIBUTORS OR LICENSEES BE LIABLE TO ANY OTHER PARTY FOR LOST PROFITS OR ANY FORM OF INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES OF ANY CHARACTER FROM ANY CAUSES OF ACTION OF ANY KIND WITH RESPECT TO THIS DELIVERABLE OR ITS GOVERNING AGREEMENT, WHETHER BASED ON BREACH OF CONTRACT, TORT (INCLUDING NEGLIGENCE), OR OTHERWISE, AND WHETHER OR NOT THE OTHER MEMBER HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+## 2. Introduction <a id="introduction" href="#introduction" class="permalink">🔗</a>
+This specification was developed as part of the global effort to combat the climate crisis. Specifically, in order to scalably measure carbon emissions of organizations and calculate the impact of deploying and operating clean energy technologies, companies need an efficient means to discover the details and capabilities of energy utilities and other similar entities.
+
+This specification offers a specification for a set of endpoints that would contain the necessary information for carbon data calculations.
+ 
+###	Normative references
+
+The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.
+
+- IEC 61968/61970: Common Information Model 
+
+## 3. Endpoint Categories <a id="endpoints" href="#endpoints" class="permalink">🔗</a>
+
+The following is a list of the endpoints that will be subsequently defined in this section.
+```
+/resource-types
+/fuel-types
+/power-system-resources
+/power-system-resources/{id}/describe
+/power-system-resources/{id}/topology
+/power-system-resources/{id}/generation
+```
+
+### 3.1 ResourceType<a id="endpoints-resourcetype" href="#endpoints-resourcetype" class="permalink">🔗</a>
+ResourceType objects represent a specific hierarchical level of the grid. 
+
+#### 3.1.1 Resource Type List `/resource-types`
+
+##### Response Object
+- `id` - _string_ - (REQUIRED) - The unique identifier representing this resource. It SHOULD be human-readable, such as `US-WECC-CISO`.
+- `level` - int - (OPTIONAL) - A number representing the hierarchy of this resource topology in relation to the other resource types. These levels MUST include a sequential set of positive integers starting at 0.
+##### Example
+```
+==Request==
+GET /resource-types HTTP/1.1
+Host: demoutility.com
+
+==Response==
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+```
+```json
+{
+"resource_types": [
+			{
+		     "id": "Interconnection",
+		     "level": 0
+			},
+			{
+		     "id": "Balancing Area",
+		     "level": 1
+			},
+		  {
+		     "id": " Generating Plant",
+		     "level": 2
+			},
+			{
+		     "id": " Generating Unit",
+		     "level": 3
+			},
+		  {
+		     "id": " Consumption Unit",
+		     "level": 3
+			},
+	],
+  "next": null,
+  "previous": null
+}
+```
+##### Reference ResourceTypes
+The following table shows an example list of resource types for US and European Grids:
+|Level|US Grid|European Grid|CIM|
+|--|--|--|--|
+|0|Interconnection|Synchronous area|GeographicalRegion |
+|1|Balancing Authority Area|LFC block/LFC area|GeographicalRegion, SubGeographicalRegion|
+|2|Zone|Bidding zone|SubGeographicalRegion |
+|3|Transmission Node/Substation|Control area|Substation |
+|4|Generating Plant|Scheduling Area/Sub scheduling area|Feeder,GeneratingUnit|
+|5|Meter (Generator or Load)|Metering Grid Area, MeteringPoint|GeneratingUnit |
+
+#### 3.2 Fuel Type <a id="endpoints-fueltype" href="#endpoints-fueltype" class="permalink">🔗</a>
+***This depends on if we want to fully adopt AIB or whether we want to allow for a more flexible solution.***
+
+#### 3.2.1 Fuel Type List `/fuel-types`
+
+##### Response Object
+- `name`: - _string_ - (REQUIRED) - A common name to use for the fuel type. If using AIB codes, it should be a concatenation of the three code descriptions with a dash between (i.e. `Solar - Photovoltaic - Unspecified`)
+- `external_reference`: _String_ - (OPTIONAL?) - A reference that provides context for this specific fuel type.
+- `external_id`:  - _String_ - (OPTIONAL?) - A unique code (***AIB code?***) referencing the type of fuel
+
+##### Example
+```
+==Request==
+GET /power-system-resources/fuel-types HTTP/1.1
+Host: demoutility.com
+
+==Response==
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+```
+```json
+{
+   "technologies": [
+	   {
+		   "name": "Solar - Photovoltaic - Unspecified",
+		   "external_reference": "EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES",
+		   "external_id": "T010100"
+	   },
+	   {
+		   "name": "Thermal - Steam engine - Unspecified",
+		   "external_reference": "EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES",
+		   "external_id": "T050900"
+	   },
+  ],
+  "next": null,
+  "previous": null
+}
+```
+
+### 3.3 PowerSystemsResources Metadata<a id="endpoints-psrmeta" href="#endpoints-psrmeta" class="permalink">🔗</a>
+
+The primary set of endpoints reference PowerSystemResource (PSR) objects. These objects contain several metadata fields as well as timeseries information such as generation, demand, and capacity.
+
+#### 3.3.1 PSR List `/power-system-resources`
+##### Request Object
+- `type`: _string_ - (OPTIONAL) - An optional filter to only return PSR objects with the given *type*.
+
+##### Response Object
+- `id` - _string_ - (REQUIRED) - The unique identifier representing this resource. It SHOULD be human-readable, and where appropriate, MAY incorporate the `id` of its parent objects in order to easily understand its place in the topology. An example of such an id is `US-WECC-CISO`. The `id` MUST be URL safe. 
+- `type` - _string_ - (REQUIRED) - The id of the resource type for this PowerSystemsResource.
+-  `name` - _string_ - (OPTIONAL) - A descriptive name to provide additional context to the PSR.
+- `location` - _Location_ - (REQUIRED) - A Location object describing where this PSR exists.
+
+
+***Placeholder spot for where we can decide what rules/guidelines/parameters/suggestions would be good for generating human-readable PSR `id`s***
+
+#### Example
+The following is an example of the endpoint that returns a list of power system resources. This LIST endpoint SHOULD only includes the `id`, `name`, and `type` fields. It MUST not contain fields of undefined size (such as fields that con contain lists or dicts), as this endpoint is meant to be capable of returning several entries.
+```
+==Request==
+GET /power-system-resources HTTP/1.1
+Host: demoutility.com
+
+==Response==
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+```
+```json
+{
+"power_system_resources": [
+			{
+		     "id": "US-WECC",
+		     "name": "Western Electricity Coordinating Council",
+		     "type": "Interconnection"
+			},
+			{
+		     "id": "US-WECC-CISO",
+		     "name": "California ISO",
+		     "type": "Balancing Area"
+			},
+			{
+		     "id": "US-WECC-CISO-ABC-HYDRO",
+		     "name": "Hydropower Plant in ABC",
+		     "type": "Generating Plant"
+			},
+	],
+  "next": null,
+  "previous": null
+}
+```
+#### PSR Describe `/power-system-resources/{id}/describe`
+
+##### Response Object
+- `id` - _string_ - REQUIRED - The `id` of the PowerSystemResource associated with this location.
+-  `asset_info` - _Array[[AssetInfo](https://zepben.github.io/evolve/docs/cim/cim100/TC57CIM/IEC61968/Assets/AssetInfo/)]_ - (OPTIONAL) - A list of additional information associated with that PSR.
+- `location` - (OPTIONAL)
+	- `main_address` - [StreetAddress](https://zepben.github.io/evolve/docs/cim/evolve/IEC61968/Common/StreetAddress) - (OPTIONAL) 
+		- `postal_code`
+		- `town_detail` - TownDetail
+			- `name`
+			- `state_or_province`
+		- `street_detail` - StreetDetail
+			- `building_name`
+			- `display_address`
+			- ...
+	- `description` - _string_ - (OPTIONAL)
+	- `geojson` - _geojson_ - (OPTIONAL)
+
+The following endpoint returns the location information for a specific PSR.
+
+##### Example
+```
+==Request==
+GET /power-system-resources/US-WECC-CISO/describe HTTP/1.1
+Host: demoutility.com
+
+==Response==
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+```
+```json
+{
+  "id": "US-WECC-CISO",
+  "description": {
+    "location": {
+	    "geojson": {
+		    "type": "FeatureCollection",
+		    "features": [
+		    {
+	           "type": "Feature",
+	           "geometry": {
+	               "type": "Polygon",
+	               "coordinates": [
+	                   [[-122.376131, 42.009499],...]
+	               ]
+			       }
+			  },
+		  ]
+		},
+  "next": null,
+  "previous": null
+}
+```
+#### PSR Topology `/power-system-resources/{id}/topology`
+
+The topology endpoint provides a means for understanding how each PSR relates to others. 
+
+##### Request Object
+- `numLevels` - _integer_ - Number of levels above and below the requested PSR to return in the response. A value of *1* means that it will only return that PSR's direct parent and children.
+
+##### Response Object
+- `id` - _string_ - REQUIRED - The `id` of the PowerSystemResource associated with this location.
+- `topology`
+	- `parent` - _Object_ - (OPTIONAL)
+		-  `id` - _String_ The unique identifier representing the *id* of the PSR that is one level above in the topology.
+		- `parent` - _Object_ - (OPTIONAL)
+			- ...
+	- `children` - _Array_ - (OPTIONAL)
+		-  -`id` - _String_ - A unique identifier representing the *id* of a PSR that is one level below in the topology.
+		- `children` - _Array_ - (OPTIONAL)
+			- ...
+```
+==Request==
+GET /power-system-resources/US-WECC-CISO/topology?numLevels=2 HTTP/1.1
+Host: demoutility.com
+
+==Response==
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+```
+```json
+{
+  "id": "US-WECC-CISO",
+  "topology": {
+	  "parent": {"id": "US-WECC"},
+	  "children": [
+			  {"id": "US-WECC-CISO-ABC", "children": []}
+			],
+	},
+  "next": null,
+  "previous": null
+}
+```
+### 3.4 PowerSystemsResources Timeseries Data<a id="endpoints-psrtime" href="#endpoints-psrtime" class="permalink">🔗</a>
+
+#### PSR Generation `/power-system-resources/{id}/generation`
+A generation object returns a timeseries of values representing energy that was generated at a PSR, as well as a breakdown of that generation by fuel type.
+
+##### Request Object
+- `startDatetime` - _ISO8601 Datetime_ -  A datetime indicating that the response should return data where the earliest entry's *startDatetime* occurs AT or AFTER the *startDatetime* specified in the request.  
+- `endDatetime` - _ISO8601 Datetime_ -  A datetime indicating that the response should return data where the earliest entry's *endDatetime* occurs AT or BEFORE the *endDatetime* specified in the request.  
+
+##### Response Object
+-  `id` - _string_ - (REQUIRED) - The `id` of the Power System Resource associated with this unit of generation.
+-  `startDatetime` - _ISO8601 Datetime_ - (REQUIRED) - The datetime MUST be timezone aware.
+-   `endDatetime` - _ISO8601 Datetime_ - (REQUIRED)  - The datetime MUST be timezone aware.
+- `measurement` - _float_ - (REQUIRED) - A value of the amount of generation that took place at this PSR. A positive number indicates generation.
+- `unit` - _string_ - (REQUIRED) - For electricity, SHOULD be one of:  [`MWh`, `kWh`, `Wh`]
+- `MeasurementByFuelType` - _Array_ - (REQUIRED) - Key-value pairs of fuel types and the amount of generation that comes from that fuel type. The unit for these values MUST be the same as that of the `unit` field.
+  - `technology` - _String_ - (OPTIONAL) - *id* of the technology that this fuel type used for generation.
+  - `fuel_source` - _String_ - (REQUIRED) - *id* of the fuel source used for generation.
+  - `measurement` - _float_ - A value of the amount of generation that took place at this PSR using the given *technology* and *fuel_source*.
+
+```
+==Request==
+GET /power-system-resources/US-WECC-CISO/generation?startDatetime=2022-01-01&endDatetime=2023-01-01 HTTP/1.1
+Host: demoutility.com
+
+==Response==
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+```
+```json
+{
+	"id": "US-WECC-CISO",
+	"generation": [
+	  {
+		  "startDatetime": "2021-06-01T00:00:00+00",
+		  "endDatetime": "2021-06-01T01:00:00+00",
+		  "measurement": 10.5,
+		  "unit": "MWh",
+		  "measurementByFuelType": [
+			  {
+			    "technology": "Thermal - Steam engine - Unspecified",
+			    "fuelSource": "Fossil - Solid - Hard Coal - Unspecified",
+			    "measurement": 5.5
+			  },
+			  {
+			    "technology": "Solar - Photovoltaic - Unspecified",
+			    "fuelSource": "Renewables - Heating and Cooling - Solar",
+			    "measurement": 10.5
+			  },
+			},
+	  }
+	],
+	"next": null,
+	"previous": null
+}
+```
