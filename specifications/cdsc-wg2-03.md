@@ -54,18 +54,24 @@ The following documents are referred to in the text in such a way that some or a
 
 The following is a list of the endpoints that will be subsequently defined in this section.
 ```
-/resource-types
-/fuel-types
-/power-system-resources
-/power-system-resources/{id}/describe
-/power-system-resources/{id}/topology
-/power-system-resources/{id}/generation
+# Metadata
+/metadata/topology-levels (LIST)
+/metadata/topology-types (LIST)
+/metadata/technologies (LIST)
+/power-system-resources (LIST) 
+# PSR-Specific Metadata
+/power-system-resources/{id}/describe (GET)
+/power-system-resources/{id}/capacity (GET)
+/power-system-resources/{id}/transmission-capacity (GET)
+/power-system-resources/{id}/topology (GET)
+# Timeseries Data
+/power-system-resources/{id}/timeseries/generation (GET)
 ```
 
-### 3.1 ResourceType<a id="endpoints-resourcetype" href="#endpoints-resourcetype" class="permalink">🔗</a>
+### 3.1 Metadata<a id="endpoints-metadata" href="#endpoints-metadata" class="permalink">🔗</a>
 ResourceType objects represent a specific hierarchical level of the grid. 
 
-#### 3.1.1 Resource Type List `/resource-types`
+#### 3.1.1 Topology Type (List) `metadata/topology-types`
 
 ##### Response Object
 - `id` - _string_ - (REQUIRED) - The unique identifier representing this resource. It SHOULD be human-readable, such as `US-WECC-CISO`.
@@ -73,7 +79,7 @@ ResourceType objects represent a specific hierarchical level of the grid.
 ##### Example
 ```
 ==Request==
-GET /resource-types HTTP/1.1
+GET metadata/resource-types HTTP/1.1
 Host: demoutility.com
 
 ==Response==
@@ -82,7 +88,7 @@ Content-Type: application/json;charset=UTF-8
 ```
 ```json
 {
-"resource_types": [
+"topology_types": [
 			{
 		     "id": "Interconnection",
 		     "level": 0
@@ -119,10 +125,8 @@ The following table shows an example list of resource types for US and European 
 |4|Generating Plant|Scheduling Area/Sub scheduling area|Feeder,GeneratingUnit|
 |5|Meter (Generator or Load)|Metering Grid Area, MeteringPoint|GeneratingUnit |
 
-#### 3.2 Fuel Type <a id="endpoints-fueltype" href="#endpoints-fueltype" class="permalink">🔗</a>
-***This depends on if we want to fully adopt AIB or whether we want to allow for a more flexible solution.***
-
-#### 3.2.1 Fuel Type List `/fuel-types`
+#### 3.1.2 Fuel Type (LIST) `metadata/fuel-types`
+***TODO: This depends on if we want to fully adopt AIB or whether we want to allow for a more flexible solution.***
 
 ##### Response Object
 - `name`: - _string_ - (REQUIRED) - A common name to use for the fuel type. If using AIB codes, it should be a concatenation of the three code descriptions with a dash between (i.e. `Solar - Photovoltaic - Unspecified`)
@@ -132,7 +136,7 @@ The following table shows an example list of resource types for US and European 
 ##### Example
 ```
 ==Request==
-GET /power-system-resources/fuel-types HTTP/1.1
+GET /metadata/fuel-types HTTP/1.1
 Host: demoutility.com
 
 ==Response==
@@ -141,16 +145,46 @@ Content-Type: application/json;charset=UTF-8
 ```
 ```json
 {
-   "technologies": [
+   "fuel_types": [
 	   {
 		   "name": "Solar - Photovoltaic - Unspecified",
 		   "external_reference": "EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES",
 		   "external_id": "T010100"
 	   },
 	   {
-		   "name": "Thermal - Steam engine - Unspecified",
+		   "name": "Fossil - Solid - Hard Coal - Unspecified",
 		   "external_reference": "EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES",
-		   "external_id": "T050900"
+		   "external_id": "F02010100"
+	   },
+  ],
+  "next": null,
+  "previous": null
+}
+```
+#### 3.1.3 Technology (LIST) `metadata/technologies`
+***TODO: This depends on if we want to fully adopt [AIB](https://www.aib-net.org/sites/default/files/assets/eecs/facts-sheets/AIB-2019-EECSFS-05%20EECS%20Rules%20Fact%20Sheet%2005%20-%20Types%20of%20Energy%20Inputs%20and%20Technologies%20-%20Release%207.7%20v5.pdf) or whether we want to allow for a more flexible solution.***
+
+##### Response Object
+- `name`: - _string_ - (REQUIRED) - A common name to use for the technology. If using AIB codes, it should be a concatenation of the three code descriptions with a dash between (i.e. `Solar - Photovoltaic - Unspecified`)
+- `externalReference`: _Dict_ - (OPTIONAL?) - A reference that provides context for this specific technology. ***TODO: This can be more specifically defined if we decide to go with AIB***
+
+
+```json
+{
+   "technologies": [
+	   {
+		   "name": "Mechanical source or other - Wind - Unspecified",
+		   "externalReference": {
+			   "sourceDocument": "EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES",
+			   "aibCode": "F01050100"
+		   }
+	   },
+	   {
+		   "name": "Thermal - Steam engine - Unspecified",
+		   "externalReference": {
+			   "sourceDocument": "EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES",
+			   "aibCode": "T050900"
+			 }
 	   },
   ],
   "next": null,
@@ -173,7 +207,7 @@ The primary set of endpoints reference PowerSystemResource (PSR) objects. These 
 - `location` - _Location_ - (REQUIRED) - A Location object describing where this PSR exists.
 
 
-***Placeholder spot for where we can decide what rules/guidelines/parameters/suggestions would be good for generating human-readable PSR `id`s***
+***TODO: Placeholder spot for where we can decide what rules/guidelines/parameters/suggestions would be good for generating human-readable PSR `id`s***
 
 #### Example
 The following is an example of the endpoint that returns a list of power system resources. This LIST endpoint SHOULD only includes the `id`, `name`, and `type` fields. It MUST not contain fields of undefined size (such as fields that con contain lists or dicts), as this endpoint is meant to be capable of returning several entries.
@@ -213,19 +247,20 @@ Content-Type: application/json;charset=UTF-8
 
 ##### Response Object
 - `id` - _string_ - REQUIRED - The `id` of the PowerSystemResource associated with this location.
--  `asset_info` - _Array[[AssetInfo](https://zepben.github.io/evolve/docs/cim/cim100/TC57CIM/IEC61968/Assets/AssetInfo/)]_ - (OPTIONAL) - A list of additional information associated with that PSR.
-- `location` - (OPTIONAL)
-	- `main_address` - [StreetAddress](https://zepben.github.io/evolve/docs/cim/evolve/IEC61968/Common/StreetAddress) - (OPTIONAL) 
-		- `postal_code`
-		- `town_detail` - TownDetail
-			- `name`
-			- `state_or_province`
-		- `street_detail` - StreetDetail
-			- `building_name`
-			- `display_address`
-			- ...
-	- `description` - _string_ - (OPTIONAL)
-	- `geojson` - _geojson_ - (OPTIONAL)
+- `describe`
+	-  `asset_info` - _Array[[AssetInfo](https://zepben.github.io/evolve/docs/cim/cim100/TC57CIM/IEC61968/Assets/AssetInfo/)]_ - (OPTIONAL) - A list of additional information associated with that PSR.
+	- `location` - (OPTIONAL)
+		- `main_address` - [StreetAddress](https://zepben.github.io/evolve/docs/cim/evolve/IEC61968/Common/StreetAddress) - (OPTIONAL) 
+			- `postal_code`
+			- `town_detail` - TownDetail
+				- `name`
+				- `state_or_province`
+			- `street_detail` - StreetDetail
+				- `building_name`
+				- `display_address`
+				- ...
+		- `description` - _string_ - (OPTIONAL)
+		- `geojson` - _geojson_ - (OPTIONAL)
 
 The following endpoint returns the location information for a specific PSR.
 
@@ -242,7 +277,7 @@ Content-Type: application/json;charset=UTF-8
 ```json
 {
   "id": "US-WECC-CISO",
-  "description": {
+  "describe": {
     "location": {
 	    "geojson": {
 		    "type": "FeatureCollection",
@@ -262,6 +297,7 @@ Content-Type: application/json;charset=UTF-8
   "previous": null
 }
 ```
+
 #### PSR Topology `/power-system-resources/{id}/topology`
 
 The topology endpoint provides a means for understanding how each PSR relates to others. 
@@ -271,7 +307,7 @@ The topology endpoint provides a means for understanding how each PSR relates to
 
 ##### Response Object
 - `id` - _string_ - REQUIRED - The `id` of the PowerSystemResource associated with this location.
-- `topology`
+- `topology` - _Object_
 	- `parent` - _Object_ - (OPTIONAL)
 		-  `id` - _String_ The unique identifier representing the *id* of the PSR that is one level above in the topology.
 		- `parent` - _Object_ - (OPTIONAL)
@@ -302,6 +338,85 @@ Content-Type: application/json;charset=UTF-8
   "previous": null
 }
 ```
+
+#### PSR Capacity `/power-system-resources/{id}/capacity`
+
+The capacity endpoint provides a means for providing capacity information by fuel type and technology.
+
+##### Response Object
+- `id` - _string_ - REQUIRED - The `id` of the PowerSystemResource associated with this location.
+- `unit` - _string_ - (REQUIRED) - For electricity, SHOULD be one of:  [`MW`, `kW`, `W`]
+- `capacity` - _Array_
+	 - `technology` - _String_ - (OPTIONAL) - *id* of the technology that this fuel type used for generation.
+	  - `fuel_source` - _String_ - (REQUIRED) - *id* of the fuel source used for generation.
+	  - `measurement` - _float_ - A value of the amount of generation that took place at this PSR using the given *technology* and *fuel_source*.
+	  -  `startDatetime` - _ISO8601 Datetime_ - (REQUIRED) - The datetime MUST be timezone aware. This allows for the defining of historical capacity values and to indicate when new resources came online.
+	-   `endDatetime` - _ISO8601 Datetime_ - (OPTIONAL)  - The datetime MUST be timezone aware. This allows for the defining of historical capacity values and to indicate when old resources came offline. An empty value assumes it is still operational.
+```
+==Request==
+GET /power-system-resources/US-WECC-CISO/topology?numLevels=2 HTTP/1.1
+Host: demoutility.com
+
+==Response==
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+```
+```json
+{
+  "id": "US-WECC-CISO",
+  "unit": "MW",
+  "capacity": [
+	  {
+		  "technology": "Thermal - Steam engine - Unspecified",
+		  "fuelSource": "Fossil - Solid - Hard Coal - Unspecified",
+		  "measurement": 500,
+		  "startDatetime": "2015-06-01 00:00:00+00",
+		  "endDatetime": "2021-06-01T0 :00:00+00",
+	  },
+	  	  {
+		  "technology": "Thermal - Steam engine - Unspecified",
+		  "fuelSource": "Fossil - Solid - Hard Coal - Unspecified",
+		  "measurement": 500
+	  },
+  ],
+  "next": null,
+  "previous": null
+}
+```
+
+#### PSR Topology `/power-system-resources/{id}/transmission-capacity`
+
+The topology endpoint provides a means for understanding how each PSR relates to others. 
+
+##### Response Object
+- `id` - _String_ - REQUIRED - The `id` of the PowerSystemResource associated with this location.
+ `unit` - _String_ - (REQUIRED) - For electricity, SHOULD be one of:  [`MW`, `kW`, `W`]
+- `transmissionCapacity` - _Array_
+	- `connectedPSR` - _Object_ - (OPTIONAL)
+		- `id`  - _String_ The unique identifier representing the *id* of the PSR connected to the requested PSR.
+	 - `measurement` - _float_ - A value of the amount of transmission capacity available between the two PSRs. 
+```
+==Request==
+GET /power-system-resources/US-WECC-CISO/transmission-capacity HTTP/1.1
+Host: demoutility.com
+
+==Response==
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+```
+```json
+{
+  "id": "US-WECC-CISO",
+  "unit": "MW",
+  "transmissionCapacity": [
+	  "connectedPSR": {"id": "US-WECC-NEVP"},
+	  "measurement": 100
+	],
+  "next": null,
+  "previous": null
+}
+```
+
 ### 3.4 PowerSystemsResources Timeseries Data<a id="endpoints-psrtime" href="#endpoints-psrtime" class="permalink">🔗</a>
 
 #### PSR Generation `/power-system-resources/{id}/generation`
@@ -313,14 +428,15 @@ A generation object returns a timeseries of values representing energy that was 
 
 ##### Response Object
 -  `id` - _string_ - (REQUIRED) - The `id` of the Power System Resource associated with this unit of generation.
--  `startDatetime` - _ISO8601 Datetime_ - (REQUIRED) - The datetime MUST be timezone aware.
--   `endDatetime` - _ISO8601 Datetime_ - (REQUIRED)  - The datetime MUST be timezone aware.
-- `measurement` - _float_ - (REQUIRED) - A value of the amount of generation that took place at this PSR. A positive number indicates generation.
-- `unit` - _string_ - (REQUIRED) - For electricity, SHOULD be one of:  [`MWh`, `kWh`, `Wh`]
-- `MeasurementByFuelType` - _Array_ - (REQUIRED) - Key-value pairs of fuel types and the amount of generation that comes from that fuel type. The unit for these values MUST be the same as that of the `unit` field.
-  - `technology` - _String_ - (OPTIONAL) - *id* of the technology that this fuel type used for generation.
-  - `fuel_source` - _String_ - (REQUIRED) - *id* of the fuel source used for generation.
-  - `measurement` - _float_ - A value of the amount of generation that took place at this PSR using the given *technology* and *fuel_source*.
+- `generation` - _Array_
+	-  `startDatetime` - _ISO8601 Datetime_ - (REQUIRED) - The datetime MUST be timezone aware.
+	-   `endDatetime` - _ISO8601 Datetime_ - (REQUIRED)  - The datetime MUST be timezone aware.
+	- `measurement` - _float_ - (REQUIRED) - A value of the amount of generation that took place at this PSR. A positive number indicates generation.
+	- `unit` - _string_ - (REQUIRED) - For electricity, SHOULD be one of:  [`MWh`, `kWh`, `Wh`]
+	- `MeasurementByFuelType` - _Array_ - (REQUIRED) - Key-value pairs of fuel types and the amount of generation that comes from that fuel type. The unit for these values MUST be the same as that of the `unit` field.
+	  - `technology` - _String_ - (OPTIONAL) - *id* of the technology that this fuel type used for generation.
+	  - `fuel_source` - _String_ - (REQUIRED) - *id* of the fuel source used for generation.
+	  - `measurement` - _float_ - A value of the amount of generation that took place at this PSR using the given *technology* and *fuel_source*.
 
 ```
 ==Request==
@@ -336,8 +452,8 @@ Content-Type: application/json;charset=UTF-8
 	"id": "US-WECC-CISO",
 	"generation": [
 	  {
-		  "startDatetime": "2021-06-01T00:00:00+00",
-		  "endDatetime": "2021-06-01T01:00:00+00",
+		  "startDatetime": "2021-06-01 00:00:00+00",
+		  "endDatetime": "2021-06-01 01:00:00+00",
 		  "measurement": 10.5,
 		  "unit": "MWh",
 		  "measurementByFuelType": [
