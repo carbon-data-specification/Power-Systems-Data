@@ -1,0 +1,49 @@
+Attendees
+-------------
+- Stephen Suffian (WattCarbon) (Maintainer)
+- André Bernal Garcia (External Collaborator)
+- Hallie Cramer (Google)
+- Henry Richardson (WattTime)
+
+Agenda
+-------------
+Discuss Spec 3 pre-draft.
+- What parameters/suggestions do we want to provide regarding PSR `id` formulation?
+- How to deal with nested pagination (i.e. in the children list in the  `/topology` endpoint)?
+- Should we return to allowing for generation endpoints to have `id` in the request? If so, how?
+- Should we go with AIB codes for our fuel types?
+- Transmission - Should it be in a separate spec? 
+
+
+Notes
+-------------
+### Updates
+André - Updated GridNode to PowerSystemResource in the demonstrator
+
+### Spec 3 Pre-Draft
+- Need to decide between resource/class for parent endpoint term
+- Which fuel type/technology set to use?
+  -	Hallie - Reference a few different examples in addition to AIB.
+  -	Henry - Preference to picking a single "fuel type/technology" set so that there is consistency across.
+  -	Hallie - Acknowledge other ways, and provide reasoning for selecting X
+-	Henry - LEED has the official requirements and then a separate spec document.
+-	Henry - We need the concept of "siblings" as well as transmission.
+-	Henry - What is the best way to nest datetime vs technology/fuel type information?
+-	André - Why have a separate topology and describe endpoint? Too many endpoints makes it difficult to know what to do.
+-	Henry - How do we specify how large amounts of data are received? 
+	 - Pagination?
+	 - Data limitations? - Standards shouldn't set a strict limit because technology might change and server size.
+	 - Other?
+
+
+To-Dos
+-------------
+- Naming for the prefix in the metadata API endpoints
+- Add missing fuel-type example
+- Fix issues between text descriptions and endpoint examples
+- Add siblings to incorporate interconnection definitions
+- Fuel Sources/Technologies - Reference different options, possibly pick one and explain reasoning
+- Split out document into formal spec and "overview"
+- Discuss timeseries nesting of datetimes vs nesting of fuel types/technologies
+- Add capacity endpoints
+- Add other endpoints
