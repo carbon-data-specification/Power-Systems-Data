@@ -56,7 +56,6 @@ The following documents are referred to in the text in such a way that some or a
 The following is a list of the endpoints that will be subsequently defined in this section.
 ```
 # Metadata
-/metadata/topology-levels (LIST)
 /metadata/topology-types (LIST)
 /metadata/technologies (LIST)
 /power-system-resources (LIST) 
@@ -316,8 +315,13 @@ The topology endpoint provides a means for understanding how each PSR relates to
 		-  `id` - _String_ The unique identifier representing the *id* of the PSR that is one level above in the topology.
 		- `parent` - _Object_ - (OPTIONAL)
 			- ...
+	- `connectedSiblings` - _Array_ - (OPTIONAL)
+		- `id` - _String_ - A unique identifier representing the *id* of a PSR that has some transmission-based connection.
+	  - `connectedSiblings` - _Array_ - (OPTIONAL)
+			- `id` - _String_
 	- `children` - _Array_ - (OPTIONAL)
-		-  -`id` - _String_ - A unique identifier representing the *id* of a PSR that is one level below in the topology.
+		-  `id` - _String_ - A unique identifier representing the *id* of a PSR that is one level below in the topology.
+		- `connectedSiblings` - _Array_ - (OPTIONAL)
 		- `children` - _Array_ - (OPTIONAL)
 			- ...
 ```
@@ -334,6 +338,7 @@ Content-Type: application/json;charset=UTF-8
   "id": "US-WECC-CISO",
   "topology": {
 	  "parent": {"id": "US-WECC"},
+	  "connectedSiblings": {"id": "US-ERCOT"},
 	  "children": [
 			  {"id": "US-WECC-CISO-ABC", "children": []}
 			],
@@ -353,7 +358,7 @@ The capacity endpoint provides a means for providing capacity information by fue
 - `capacity` - _Array_
 	 - `technology` - _String_ - (OPTIONAL) - *id* of the technology that this fuel type used for generation.
 	  - `fuel_source` - _String_ - (REQUIRED) - *id* of the fuel source used for generation.
-	  - `measurement` - _float_ - A value of the amount of generation that took place at this PSR using the given *technology* and *fuel_source*.
+	  - `value` - _float_ - A value of the amount of generation that took place at this PSR using the given *technology* and *fuel_source*.
 	  -  `startDatetime` - _ISO8601 Datetime_ - (REQUIRED) - The datetime MUST be timezone aware. This allows for the defining of historical capacity values and to indicate when new resources came online.
 	-   `endDatetime` - _ISO8601 Datetime_ - (OPTIONAL)  - The datetime MUST be timezone aware. This allows for the defining of historical capacity values and to indicate when old resources came offline. An empty value assumes it is still operational.
 ```
@@ -373,14 +378,14 @@ Content-Type: application/json;charset=UTF-8
 	  {
 		  "technology": "Thermal - Steam engine - Unspecified",
 		  "fuelSource": "Fossil - Solid - Hard Coal - Unspecified",
-		  "measurement": 500,
+		  "value": 500,
 		  "startDatetime": "2015-06-01 00:00:00+00",
 		  "endDatetime": "2021-06-01T0 :00:00+00",
 	  },
 	  	  {
 		  "technology": "Thermal - Steam engine - Unspecified",
 		  "fuelSource": "Fossil - Solid - Hard Coal - Unspecified",
-		  "measurement": 500
+		  "value": 500
 	  },
   ],
   "next": null,
@@ -398,7 +403,7 @@ The topology endpoint provides a means for understanding how each PSR relates to
 - `transmissionCapacity` - _Array_
 	- `connectedPSR` - _Object_ 
 		- `id`  - _String_ The unique identifier representing the *id* of the PSR connected to the requested PSR.
-	 - `measurement` - _float_ - A value of the amount of transmission capacity available between the two PSRs. 
+	 - `value` - _float_ - A value of the amount of transmission capacity available between the two PSRs. 
 ```
 ==Request==
 GET /power-system-resources/US-WECC-CISO/transmission-capacity HTTP/1.1
@@ -413,8 +418,14 @@ Content-Type: application/json;charset=UTF-8
   "id": "US-WECC-CISO",
   "unit": "MW",
   "transmissionCapacity": [
-	  "connectedPSR": {"id": "US-WECC-NEVP"},
-	  "measurement": 100
+	  {
+		  "connectedPSR": {"id": "US-WECC-NEVP"},
+		  "value": 100
+	  },
+	  {
+		  "connectedPSR": {"id": "US-WECC-ABCD"},
+		  "value": 50
+	  },...
 	],
   "next": null,
   "previous": null
@@ -422,8 +433,6 @@ Content-Type: application/json;charset=UTF-8
 ```
 
 ### 3.4 PowerSystemsResources Timeseries Data<a id="endpoints-psrtime" href="#endpoints-psrtime" class="permalink">🔗</a>
-
-***TODO: Discuss how frequency of timeseries data should be requested/provided***
 
 #### PSR Generation `/power-system-resources/{id}/generation`
 A generation object returns a timeseries of values representing energy that was generated at a PSR, as well as a breakdown of that generation by fuel type.
@@ -434,15 +443,15 @@ A generation object returns a timeseries of values representing energy that was 
 
 ##### Response Object
 -  `id` - _string_ - (REQUIRED) - The `id` of the Power System Resource associated with this unit of generation.
+- `unit` - _string_ - (REQUIRED) - For electricity, MUST be one of:  [`MWh`, `kWh`, `Wh`]
 - `generation` - _Array_
 	-  `startDatetime` - _ISO8601 Datetime_ - (REQUIRED) - The datetime MUST be timezone aware.
 	-   `endDatetime` - _ISO8601 Datetime_ - (REQUIRED)  - The datetime MUST be timezone aware.
-	- `measurement` - _float_ - (REQUIRED) - A value of the amount of generation that took place at this PSR. A positive number indicates generation.
-	- `unit` - _string_ - (REQUIRED) - For electricity, SHOULD be one of:  [`MWh`, `kWh`, `Wh`]
-	- `MeasurementByFuelType` - _Array_ - (REQUIRED) - Key-value pairs of fuel types and the amount of generation that comes from that fuel type. The unit for these values MUST be the same as that of the `unit` field.
+	- `value` - _float_ - (REQUIRED) - A value of the amount of generation that took place at this PSR. A positive number indicates generation.
+	- `valueByFuelType` - _Array_ - (REQUIRED) - Lists of fuel types, technologies, and the amount of generation that comes from that fuel type. The unit for these values MUST be the same as that of the `unit` field.
 	  - `technology` - _String_ - (OPTIONAL) - *id* of the technology that this fuel type used for generation.
 	  - `fuel_source` - _String_ - (REQUIRED) - *id* of the fuel source used for generation.
-	  - `measurement` - _float_ - A value of the amount of generation that took place at this PSR using the given *technology* and *fuel_source*.
+	  - `value` - _float_ - A value of the amount of generation that took place at this PSR using the given *technology* and *fuel_source*.
 
 ```
 ==Request==
@@ -456,22 +465,22 @@ Content-Type: application/json;charset=UTF-8
 ```json
 {
 	"id": "US-WECC-CISO",
+	"unit": "MWh",
 	"generation": [
 	  {
 		  "startDatetime": "2021-06-01 00:00:00+00",
 		  "endDatetime": "2021-06-01 01:00:00+00",
-		  "measurement": 10.5,
-		  "unit": "MWh",
-		  "measurementByFuelType": [
+		  "value": 10.5,
+		  "valueByFuelType": [
 			  {
 			    "technology": "Thermal - Steam engine - Unspecified",
 			    "fuelSource": "Fossil - Solid - Hard Coal - Unspecified",
-			    "measurement": 5.5
+			    "value": 5.0
 			  },
 			  {
 			    "technology": "Solar - Photovoltaic - Unspecified",
 			    "fuelSource": "Renewables - Heating and Cooling - Solar",
-			    "measurement": 10.5
+			    "value": 10.5
 			  },
 			},...
 	  }
@@ -490,11 +499,11 @@ A demand object returns a timeseries of values representing energy that was dema
 
 ##### Response Object
 -  `id` - _string_ - (REQUIRED) - The `id` of the Power System Resource associated with this demand.
+- 	`unit` - _string_ - (REQUIRED) - For electricity, SHOULD be one of:  [`MWh`, `kWh`, `Wh`]
 - `demand` - _Array_
 	-  `startDatetime` - _ISO8601 Datetime_ - (REQUIRED) - The datetime MUST be timezone aware.
 	-   `endDatetime` - _ISO8601 Datetime_ - (REQUIRED)  - The datetime MUST be timezone aware.
-	- `measurement` - _float_ - (REQUIRED) - A value of the amount of demand that took place at this PSR. A positive number indicates demand that was needed. A negative number represents energy that was generated by un-registered demand-side resources.
-	- `unit` - _string_ - (REQUIRED) - For electricity, SHOULD be one of:  [`MWh`, `kWh`, `Wh`]
+	- `value` - _float_ - (REQUIRED) - A value of the amount of demand that took place at this PSR. A positive number indicates demand that was needed. A negative number represents energy that was generated by un-registered demand-side resources.
 ```
 ==Request==
 GET /power-system-resources/US-WECC-CISO/demand?startDatetime=2022-01-01&endDatetime=2023-01-01 HTTP/1.1
@@ -507,12 +516,12 @@ Content-Type: application/json;charset=UTF-8
 ```json
 {
 	"id": "US-WECC-CISO",
+	"unit": "MWh",
 	"demand": [
 	  {
 		  "startDatetime": "2021-06-01 00:00:00+00",
 		  "endDatetime": "2021-06-01 01:00:00+00",
-		  "measurement": 10.5,
-		  "unit": "MWh",
+		  "value": 10.5,
 	  },...
 	],
 	"next": null,
@@ -529,14 +538,14 @@ An import object returns a timeseries of values representing energy that was imp
 
 ##### Response Object
 -  `id` - _string_ - (REQUIRED) - The `id` of the Power System Resource associated with this import.
+- 	`unit` - _string_ - (REQUIRED) - For electricity, SHOULD be one of:  [`MWh`, `kWh`, `Wh`]
 - `imports` - _Array_
 	-  `startDatetime` - _ISO8601 Datetime_ - (REQUIRED) - The datetime MUST be timezone aware.
 	-   `endDatetime` - _ISO8601 Datetime_ - (REQUIRED)  - The datetime MUST be timezone aware.
-	- `measurement` - _positive float_ - (REQUIRED) - A value of the amount of energy imported by this PSR. The value must be 0 or a positive value (exports should be provided in the other endpoint).
-	- `unit` - _string_ - (REQUIRED) - For electricity, SHOULD be one of:  [`MWh`, `kWh`, `Wh`]
-	  - `MeasurementByConnectedPSR` - _Array_ - (REQUIRED) - Key-value pairs of the connected PSR that this PSR is importing energy from and the amount of energy that comes from that PSR. The unit for these values MUST be the same as that of the `unit` field.
+	- `value` - _positive float_ - (REQUIRED) - A value of the amount of energy imported by this PSR. The value must be 0 or a positive value (exports should be provided in the other endpoint).
+	  - `valueByConnectedPSR` - _Array_ - (REQUIRED) - Key-value pairs of the connected PSR that this PSR is importing energy from and the amount of energy that comes from that PSR. The unit for these values MUST be the same as that of the `unit` field.
 	  - `connectedPSR` - _String_
-	  - `measurement` - _positive float_ - A value of the amount of energy imported from the `connectedPSR`. he value must be 0 or a positive value (exports should be provided in the other endpoint).
+	  - `value` - _positive float_ - A value of the amount of energy imported from the `connectedPSR`. he value must be 0 or a positive value (exports should be provided in the other endpoint).
 ```
 ==Request==
 GET /power-system-resources/US-WECC-CISO/imports?startDatetime=2022-01-01&endDatetime=2023-01-01 HTTP/1.1
@@ -549,20 +558,20 @@ Content-Type: application/json;charset=UTF-8
 ```json
 {
 	"id": "US-WECC-CISO",
+	"unit": "MWh",
 	"imports": [
 	  {
 		  "startDatetime": "2021-06-01 00:00:00+00",
 		  "endDatetime": "2021-06-01 01:00:00+00",
-		  "measurement": 10.5,
-		  "unit": "MWh",
+		  "value": 10.5,
 		   "importByConnectedPSR": [
 			  {
 			    "connectedPSR": "US-WECC-LADWP",
-			    "measurement": 5.5
+			    "value": 5.5
 			  },
 			  {
 			    "connectedPSR": "US-WECC-BANC",
-			    "measurement": 10.5
+			    "value": 5
 			  },
 			},...
 	  },...
@@ -581,14 +590,14 @@ An export object returns a timeseries of values representing energy that was exp
 
 ##### Response Object
 -  `id` - _string_ - (REQUIRED) - The `id` of the Power System Resource associated with this export.
+- 	`unit` - _string_ - (REQUIRED) - For electricity, SHOULD be one of:  [`MWh`, `kWh`, `Wh`]
 - `exports` - _Array_
 	-  `startDatetime` - _ISO8601 Datetime_ - (REQUIRED) - The datetime MUST be timezone aware.
 	-   `endDatetime` - _ISO8601 Datetime_ - (REQUIRED)  - The datetime MUST be timezone aware.
-	- `measurement` - _positive float_ - (REQUIRED) - A value of the amount of energy exported by this PSR. The value must be 0 or a positive value (imports should be provided in the other endpoint).
-	- `unit` - _string_ - (REQUIRED) - For electricity, SHOULD be one of:  [`MWh`, `kWh`, `Wh`]
-	  - `MeasurementByConnectedPSR` - _Array_ - (REQUIRED) - Key-value pairs of the connected PSR that this PSR is exporting energy to and the amount of energy that comes from that PSR. The unit for these values MUST be the same as that of the `unit` field.
+	- `value` - _positive float_ - (REQUIRED) - A value of the amount of energy exported by this PSR. The value must be 0 or a positive value (imports should be provided in the other endpoint).
+	  - `valueByConnectedPSR` - _Array_ - (REQUIRED) - Key-value pairs of the connected PSR that this PSR is exporting energy to and the amount of energy that comes from that PSR. The unit for these values MUST be the same as that of the `unit` field.
 	  - `connectedPSR` - _String_
-	  - `measurement` - _positive float_ - A value of the amount of energy exported to the `connectedPSR`. The value must be 0 or a positive value (exports should be provided in the other endpoint).
+	  - `value` - _positive float_ - A value of the amount of energy exported to the `connectedPSR`. The value must be 0 or a positive value (exports should be provided in the other endpoint).
 ```
 ==Request==
 GET /power-system-resources/US-WECC-CISO/exports?startDatetime=2022-01-01&endDatetime=2023-01-01 HTTP/1.1
@@ -601,20 +610,20 @@ Content-Type: application/json;charset=UTF-8
 ```json
 {
 	"id": "US-WECC-CISO",
+	"unit": "MWh",
 	"exports": [
 	  {
 		  "startDatetime": "2021-06-01 00:00:00+00",
 		  "endDatetime": "2021-06-01 01:00:00+00",
-		  "measurement": 10.5,
-		  "unit": "MWh",
+		  "value": 10.5,
 		   "exportByConnectedPSR": [
 			  {
 			    "connectedPSR": "US-WECC-LADWP",
-			    "measurement": 5.5
+			    "value": 5.5
 			  },
 			  {
 			    "connectedPSR": "US-WECC-BANC",
-			    "measurement": 10.5
+			    "value": 5.0
 			  },
 			},...
 	  },...
@@ -634,12 +643,12 @@ A demand object returns a timeseries of values representing energy that was dema
 
 ##### Response Object
 -  `id` - _string_ - (REQUIRED) - The `id` of the Power System Resource associated with this demand.
+- 	`unit` - _string_ - (REQUIRED) - Should be a a currency code in accordance with the [ISO 4217](https://www.iso.org/iso-4217-currency-codes.html) standard. 
 - `timeframe` - _String_ The selected `timeframe` from the request object
 - `demand` - _Array_
 	-  `startDatetime` - _ISO8601 Datetime_ - (REQUIRED) - The datetime MUST be timezone aware.
 	-   `endDatetime` - _ISO8601 Datetime_ - (REQUIRED)  - The datetime MUST be timezone aware.
-	- `measurement` - _float_ - (REQUIRED) - A value of the price of energy  took place at this PSR. 
-	- `unit` - _string_ - (REQUIRED) - Should be a a currency code in accordance with the [ISO 4217](https://www.iso.org/iso-4217-currency-codes.html) standard. 
+	- `value` - _float_ - (REQUIRED) - A value of the price of energy  took place at this PSR. 
 ```
 ==Request==
 GET /power-system-resources/US-WECC-CISO/price?startDatetime=2022-01-01&endDatetime=2023-01-01 HTTP/1.1
@@ -652,13 +661,69 @@ Content-Type: application/json;charset=UTF-8
 ```json
 {
 	"id": "US-WECC-CISO",
+	"unit": "USD",
 	"price": [
 	  {
 		  "startDatetime": "2021-06-01 00:00:00+00",
 		  "endDatetime": "2021-06-01 01:00:00+00",
-		  "measurement": 10.5,
-		  "unit": "USD",
+		  "value": 10.5,
 	  },...
+	],
+	"next": null,
+	"previous": null
+}
+```
+
+#### PSR Generation `/power-system-resources/{id}/curtailment`
+A curtailment object returns a timeseries of values representing energy that was generated at a PSR, as well as a breakdown of that generation by fuel type.
+
+##### Request Object
+- `startDatetime` - _ISO8601 Datetime_ -  A datetime indicating that the response should return data where the earliest entry's *startDatetime* occurs AT or AFTER the *startDatetime* specified in the request.  
+- `endDatetime` - _ISO8601 Datetime_ -  A datetime indicating that the response should return data where the earliest entry's *endDatetime* occurs AT or BEFORE the *endDatetime* specified in the request.  
+
+##### Response Object
+-  `id` - _string_ - (REQUIRED) - The `id` of the Power System Resource associated with this unit of curtailment.
+- `unit` - _string_ - (REQUIRED) - For electricity, MUST be one of:  [`MWh`, `kWh`, `Wh`]
+- `generation` - _Array_
+	-  `startDatetime` - _ISO8601 Datetime_ - (REQUIRED) - The datetime MUST be timezone aware.
+	-   `endDatetime` - _ISO8601 Datetime_ - (REQUIRED)  - The datetime MUST be timezone aware.
+	- `value` - _float_ - (REQUIRED) - A value of the amount of curtailment that took place at this PSR. A positive number indicates curtailment.
+	- `valueByFuelType` - _Array_ - (REQUIRED) - Lists of fuel types, technologies, and the amount of curtailment that occurs at that fuel type. The unit for these values MUST be the same as that of the `unit` field.
+	  - `technology` - _String_ - (OPTIONAL) - *id* of the technology that this fuel type used for curtailment.
+	  - `fuel_source` - _String_ - (REQUIRED) - *id* of the fuel source used for curtailment.
+	  - `value` - _float_ - A value of the amount of curtailment that took place at this PSR using the given *technology* and *fuel_source*.
+
+```
+==Request==
+GET /power-system-resources/US-WECC-CISO/curtailment?startDatetime=2022-06-01&endDatetime=201-06-02 HTTP/1.1
+Host: demoutility.com
+
+==Response==
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+```
+```json
+{
+	"id": "US-WECC-CISO",
+	"unit": "MWh",
+	"curtailment": [
+	  {
+		  "startDatetime": "2021-06-01 00:00:00+00",
+		  "endDatetime": "2021-06-01 01:00:00+00",
+		  "value": 10.5,
+		  "valueByFuelType": [
+			  {
+			    "technology": "Thermal - Steam engine - Unspecified",
+			    "fuelSource": "Fossil - Solid - Hard Coal - Unspecified",
+			    "value": 5.0
+			  },
+			  {
+			    "technology": "Solar - Photovoltaic - Unspecified",
+			    "fuelSource": "Renewables - Heating and Cooling - Solar",
+			    "value": 10.5
+			  },
+			},...
+	  }
 	],
 	"next": null,
 	"previous": null
