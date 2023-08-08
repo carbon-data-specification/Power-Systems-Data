@@ -126,7 +126,839 @@
 
 <hr />
 
-<p>[No main draft available yet] See Other Drafts section for in-progress and alternative drafts</p>
+<h1 id="cdsc-wg2-03---endpoints"><em>CDSC-WG2-03 - Endpoints</em></h1>
+
+<p>Version: <em>0.0.1</em></p>
+
+<p>Status: Pre-Draft</p>
+
+<p>© <strong>__</strong><strong>__</strong>_____</p>
+
+<p>This specification is subject to the Community Specification License 1.0, available at <a href="https://github.com/CommunitySpecification/1.0">https://github.com/CommunitySpecification/1.0</a>.
+© <strong>__</strong><strong>__</strong>_____</p>
+
+<p>This specification is subject to the license, available [here][LICENSE].</p>
+
+<h2 id="contents-">Contents <a id="table-of-contents" href="#table-of-contents" class="permalink">🔗</a></h2>
+<ul>
+  <li><a href="#foreword">1. Foreword</a></li>
+  <li>[2. Introduction)(#introduction)</li>
+  <li><a href="#endpoints">3. Endpoint Categories</a>
+    <ul>
+      <li><a href="#endpoints-resourcetype">3.1 ResourceType</a></li>
+      <li><a href="#endpoints-fueltype">3.2 FuelType</a></li>
+      <li><a href="#endpoints-psrmeta">3.3 PowerSystemResource Metadata</a></li>
+      <li><a href="#endpoints-psrtime">3.4 PowerSystemResource Timeseries Data</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="1-foreword-">1. Foreword <a id="foreword" href="#foreword" class="permalink">🔗</a></h2>
+
+<p>Attention is drawn to the possibility that some of the elements of this document may be the subject of patent rights. No party shall not be held responsible for identifying any or all such patent rights.</p>
+
+<p>Any trade name used in this document is information given for the convenience of users and does not constitute an endorsement.</p>
+
+<p>This document was prepared by [Insert name of group].</p>
+
+<p>This second/third/… edition cancels and replaces the first/second/… edition (#####:####), which has been technically revised.
+The main changes compared to the previous edition are as follows:
+—	xxx xxxxxxx xxx xxxx</p>
+
+<p>Known patent licensing exclusions are available in the specification’s repository’s Notices.md file.</p>
+
+<p>Any feedback or questions on this document should be directed to specifications repository, located at <strong>__</strong><strong>__</strong>_____.</p>
+
+<p>THESE MATERIALS ARE PROVIDED “AS IS.” The Contributors and Licensees expressly disclaim any warranties (express, implied, or otherwise), including implied warranties of merchantability, non-infringement, fitness for a particular purpose, or title, related to the materials.  The entire risk as to implementing or otherwise using the materials is assumed by the implementer and user. IN NO EVENT WILL THE CONTRIBUTORS OR LICENSEES BE LIABLE TO ANY OTHER PARTY FOR LOST PROFITS OR ANY FORM OF INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES OF ANY CHARACTER FROM ANY CAUSES OF ACTION OF ANY KIND WITH RESPECT TO THIS DELIVERABLE OR ITS GOVERNING AGREEMENT, WHETHER BASED ON BREACH OF CONTRACT, TORT (INCLUDING NEGLIGENCE), OR OTHERWISE, AND WHETHER OR NOT THE OTHER MEMBER HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
+
+<h2 id="2-introduction-">2. Introduction <a id="introduction" href="#introduction" class="permalink">🔗</a></h2>
+<p>This specification was developed as part of the global effort to combat the climate crisis. Specifically, in order to scalably measure carbon emissions of organizations and calculate the impact of deploying and operating clean energy technologies, companies need an efficient means to discover the details and capabilities of energy utilities and other similar entities.</p>
+
+<p>This specification offers a specification for a set of endpoints that would contain the necessary information for carbon data calculations.</p>
+
+<h3 id="normative-references">Normative references</h3>
+
+<p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
+
+<ul>
+  <li>IEC 61968/61970: Common Information Model</li>
+  <li>ISO 4217: Currency Codes</li>
+</ul>
+
+<h2 id="3-endpoint-categories-">3. Endpoint Categories <a id="endpoints" href="#endpoints" class="permalink">🔗</a></h2>
+
+<p>The following is a list of the endpoints that will be subsequently defined in this section.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Metadata
+/metadata/topology-types (LIST)
+/metadata/technologies (LIST)
+/power-system-resources (LIST) 
+# PSR-Specific Metadata
+/power-system-resources/{id}/describe (GET)
+/power-system-resources/{id}/capacity (GET)
+/power-system-resources/{id}/transmission-capacity (GET)
+/power-system-resources/{id}/topology (GET)
+# Timeseries Data
+/power-system-resources/{id}/timeseries/generation (GET)
+/power-system-resources/{id}/timeseries/demand (GET)
+/power-system-resources/{id}/timeseries/imports (GET)
+/power-system-resources/{id}/timeseries/exports (GET)
+/power-system-resources/{id}/timeseries/price (GET)
+</code></pre></div></div>
+
+<h3 id="31-metadata">3.1 Metadata<a id="endpoints-metadata" href="#endpoints-metadata" class="permalink">🔗</a></h3>
+<p>ResourceType objects represent a specific hierarchical level of the grid.</p>
+
+<h4 id="311-topology-type-list-metadatatopology-types">3.1.1 Topology Type (List) <code class="language-plaintext highlighter-rouge">metadata/topology-types</code></h4>
+
+<h5 id="response-object">Response Object</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - (REQUIRED) - The unique identifier representing this resource. It SHOULD be human-readable, such as <code class="language-plaintext highlighter-rouge">US-WECC-CISO</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">level</code> - int - (OPTIONAL) - A number representing the hierarchy of this resource topology in relation to the other resource types. These levels MUST include a sequential set of positive integers starting at 0.
+    <h5 id="example">Example</h5>
+    <p>```
+==Request==
+GET metadata/resource-types HTTP/1.1
+Host: demoutility.com</p>
+  </li>
+</ul>
+
+<p>==Response==
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```json
+{
+"topology_types": [
+			{
+		     "id": "Interconnection",
+		     "level": 0
+			},
+			{
+		     "id": "Balancing Area",
+		     "level": 1
+			},
+		  {
+		     "id": " Generating Plant",
+		     "level": 2
+			},
+			{
+		     "id": " Generating Unit",
+		     "level": 3
+			},
+		  {
+		     "id": " Consumption Unit",
+		     "level": 3
+			},
+	],
+  "next": null,
+  "previous": null
+}
+</code></pre></div></div>
+<h5 id="reference-resourcetypes">Reference ResourceTypes</h5>
+<p>The following table shows an example list of resource types for US and European Grids:
+|Level|US Grid|European Grid|CIM|
+|–|–|–|–|
+|0|Interconnection|Synchronous area|GeographicalRegion |
+|1|Balancing Authority Area|LFC block/LFC area|GeographicalRegion, SubGeographicalRegion|
+|2|Zone|Bidding zone|SubGeographicalRegion |
+|3|Transmission Node/Substation|Control area|Substation |
+|4|Generating Plant|Scheduling Area/Sub scheduling area|Feeder,GeneratingUnit|
+|5|Meter (Generator or Load)|Metering Grid Area, MeteringPoint|GeneratingUnit |</p>
+
+<h4 id="312-fuel-type-list-metadatafuel-types">3.1.2 Fuel Type (LIST) <code class="language-plaintext highlighter-rouge">metadata/fuel-types</code></h4>
+<p><strong><em>TODO: This depends on if we want to fully adopt AIB or whether we want to allow for a more flexible solution.</em></strong></p>
+
+<h5 id="response-object-1">Response Object</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">name</code>: - <em>string</em> - (REQUIRED) - A common name to use for the fuel type. If using AIB codes, it should be a concatenation of the three code descriptions with a dash between (i.e. <code class="language-plaintext highlighter-rouge">Solar - Photovoltaic - Unspecified</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">external_reference</code>: <em>String</em> - (OPTIONAL?) - A reference that provides context for this specific fuel type.</li>
+  <li><code class="language-plaintext highlighter-rouge">external_id</code>:  - <em>String</em> - (OPTIONAL?) - A unique code (<strong><em>AIB code?</em></strong>) referencing the type of fuel</li>
+</ul>
+
+<h5 id="example-1">Example</h5>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>==Request==
+GET /metadata/fuel-types HTTP/1.1
+Host: demoutility.com
+
+==Response==
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+</code></pre></div></div>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+   </span><span class="nl">"fuel_types"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+	   </span><span class="p">{</span><span class="w">
+		   </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Solar - Photovoltaic - Unspecified"</span><span class="p">,</span><span class="w">
+		   </span><span class="nl">"external_reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES"</span><span class="p">,</span><span class="w">
+		   </span><span class="nl">"external_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"T010100"</span><span class="w">
+	   </span><span class="p">},</span><span class="w">
+	   </span><span class="p">{</span><span class="w">
+		   </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fossil - Solid - Hard Coal - Unspecified"</span><span class="p">,</span><span class="w">
+		   </span><span class="nl">"external_reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES"</span><span class="p">,</span><span class="w">
+		   </span><span class="nl">"external_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"F02010100"</span><span class="w">
+	   </span><span class="p">},</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"next"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"previous"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<h4 id="313-technology-list-metadatatechnologies">3.1.3 Technology (LIST) <code class="language-plaintext highlighter-rouge">metadata/technologies</code></h4>
+<p><strong><em>TODO: This depends on if we want to fully adopt <a href="https://www.aib-net.org/sites/default/files/assets/eecs/facts-sheets/AIB-2019-EECSFS-05%20EECS%20Rules%20Fact%20Sheet%2005%20-%20Types%20of%20Energy%20Inputs%20and%20Technologies%20-%20Release%207.7%20v5.pdf">AIB</a> or whether we want to allow for a more flexible solution.</em></strong></p>
+
+<h5 id="response-object-2">Response Object</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">name</code>: - <em>string</em> - (REQUIRED) - A common name to use for the technology. If using AIB codes, it should be a concatenation of the three code descriptions with a dash between (i.e. <code class="language-plaintext highlighter-rouge">Solar - Photovoltaic - Unspecified</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">externalReference</code>: <em>Dict</em> - (OPTIONAL?) - A reference that provides context for this specific technology. <strong><em>TODO: This can be more specifically defined if we decide to go with AIB</em></strong></li>
+</ul>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+   </span><span class="nl">"technologies"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+	   </span><span class="p">{</span><span class="w">
+		   </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mechanical source or other - Wind - Unspecified"</span><span class="p">,</span><span class="w">
+		   </span><span class="nl">"externalReference"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+			   </span><span class="nl">"sourceDocument"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES"</span><span class="p">,</span><span class="w">
+			   </span><span class="nl">"aibCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"F01050100"</span><span class="w">
+		   </span><span class="p">}</span><span class="w">
+	   </span><span class="p">},</span><span class="w">
+	   </span><span class="p">{</span><span class="w">
+		   </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Thermal - Steam engine - Unspecified"</span><span class="p">,</span><span class="w">
+		   </span><span class="nl">"externalReference"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+			   </span><span class="nl">"sourceDocument"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES"</span><span class="p">,</span><span class="w">
+			   </span><span class="nl">"aibCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"T050900"</span><span class="w">
+			 </span><span class="p">}</span><span class="w">
+	   </span><span class="p">},</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"next"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"previous"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="33-powersystemsresources-metadata">3.3 PowerSystemsResources Metadata<a id="endpoints-psrmeta" href="#endpoints-psrmeta" class="permalink">🔗</a></h3>
+
+<p>The primary set of endpoints reference PowerSystemResource (PSR) objects. These objects contain several metadata fields as well as timeseries information such as generation, demand, and capacity.</p>
+
+<h4 id="331-psr-list-power-system-resources">3.3.1 PSR List <code class="language-plaintext highlighter-rouge">/power-system-resources</code></h4>
+<h5 id="request-object">Request Object</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">type</code>: <em>string</em> - (OPTIONAL) - An optional filter to only return PSR objects with the given <em>type</em>.</li>
+</ul>
+
+<h5 id="response-object-3">Response Object</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - (REQUIRED) - The unique identifier representing this resource. It SHOULD be human-readable, and where appropriate, MAY incorporate the <code class="language-plaintext highlighter-rouge">id</code> of its parent objects in order to easily understand its place in the topology. An example of such an id is <code class="language-plaintext highlighter-rouge">US-WECC-CISO</code>. The <code class="language-plaintext highlighter-rouge">id</code> MUST be URL safe.</li>
+  <li><code class="language-plaintext highlighter-rouge">type</code> - <em>string</em> - (REQUIRED) - The id of the resource type for this PowerSystemsResource.</li>
+  <li><code class="language-plaintext highlighter-rouge">name</code> - <em>string</em> - (OPTIONAL) - A descriptive name to provide additional context to the PSR.</li>
+  <li><code class="language-plaintext highlighter-rouge">location</code> - <em>Location</em> - (REQUIRED) - A Location object describing where this PSR exists.</li>
+</ul>
+
+<p><strong><em>TODO: Placeholder spot for where we can decide what rules/guidelines/parameters/suggestions would be good for generating human-readable PSR <code class="language-plaintext highlighter-rouge">id</code>s</em></strong></p>
+
+<h4 id="example-2">Example</h4>
+<p>The following is an example of the endpoint that returns a list of power system resources. This LIST endpoint SHOULD only includes the <code class="language-plaintext highlighter-rouge">id</code>, <code class="language-plaintext highlighter-rouge">name</code>, and <code class="language-plaintext highlighter-rouge">type</code> fields. It MUST not contain fields of undefined size (such as fields that con contain lists or dicts), as this endpoint is meant to be capable of returning several entries.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>==Request==
+GET /power-system-resources HTTP/1.1
+Host: demoutility.com
+
+==Response==
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+</code></pre></div></div>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+</span><span class="nl">"power_system_resources"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+			</span><span class="p">{</span><span class="w">
+		     </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US-WECC"</span><span class="p">,</span><span class="w">
+		     </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Western Electricity Coordinating Council"</span><span class="p">,</span><span class="w">
+		     </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Interconnection"</span><span class="w">
+			</span><span class="p">},</span><span class="w">
+			</span><span class="p">{</span><span class="w">
+		     </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US-WECC-CISO"</span><span class="p">,</span><span class="w">
+		     </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"California ISO"</span><span class="p">,</span><span class="w">
+		     </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Balancing Area"</span><span class="w">
+			</span><span class="p">},</span><span class="w">
+			</span><span class="p">{</span><span class="w">
+		     </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US-WECC-CISO-ABC-HYDRO"</span><span class="p">,</span><span class="w">
+		     </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hydropower Plant in ABC"</span><span class="p">,</span><span class="w">
+		     </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Generating Plant"</span><span class="w">
+			</span><span class="p">},</span><span class="w">
+	</span><span class="p">],</span><span class="w">
+  </span><span class="nl">"next"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"previous"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<h4 id="psr-describe-power-system-resourcesiddescribe">PSR Describe <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/describe</code></h4>
+
+<h5 id="response-object-4">Response Object</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - REQUIRED - The <code class="language-plaintext highlighter-rouge">id</code> of the PowerSystemResource associated with this location.</li>
+  <li><code class="language-plaintext highlighter-rouge">describe</code>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">asset_info</code> - <em>Array[<a href="https://zepben.github.io/evolve/docs/cim/cim100/TC57CIM/IEC61968/Assets/AssetInfo/">AssetInfo</a>]</em> - (OPTIONAL) - A list of additional information associated with that PSR.</li>
+      <li><code class="language-plaintext highlighter-rouge">location</code> - (OPTIONAL)
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">main_address</code> - <a href="https://zepben.github.io/evolve/docs/cim/evolve/IEC61968/Common/StreetAddress">StreetAddress</a> - (OPTIONAL)
+            <ul>
+              <li><code class="language-plaintext highlighter-rouge">postal_code</code></li>
+              <li><code class="language-plaintext highlighter-rouge">town_detail</code> - TownDetail
+                <ul>
+                  <li><code class="language-plaintext highlighter-rouge">name</code></li>
+                  <li><code class="language-plaintext highlighter-rouge">state_or_province</code></li>
+                </ul>
+              </li>
+              <li><code class="language-plaintext highlighter-rouge">street_detail</code> - StreetDetail
+                <ul>
+                  <li><code class="language-plaintext highlighter-rouge">building_name</code></li>
+                  <li><code class="language-plaintext highlighter-rouge">display_address</code></li>
+                  <li>…</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><code class="language-plaintext highlighter-rouge">description</code> - <em>string</em> - (OPTIONAL)</li>
+          <li><code class="language-plaintext highlighter-rouge">geojson</code> - <em>geojson</em> - (OPTIONAL)</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>The following endpoint returns the location information for a specific PSR.</p>
+
+<h5 id="example-3">Example</h5>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>==Request==
+GET /power-system-resources/US-WECC-CISO/describe HTTP/1.1
+Host: demoutility.com
+
+==Response==
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+</code></pre></div></div>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US-WECC-CISO"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"describe"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"location"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+	    </span><span class="nl">"geojson"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+		    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FeatureCollection"</span><span class="p">,</span><span class="w">
+		    </span><span class="nl">"features"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+		    </span><span class="p">{</span><span class="w">
+	           </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Feature"</span><span class="p">,</span><span class="w">
+	           </span><span class="nl">"geometry"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+	               </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Polygon"</span><span class="p">,</span><span class="w">
+	               </span><span class="nl">"coordinates"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+	                   </span><span class="p">[[</span><span class="mf">-122.376131</span><span class="p">,</span><span class="w"> </span><span class="mf">42.009499</span><span class="p">],</span><span class="err">...</span><span class="p">]</span><span class="w">
+	               </span><span class="p">]</span><span class="w">
+			       </span><span class="p">}</span><span class="w">
+			  </span><span class="p">},</span><span class="w">
+		  </span><span class="p">]</span><span class="w">
+		</span><span class="p">},</span><span class="w">
+  </span><span class="nl">"next"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"previous"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h4 id="psr-topology-power-system-resourcesidtopology">PSR Topology <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/topology</code></h4>
+
+<p>The topology endpoint provides a means for understanding how each PSR relates to others.</p>
+
+<h5 id="request-object-1">Request Object</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">numLevels</code> - <em>integer</em> - Number of levels above and below the requested PSR to return in the response. A value of <em>1</em> means that it will only return that PSR’s direct parent and children.</li>
+</ul>
+
+<h5 id="response-object-5">Response Object</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - REQUIRED - The <code class="language-plaintext highlighter-rouge">id</code> of the PowerSystemResource associated with this location.</li>
+  <li><code class="language-plaintext highlighter-rouge">topology</code> - <em>Object</em>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">parent</code> - <em>Object</em> - (OPTIONAL)
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">id</code> - <em>String</em> The unique identifier representing the <em>id</em> of the PSR that is one level above in the topology.</li>
+          <li><code class="language-plaintext highlighter-rouge">parent</code> - <em>Object</em> - (OPTIONAL)
+            <ul>
+              <li>…</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><code class="language-plaintext highlighter-rouge">connectedSiblings</code> - <em>Array</em> - (OPTIONAL)
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">id</code> - <em>String</em> - A unique identifier representing the <em>id</em> of a PSR that has some transmission-based connection.</li>
+          <li><code class="language-plaintext highlighter-rouge">connectedSiblings</code> - <em>Array</em> - (OPTIONAL)
+    - <code class="language-plaintext highlighter-rouge">id</code> - <em>String</em></li>
+        </ul>
+      </li>
+      <li><code class="language-plaintext highlighter-rouge">children</code> - <em>Array</em> - (OPTIONAL)
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">id</code> - <em>String</em> - A unique identifier representing the <em>id</em> of a PSR that is one level below in the topology.</li>
+          <li><code class="language-plaintext highlighter-rouge">connectedSiblings</code> - <em>Array</em> - (OPTIONAL)</li>
+          <li><code class="language-plaintext highlighter-rouge">children</code> - <em>Array</em> - (OPTIONAL)
+            <ul>
+              <li>…
+```
+==Request==
+GET /power-system-resources/US-WECC-CISO/topology?numLevels=2 HTTP/1.1
+Host: demoutility.com</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>==Response==
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```json
+{
+  "id": "US-WECC-CISO",
+  "topology": {
+	  "parent": {"id": "US-WECC"},
+	  "connectedSiblings": {"id": "US-ERCOT"},
+	  "children": [
+			  {"id": "US-WECC-CISO-ABC", "children": []}
+			],
+	},
+  "next": null,
+  "previous": null
+}
+</code></pre></div></div>
+
+<h4 id="psr-capacity-power-system-resourcesidcapacity">PSR Capacity <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/capacity</code></h4>
+
+<p>The capacity endpoint provides a means for providing capacity information by fuel type and technology.</p>
+
+<h5 id="response-object-6">Response Object</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - REQUIRED - The <code class="language-plaintext highlighter-rouge">id</code> of the PowerSystemResource associated with this location.</li>
+  <li><code class="language-plaintext highlighter-rouge">unit</code> - <em>string</em> - (REQUIRED) - For electricity, SHOULD be one of:  [<code class="language-plaintext highlighter-rouge">MW</code>, <code class="language-plaintext highlighter-rouge">kW</code>, <code class="language-plaintext highlighter-rouge">W</code>]</li>
+  <li><code class="language-plaintext highlighter-rouge">capacity</code> - <em>Array</em>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">technology</code> - <em>String</em> - (OPTIONAL) - <em>id</em> of the technology that this fuel type used for generation.
+    - <code class="language-plaintext highlighter-rouge">fuel_source</code> - <em>String</em> - (REQUIRED) - <em>id</em> of the fuel source used for generation.
+    - <code class="language-plaintext highlighter-rouge">value</code> - <em>float</em> - A value of the amount of generation that took place at this PSR using the given <em>technology</em> and <em>fuel_source</em>.
+    -  <code class="language-plaintext highlighter-rouge">startDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED) - The datetime MUST be timezone aware. This allows for the defining of historical capacity values and to indicate when new resources came online.</li>
+      <li><code class="language-plaintext highlighter-rouge">endDatetime</code> - <em>ISO8601 Datetime</em> - (OPTIONAL)  - The datetime MUST be timezone aware. This allows for the defining of historical capacity values and to indicate when old resources came offline. An empty value assumes it is still operational.
+```
+==Request==
+GET /power-system-resources/US-WECC-CISO/topology?numLevels=2 HTTP/1.1
+Host: demoutility.com</li>
+    </ul>
+  </li>
+</ul>
+
+<p>==Response==
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```json
+{
+  "id": "US-WECC-CISO",
+  "unit": "MW",
+  "capacity": [
+	  {
+		  "technology": "Thermal - Steam engine - Unspecified",
+		  "fuelSource": "Fossil - Solid - Hard Coal - Unspecified",
+		  "value": 500,
+		  "startDatetime": "2015-06-01 00:00:00+00",
+		  "endDatetime": "2021-06-01T0 :00:00+00",
+	  },
+	  	  {
+		  "technology": "Thermal - Steam engine - Unspecified",
+		  "fuelSource": "Fossil - Solid - Hard Coal - Unspecified",
+		  "value": 500
+	  },
+  ],
+  "next": null,
+  "previous": null
+}
+</code></pre></div></div>
+
+<h4 id="psr-topology-power-system-resourcesidtransmission-capacity">PSR Topology <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/transmission-capacity</code></h4>
+
+<p>The topology endpoint provides a means for understanding how each PSR relates to others.</p>
+
+<h5 id="response-object-7">Response Object</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">id</code> - <em>String</em> - REQUIRED - The <code class="language-plaintext highlighter-rouge">id</code> of the PowerSystemResource associated with this location.
+ <code class="language-plaintext highlighter-rouge">unit</code> - <em>String</em> - (REQUIRED) - For electricity, SHOULD be one of:  [<code class="language-plaintext highlighter-rouge">MW</code>, <code class="language-plaintext highlighter-rouge">kW</code>, <code class="language-plaintext highlighter-rouge">W</code>]</li>
+  <li><code class="language-plaintext highlighter-rouge">transmissionCapacity</code> - <em>Array</em>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">connectedPSR</code> - <em>Object</em>
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">id</code>  - <em>String</em> The unique identifier representing the <em>id</em> of the PSR connected to the requested PSR.</li>
+        </ul>
+      </li>
+      <li><code class="language-plaintext highlighter-rouge">value</code> - <em>float</em> - A value of the amount of transmission capacity available between the two PSRs.
+```
+==Request==
+GET /power-system-resources/US-WECC-CISO/transmission-capacity HTTP/1.1
+Host: demoutility.com</li>
+    </ul>
+  </li>
+</ul>
+
+<p>==Response==
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```json
+{
+  "id": "US-WECC-CISO",
+  "unit": "MW",
+  "transmissionCapacity": [
+	  {
+		  "connectedPSR": {"id": "US-WECC-NEVP"},
+		  "value": 100
+	  },
+	  {
+		  "connectedPSR": {"id": "US-WECC-ABCD"},
+		  "value": 50
+	  },...
+	],
+  "next": null,
+  "previous": null
+}
+</code></pre></div></div>
+
+<h3 id="34-powersystemsresources-timeseries-data">3.4 PowerSystemsResources Timeseries Data<a id="endpoints-psrtime" href="#endpoints-psrtime" class="permalink">🔗</a></h3>
+
+<h4 id="psr-generation-power-system-resourcesidgeneration">PSR Generation <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/generation</code></h4>
+<p>A generation object returns a timeseries of values representing energy that was generated at a PSR, as well as a breakdown of that generation by fuel type.</p>
+
+<h5 id="request-object-2">Request Object</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">startDatetime</code> - <em>ISO8601 Datetime</em> -  A datetime indicating that the response should return data where the earliest entry’s <em>startDatetime</em> occurs AT or AFTER the <em>startDatetime</em> specified in the request.</li>
+  <li><code class="language-plaintext highlighter-rouge">endDatetime</code> - <em>ISO8601 Datetime</em> -  A datetime indicating that the response should return data where the earliest entry’s <em>endDatetime</em> occurs AT or BEFORE the <em>endDatetime</em> specified in the request.</li>
+</ul>
+
+<h5 id="response-object-8">Response Object</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - (REQUIRED) - The <code class="language-plaintext highlighter-rouge">id</code> of the Power System Resource associated with this unit of generation.</li>
+  <li><code class="language-plaintext highlighter-rouge">unit</code> - <em>string</em> - (REQUIRED) - For electricity, MUST be one of:  [<code class="language-plaintext highlighter-rouge">MWh</code>, <code class="language-plaintext highlighter-rouge">kWh</code>, <code class="language-plaintext highlighter-rouge">Wh</code>]</li>
+  <li><code class="language-plaintext highlighter-rouge">generation</code> - <em>Array</em>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">startDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED) - The datetime MUST be timezone aware.</li>
+      <li><code class="language-plaintext highlighter-rouge">endDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED)  - The datetime MUST be timezone aware.</li>
+      <li><code class="language-plaintext highlighter-rouge">value</code> - <em>float</em> - (REQUIRED) - A value of the amount of generation that took place at this PSR. A positive number indicates generation.</li>
+      <li><code class="language-plaintext highlighter-rouge">valueByFuelType</code> - <em>Array</em> - (REQUIRED) - Lists of fuel types, technologies, and the amount of generation that comes from that fuel type. The unit for these values MUST be the same as that of the <code class="language-plaintext highlighter-rouge">unit</code> field.
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">technology</code> - <em>String</em> - (OPTIONAL) - <em>id</em> of the technology that this fuel type used for generation.</li>
+          <li><code class="language-plaintext highlighter-rouge">fuel_source</code> - <em>String</em> - (REQUIRED) - <em>id</em> of the fuel source used for generation.</li>
+          <li><code class="language-plaintext highlighter-rouge">value</code> - <em>float</em> - A value of the amount of generation that took place at this PSR using the given <em>technology</em> and <em>fuel_source</em>.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>==Request==
+GET /power-system-resources/US-WECC-CISO/generation?startDatetime=2022-06-01&amp;endDatetime=201-06-02 HTTP/1.1
+Host: demoutility.com
+
+==Response==
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+</code></pre></div></div>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+	</span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US-WECC-CISO"</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MWh"</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"generation"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+	  </span><span class="p">{</span><span class="w">
+		  </span><span class="nl">"startDatetime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-06-01 00:00:00+00"</span><span class="p">,</span><span class="w">
+		  </span><span class="nl">"endDatetime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-06-01 01:00:00+00"</span><span class="p">,</span><span class="w">
+		  </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">10.5</span><span class="p">,</span><span class="w">
+		  </span><span class="nl">"valueByFuelType"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+			  </span><span class="p">{</span><span class="w">
+			    </span><span class="nl">"technology"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Thermal - Steam engine - Unspecified"</span><span class="p">,</span><span class="w">
+			    </span><span class="nl">"fuelSource"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fossil - Solid - Hard Coal - Unspecified"</span><span class="p">,</span><span class="w">
+			    </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">5.0</span><span class="w">
+			  </span><span class="p">},</span><span class="w">
+			  </span><span class="p">{</span><span class="w">
+			    </span><span class="nl">"technology"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Solar - Photovoltaic - Unspecified"</span><span class="p">,</span><span class="w">
+			    </span><span class="nl">"fuelSource"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Renewables - Heating and Cooling - Solar"</span><span class="p">,</span><span class="w">
+			    </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">10.5</span><span class="w">
+			  </span><span class="p">},</span><span class="w">
+			</span><span class="err">}</span><span class="p">,</span><span class="err">...</span><span class="w">
+	  </span><span class="err">}</span><span class="w">
+	</span><span class="p">],</span><span class="w">
+	</span><span class="nl">"next"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"previous"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h4 id="psr-demand-power-system-resourcesiddemand">PSR Demand <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/demand</code></h4>
+<p>A demand object returns a timeseries of values representing energy that was demanded at a PSR.</p>
+
+<h5 id="request-object-3">Request Object</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">startDatetime</code> - <em>ISO8601 Datetime</em> -  A datetime indicating that the response should return data where the earliest entry’s <em>startDatetime</em> occurs AT or AFTER the <em>startDatetime</em> specified in the request.</li>
+  <li><code class="language-plaintext highlighter-rouge">endDatetime</code> - <em>ISO8601 Datetime</em> -  A datetime indicating that the response should return data where the earliest entry’s <em>endDatetime</em> occurs AT or BEFORE the <em>endDatetime</em> specified in the request.</li>
+</ul>
+
+<h5 id="response-object-9">Response Object</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - (REQUIRED) - The <code class="language-plaintext highlighter-rouge">id</code> of the Power System Resource associated with this demand.</li>
+  <li><code class="language-plaintext highlighter-rouge">unit</code> - <em>string</em> - (REQUIRED) - For electricity, SHOULD be one of:  [<code class="language-plaintext highlighter-rouge">MWh</code>, <code class="language-plaintext highlighter-rouge">kWh</code>, <code class="language-plaintext highlighter-rouge">Wh</code>]</li>
+  <li><code class="language-plaintext highlighter-rouge">demand</code> - <em>Array</em>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">startDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED) - The datetime MUST be timezone aware.</li>
+      <li><code class="language-plaintext highlighter-rouge">endDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED)  - The datetime MUST be timezone aware.</li>
+      <li><code class="language-plaintext highlighter-rouge">value</code> - <em>float</em> - (REQUIRED) - A value of the amount of demand that took place at this PSR. A positive number indicates demand that was needed. A negative number represents energy that was generated by un-registered demand-side resources.
+```
+==Request==
+GET /power-system-resources/US-WECC-CISO/demand?startDatetime=2022-01-01&amp;endDatetime=2023-01-01 HTTP/1.1
+Host: demoutility.com</li>
+    </ul>
+  </li>
+</ul>
+
+<p>==Response==
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```json
+{
+	"id": "US-WECC-CISO",
+	"unit": "MWh",
+	"demand": [
+	  {
+		  "startDatetime": "2021-06-01 00:00:00+00",
+		  "endDatetime": "2021-06-01 01:00:00+00",
+		  "value": 10.5,
+	  },...
+	],
+	"next": null,
+	"previous": null
+}
+</code></pre></div></div>
+
+<h4 id="psr-imports-power-system-resourcesidimports">PSR Imports <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/imports</code></h4>
+<p>An import object returns a timeseries of values representing energy that was imported at a PSR.</p>
+
+<h5 id="request-object-4">Request Object</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">startDatetime</code> - <em>ISO8601 Datetime</em> -  A datetime indicating that the response should return data where the earliest entry’s <em>startDatetime</em> occurs AT or AFTER the <em>startDatetime</em> specified in the request.</li>
+  <li><code class="language-plaintext highlighter-rouge">endDatetime</code> - <em>ISO8601 Datetime</em> -  A datetime indicating that the response should return data where the earliest entry’s <em>endDatetime</em> occurs AT or BEFORE the <em>endDatetime</em> specified in the request.</li>
+</ul>
+
+<h5 id="response-object-10">Response Object</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - (REQUIRED) - The <code class="language-plaintext highlighter-rouge">id</code> of the Power System Resource associated with this import.</li>
+  <li><code class="language-plaintext highlighter-rouge">unit</code> - <em>string</em> - (REQUIRED) - For electricity, SHOULD be one of:  [<code class="language-plaintext highlighter-rouge">MWh</code>, <code class="language-plaintext highlighter-rouge">kWh</code>, <code class="language-plaintext highlighter-rouge">Wh</code>]</li>
+  <li><code class="language-plaintext highlighter-rouge">imports</code> - <em>Array</em>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">startDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED) - The datetime MUST be timezone aware.</li>
+      <li><code class="language-plaintext highlighter-rouge">endDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED)  - The datetime MUST be timezone aware.</li>
+      <li><code class="language-plaintext highlighter-rouge">value</code> - <em>positive float</em> - (REQUIRED) - A value of the amount of energy imported by this PSR. The value must be 0 or a positive value (exports should be provided in the other endpoint).
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">valueByConnectedPSR</code> - <em>Array</em> - (REQUIRED) - Key-value pairs of the connected PSR that this PSR is importing energy from and the amount of energy that comes from that PSR. The unit for these values MUST be the same as that of the <code class="language-plaintext highlighter-rouge">unit</code> field.</li>
+          <li><code class="language-plaintext highlighter-rouge">connectedPSR</code> - <em>String</em></li>
+          <li><code class="language-plaintext highlighter-rouge">value</code> - <em>positive float</em> - A value of the amount of energy imported from the <code class="language-plaintext highlighter-rouge">connectedPSR</code>. he value must be 0 or a positive value (exports should be provided in the other endpoint).
+```
+==Request==
+GET /power-system-resources/US-WECC-CISO/imports?startDatetime=2022-01-01&amp;endDatetime=2023-01-01 HTTP/1.1
+Host: demoutility.com</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>==Response==
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```json
+{
+	"id": "US-WECC-CISO",
+	"unit": "MWh",
+	"imports": [
+	  {
+		  "startDatetime": "2021-06-01 00:00:00+00",
+		  "endDatetime": "2021-06-01 01:00:00+00",
+		  "value": 10.5,
+		   "importByConnectedPSR": [
+			  {
+			    "connectedPSR": "US-WECC-LADWP",
+			    "value": 5.5
+			  },
+			  {
+			    "connectedPSR": "US-WECC-BANC",
+			    "value": 5
+			  },
+			},...
+	  },...
+	],
+	"next": null,
+	"previous": null
+}
+</code></pre></div></div>
+
+<h4 id="psr-exports-power-system-resourcesidexports">PSR Exports <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/exports</code></h4>
+<p>An export object returns a timeseries of values representing energy that was exported to a PSR.</p>
+
+<h5 id="request-object-5">Request Object</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">startDatetime</code> - <em>ISO8601 Datetime</em> -  A datetime indicating that the response should return data where the earliest entry’s <em>startDatetime</em> occurs AT or AFTER the <em>startDatetime</em> specified in the request.</li>
+  <li><code class="language-plaintext highlighter-rouge">endDatetime</code> - <em>ISO8601 Datetime</em> -  A datetime indicating that the response should return data where the earliest entry’s <em>endDatetime</em> occurs AT or BEFORE the <em>endDatetime</em> specified in the request.</li>
+</ul>
+
+<h5 id="response-object-11">Response Object</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - (REQUIRED) - The <code class="language-plaintext highlighter-rouge">id</code> of the Power System Resource associated with this export.</li>
+  <li><code class="language-plaintext highlighter-rouge">unit</code> - <em>string</em> - (REQUIRED) - For electricity, SHOULD be one of:  [<code class="language-plaintext highlighter-rouge">MWh</code>, <code class="language-plaintext highlighter-rouge">kWh</code>, <code class="language-plaintext highlighter-rouge">Wh</code>]</li>
+  <li><code class="language-plaintext highlighter-rouge">exports</code> - <em>Array</em>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">startDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED) - The datetime MUST be timezone aware.</li>
+      <li><code class="language-plaintext highlighter-rouge">endDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED)  - The datetime MUST be timezone aware.</li>
+      <li><code class="language-plaintext highlighter-rouge">value</code> - <em>positive float</em> - (REQUIRED) - A value of the amount of energy exported by this PSR. The value must be 0 or a positive value (imports should be provided in the other endpoint).
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">valueByConnectedPSR</code> - <em>Array</em> - (REQUIRED) - Key-value pairs of the connected PSR that this PSR is exporting energy to and the amount of energy that comes from that PSR. The unit for these values MUST be the same as that of the <code class="language-plaintext highlighter-rouge">unit</code> field.</li>
+          <li><code class="language-plaintext highlighter-rouge">connectedPSR</code> - <em>String</em></li>
+          <li><code class="language-plaintext highlighter-rouge">value</code> - <em>positive float</em> - A value of the amount of energy exported to the <code class="language-plaintext highlighter-rouge">connectedPSR</code>. The value must be 0 or a positive value (exports should be provided in the other endpoint).
+```
+==Request==
+GET /power-system-resources/US-WECC-CISO/exports?startDatetime=2022-01-01&amp;endDatetime=2023-01-01 HTTP/1.1
+Host: demoutility.com</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>==Response==
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```json
+{
+	"id": "US-WECC-CISO",
+	"unit": "MWh",
+	"exports": [
+	  {
+		  "startDatetime": "2021-06-01 00:00:00+00",
+		  "endDatetime": "2021-06-01 01:00:00+00",
+		  "value": 10.5,
+		   "exportByConnectedPSR": [
+			  {
+			    "connectedPSR": "US-WECC-LADWP",
+			    "value": 5.5
+			  },
+			  {
+			    "connectedPSR": "US-WECC-BANC",
+			    "value": 5.0
+			  },
+			},...
+	  },...
+	],
+	"next": null,
+	"previous": null
+}
+</code></pre></div></div>
+
+<h4 id="psr-prices-power-system-resourcesidprice">PSR Prices <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/price</code></h4>
+<p>A demand object returns a timeseries of values representing energy that was demanded at a PSR.</p>
+
+<h5 id="request-object-6">Request Object</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">startDatetime</code> - <em>ISO8601 Datetime</em> -  A datetime indicating that the response should return data where the earliest entry’s <em>startDatetime</em> occurs AT or AFTER the <em>startDatetime</em> specified in the request.</li>
+  <li><code class="language-plaintext highlighter-rouge">endDatetime</code> - <em>ISO8601 Datetime</em> -  A datetime indicating that the response should return data where the earliest entry’s <em>endDatetime</em> occurs AT or BEFORE the <em>endDatetime</em> specified in the request.</li>
+  <li><code class="language-plaintext highlighter-rouge">timeframe</code> - <em>Enum</em> - One of <code class="language-plaintext highlighter-rouge">day-ahead</code>, <code class="language-plaintext highlighter-rouge">hour-ahead</code>, <code class="language-plaintext highlighter-rouge">real-time</code></li>
+</ul>
+
+<h5 id="response-object-12">Response Object</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - (REQUIRED) - The <code class="language-plaintext highlighter-rouge">id</code> of the Power System Resource associated with this demand.</li>
+  <li><code class="language-plaintext highlighter-rouge">unit</code> - <em>string</em> - (REQUIRED) - Should be a a currency code in accordance with the <a href="https://www.iso.org/iso-4217-currency-codes.html">ISO 4217</a> standard.</li>
+  <li><code class="language-plaintext highlighter-rouge">timeframe</code> - <em>String</em> The selected <code class="language-plaintext highlighter-rouge">timeframe</code> from the request object</li>
+  <li><code class="language-plaintext highlighter-rouge">demand</code> - <em>Array</em>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">startDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED) - The datetime MUST be timezone aware.</li>
+      <li><code class="language-plaintext highlighter-rouge">endDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED)  - The datetime MUST be timezone aware.</li>
+      <li><code class="language-plaintext highlighter-rouge">value</code> - <em>float</em> - (REQUIRED) - A value of the price of energy  took place at this PSR.
+```
+==Request==
+GET /power-system-resources/US-WECC-CISO/price?startDatetime=2022-01-01&amp;endDatetime=2023-01-01 HTTP/1.1
+Host: demoutility.com</li>
+    </ul>
+  </li>
+</ul>
+
+<p>==Response==
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```json
+{
+	"id": "US-WECC-CISO",
+	"unit": "USD",
+	"price": [
+	  {
+		  "startDatetime": "2021-06-01 00:00:00+00",
+		  "endDatetime": "2021-06-01 01:00:00+00",
+		  "value": 10.5,
+	  },...
+	],
+	"next": null,
+	"previous": null
+}
+</code></pre></div></div>
+
+<h4 id="psr-generation-power-system-resourcesidcurtailment">PSR Generation <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/curtailment</code></h4>
+<p>A curtailment object returns a timeseries of values representing energy that was generated at a PSR, as well as a breakdown of that generation by fuel type.</p>
+
+<h5 id="request-object-7">Request Object</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">startDatetime</code> - <em>ISO8601 Datetime</em> -  A datetime indicating that the response should return data where the earliest entry’s <em>startDatetime</em> occurs AT or AFTER the <em>startDatetime</em> specified in the request.</li>
+  <li><code class="language-plaintext highlighter-rouge">endDatetime</code> - <em>ISO8601 Datetime</em> -  A datetime indicating that the response should return data where the earliest entry’s <em>endDatetime</em> occurs AT or BEFORE the <em>endDatetime</em> specified in the request.</li>
+</ul>
+
+<h5 id="response-object-13">Response Object</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - (REQUIRED) - The <code class="language-plaintext highlighter-rouge">id</code> of the Power System Resource associated with this unit of curtailment.</li>
+  <li><code class="language-plaintext highlighter-rouge">unit</code> - <em>string</em> - (REQUIRED) - For electricity, MUST be one of:  [<code class="language-plaintext highlighter-rouge">MWh</code>, <code class="language-plaintext highlighter-rouge">kWh</code>, <code class="language-plaintext highlighter-rouge">Wh</code>]</li>
+  <li><code class="language-plaintext highlighter-rouge">generation</code> - <em>Array</em>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">startDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED) - The datetime MUST be timezone aware.</li>
+      <li><code class="language-plaintext highlighter-rouge">endDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED)  - The datetime MUST be timezone aware.</li>
+      <li><code class="language-plaintext highlighter-rouge">value</code> - <em>float</em> - (REQUIRED) - A value of the amount of curtailment that took place at this PSR. A positive number indicates curtailment.</li>
+      <li><code class="language-plaintext highlighter-rouge">valueByFuelType</code> - <em>Array</em> - (REQUIRED) - Lists of fuel types, technologies, and the amount of curtailment that occurs at that fuel type. The unit for these values MUST be the same as that of the <code class="language-plaintext highlighter-rouge">unit</code> field.
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">technology</code> - <em>String</em> - (OPTIONAL) - <em>id</em> of the technology that this fuel type used for curtailment.</li>
+          <li><code class="language-plaintext highlighter-rouge">fuel_source</code> - <em>String</em> - (REQUIRED) - <em>id</em> of the fuel source used for curtailment.</li>
+          <li><code class="language-plaintext highlighter-rouge">value</code> - <em>float</em> - A value of the amount of curtailment that took place at this PSR using the given <em>technology</em> and <em>fuel_source</em>.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>==Request==
+GET /power-system-resources/US-WECC-CISO/curtailment?startDatetime=2022-06-01&amp;endDatetime=201-06-02 HTTP/1.1
+Host: demoutility.com
+
+==Response==
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+</code></pre></div></div>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+	</span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US-WECC-CISO"</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MWh"</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"curtailment"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+	  </span><span class="p">{</span><span class="w">
+		  </span><span class="nl">"startDatetime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-06-01 00:00:00+00"</span><span class="p">,</span><span class="w">
+		  </span><span class="nl">"endDatetime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-06-01 01:00:00+00"</span><span class="p">,</span><span class="w">
+		  </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">10.5</span><span class="p">,</span><span class="w">
+		  </span><span class="nl">"valueByFuelType"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+			  </span><span class="p">{</span><span class="w">
+			    </span><span class="nl">"technology"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Thermal - Steam engine - Unspecified"</span><span class="p">,</span><span class="w">
+			    </span><span class="nl">"fuelSource"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fossil - Solid - Hard Coal - Unspecified"</span><span class="p">,</span><span class="w">
+			    </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">5.0</span><span class="w">
+			  </span><span class="p">},</span><span class="w">
+			  </span><span class="p">{</span><span class="w">
+			    </span><span class="nl">"technology"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Solar - Photovoltaic - Unspecified"</span><span class="p">,</span><span class="w">
+			    </span><span class="nl">"fuelSource"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Renewables - Heating and Cooling - Solar"</span><span class="p">,</span><span class="w">
+			    </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">10.5</span><span class="w">
+			  </span><span class="p">},</span><span class="w">
+			</span><span class="err">}</span><span class="p">,</span><span class="err">...</span><span class="w">
+	  </span><span class="err">}</span><span class="w">
+	</span><span class="p">],</span><span class="w">
+	</span><span class="nl">"next"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"previous"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
 
 <hr />
 
