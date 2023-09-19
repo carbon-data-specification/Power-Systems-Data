@@ -190,6 +190,7 @@ The main changes compared to the previous edition are as follows:
 <p>The following is a list of the endpoints that will be subsequently defined in this section.</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Metadata
 /metadata/topology-types (LIST)
+/metadata/fuel-types (LIST)
 /metadata/technologies (LIST)
 /power-system-resources (LIST) 
 # PSR-Specific Metadata
@@ -212,12 +213,12 @@ The main changes compared to the previous edition are as follows:
 
 <h5 id="response-object">Response Object</h5>
 <ul>
-  <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - (REQUIRED) - The unique identifier representing this resource. It SHOULD be human-readable, such as <code class="language-plaintext highlighter-rouge">US-WECC-CISO</code>.</li>
-  <li><code class="language-plaintext highlighter-rouge">level</code> - int - (OPTIONAL) - A number representing the hierarchy of this resource topology in relation to the other resource types. These levels MUST include a sequential set of positive integers starting at 0.
+  <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - (REQUIRED) - The unique identifier representing this resource. It <strong>may</strong> be human-readable, such as <code class="language-plaintext highlighter-rouge">US-WECC-CISO</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">level</code> - int - (OPTIONAL) - A number representing the hierarchy of this resource topology in relation to the other resource types. These levels <strong>shall</strong> include a sequential set of positive integers starting at 0.
     <h5 id="example">Example</h5>
     <p>```
 ==Request==
-GET metadata/resource-types HTTP/1.1
+GET metadata/topology-types HTTP/1.1
 Host: demoutility.com</p>
   </li>
 </ul>
@@ -253,8 +254,8 @@ Content-Type: application/json;charset=UTF-8</p>
   "previous": null
 }
 </code></pre></div></div>
-<h5 id="reference-resourcetypes">Reference ResourceTypes</h5>
-<p>The following table shows an example list of resource types for US and European Grids:
+<h5 id="reference-topologytypes">Reference TopologyTypes</h5>
+<p>The following table shows an example list of topology types for US and European Grids:
 |Level|US Grid|European Grid|CIM|
 |–|–|–|–|
 |0|Interconnection|Synchronous area|GeographicalRegion |
@@ -265,7 +266,7 @@ Content-Type: application/json;charset=UTF-8</p>
 |5|Meter (Generator or Load)|Metering Grid Area, MeteringPoint|GeneratingUnit |</p>
 
 <h4 id="312-fuel-type-list-metadatafuel-types">3.1.2 Fuel Type (LIST) <code class="language-plaintext highlighter-rouge">metadata/fuel-types</code></h4>
-<p><strong><em>TODO: This depends on if we want to fully adopt AIB or whether we want to allow for a more flexible solution.</em></strong></p>
+<p><strong><em>TODO: This depends on if we want to fully adopt AIB or whether we want to allow for a more flexible solution.</em></strong> <a href="https://github.com/carbon-data-specification/Power-Systems-Data/issues/72">Github Issue</a></p>
 
 <h5 id="response-object-1">Response Object</h5>
 <ul>
@@ -301,12 +302,12 @@ Content-Type: application/json;charset=UTF-8
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
 <h4 id="313-technology-list-metadatatechnologies">3.1.3 Technology (LIST) <code class="language-plaintext highlighter-rouge">metadata/technologies</code></h4>
-<p><strong><em>TODO: This depends on if we want to fully adopt <a href="https://www.aib-net.org/sites/default/files/assets/eecs/facts-sheets/AIB-2019-EECSFS-05%20EECS%20Rules%20Fact%20Sheet%2005%20-%20Types%20of%20Energy%20Inputs%20and%20Technologies%20-%20Release%207.7%20v5.pdf">AIB</a> or whether we want to allow for a more flexible solution.</em></strong></p>
+<p><strong><em>TODO: This depends on if we want to fully adopt <a href="https://www.aib-net.org/sites/default/files/assets/eecs/facts-sheets/AIB-2019-EECSFS-05%20EECS%20Rules%20Fact%20Sheet%2005%20-%20Types%20of%20Energy%20Inputs%20and%20Technologies%20-%20Release%207.7%20v5.pdf">AIB</a> or whether we want to allow for a more flexible solution.</em></strong> <a href="https://github.com/carbon-data-specification/Power-Systems-Data/issues/72">Github Issue</a></p>
 
 <h5 id="response-object-2">Response Object</h5>
 <ul>
   <li><code class="language-plaintext highlighter-rouge">name</code>: - <em>string</em> - (REQUIRED) - A common name to use for the technology. If using AIB codes, it should be a concatenation of the three code descriptions with a dash between (i.e. <code class="language-plaintext highlighter-rouge">Solar - Photovoltaic - Unspecified</code>)</li>
-  <li><code class="language-plaintext highlighter-rouge">externalReference</code>: <em>Dict</em> - (OPTIONAL?) - A reference that provides context for this specific technology. <strong><em>TODO: This can be more specifically defined if we decide to go with AIB</em></strong></li>
+  <li><code class="language-plaintext highlighter-rouge">externalReference</code>: <em>Dict</em> - (OPTIONAL?) - A reference that provides context for this specific technology. <strong><em>TODO: This can be more specifically defined if we decide to go with AIB</em></strong> <a href="https://github.com/carbon-data-specification/Power-Systems-Data/issues/72">Github Issue</a></li>
 </ul>
 
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
@@ -349,7 +350,7 @@ Content-Type: application/json;charset=UTF-8
   <li><code class="language-plaintext highlighter-rouge">location</code> - <em>Location</em> - (REQUIRED) - A Location object describing where this PSR exists.</li>
 </ul>
 
-<p><strong><em>TODO: Placeholder spot for where we can decide what rules/guidelines/parameters/suggestions would be good for generating human-readable PSR <code class="language-plaintext highlighter-rouge">id</code>s</em></strong></p>
+<p><strong><em>TODO: Placeholder spot for where we can decide what rules/guidelines/parameters/suggestions would be good for generating human-readable PSR <code class="language-plaintext highlighter-rouge">id</code>s</em></strong> <a href="https://github.com/carbon-data-specification/Power-Systems-Data/issues/80">Github Issue</a></p>
 
 <h4 id="example-2">Example</h4>
 <p>The following is an example of the endpoint that returns a list of power system resources. This LIST endpoint SHOULD only includes the <code class="language-plaintext highlighter-rouge">id</code>, <code class="language-plaintext highlighter-rouge">name</code>, and <code class="language-plaintext highlighter-rouge">type</code> fields. It MUST not contain fields of undefined size (such as fields that con contain lists or dicts), as this endpoint is meant to be capable of returning several entries.</p>
