@@ -57,6 +57,7 @@ The following is a list of the endpoints that will be subsequently defined in th
 ```
 # Metadata
 /metadata/topology-types (LIST)
+/metadata/fuel-types (LIST)
 /metadata/technologies (LIST)
 /power-system-resources (LIST) 
 # PSR-Specific Metadata
@@ -78,12 +79,12 @@ ResourceType objects represent a specific hierarchical level of the grid.
 #### 3.1.1 Topology Type (List) `metadata/topology-types`
 
 ##### Response Object
-- `id` - _string_ - (REQUIRED) - The unique identifier representing this resource. It SHOULD be human-readable, such as `US-WECC-CISO`.
-- `level` - int - (OPTIONAL) - A number representing the hierarchy of this resource topology in relation to the other resource types. These levels MUST include a sequential set of positive integers starting at 0.
+- `id` - _string_ - (REQUIRED) - The unique identifier representing this resource. It **may** be human-readable, such as `US-WECC-CISO`.
+- `level` - int - (OPTIONAL) - A number representing the hierarchy of this resource topology in relation to the other resource types. These levels **shall** include a sequential set of positive integers starting at 0.
 ##### Example
 ```
 ==Request==
-GET metadata/resource-types HTTP/1.1
+GET metadata/topology-types HTTP/1.1
 Host: demoutility.com
 
 ==Response==
@@ -118,8 +119,8 @@ Content-Type: application/json;charset=UTF-8
   "previous": null
 }
 ```
-##### Reference ResourceTypes
-The following table shows an example list of resource types for US and European Grids:
+##### Reference TopologyTypes
+The following table shows an example list of topology types for US and European Grids:
 |Level|US Grid|European Grid|CIM|
 |--|--|--|--|
 |0|Interconnection|Synchronous area|GeographicalRegion |
@@ -130,7 +131,7 @@ The following table shows an example list of resource types for US and European 
 |5|Meter (Generator or Load)|Metering Grid Area, MeteringPoint|GeneratingUnit |
 
 #### 3.1.2 Fuel Type (LIST) `metadata/fuel-types`
-***TODO: This depends on if we want to fully adopt AIB or whether we want to allow for a more flexible solution.***
+***TODO: This depends on if we want to fully adopt AIB or whether we want to allow for a more flexible solution.*** [Github Issue](https://github.com/carbon-data-specification/Power-Systems-Data/issues/72)
 
 ##### Response Object
 - `name`: - _string_ - (REQUIRED) - A common name to use for the fuel type. If using AIB codes, it should be a concatenation of the three code descriptions with a dash between (i.e. `Solar - Photovoltaic - Unspecified`)
@@ -166,11 +167,11 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 #### 3.1.3 Technology (LIST) `metadata/technologies`
-***TODO: This depends on if we want to fully adopt [AIB](https://www.aib-net.org/sites/default/files/assets/eecs/facts-sheets/AIB-2019-EECSFS-05%20EECS%20Rules%20Fact%20Sheet%2005%20-%20Types%20of%20Energy%20Inputs%20and%20Technologies%20-%20Release%207.7%20v5.pdf) or whether we want to allow for a more flexible solution.***
+***TODO: This depends on if we want to fully adopt [AIB](https://www.aib-net.org/sites/default/files/assets/eecs/facts-sheets/AIB-2019-EECSFS-05%20EECS%20Rules%20Fact%20Sheet%2005%20-%20Types%20of%20Energy%20Inputs%20and%20Technologies%20-%20Release%207.7%20v5.pdf) or whether we want to allow for a more flexible solution.*** [Github Issue](https://github.com/carbon-data-specification/Power-Systems-Data/issues/72)
 
 ##### Response Object
 - `name`: - _string_ - (REQUIRED) - A common name to use for the technology. If using AIB codes, it should be a concatenation of the three code descriptions with a dash between (i.e. `Solar - Photovoltaic - Unspecified`)
-- `externalReference`: _Dict_ - (OPTIONAL?) - A reference that provides context for this specific technology. ***TODO: This can be more specifically defined if we decide to go with AIB***
+- `externalReference`: _Dict_ - (OPTIONAL?) - A reference that provides context for this specific technology. ***TODO: This can be more specifically defined if we decide to go with AIB*** [Github Issue](https://github.com/carbon-data-specification/Power-Systems-Data/issues/72)
 
 
 ```json
@@ -210,7 +211,7 @@ The primary set of endpoints reference PowerSystemResource (PSR) objects. These 
 -  `name` - _string_ - (OPTIONAL) - A descriptive name to provide additional context to the PSR.
 - `location` - _Location_ - (REQUIRED) - A Location object describing where this PSR exists.
 
-***TODO: Placeholder spot for where we can decide what rules/guidelines/parameters/suggestions would be good for generating human-readable PSR `id`s***
+***TODO: Placeholder spot for where we can decide what rules/guidelines/parameters/suggestions would be good for generating human-readable PSR `id`s*** [Github Issue](https://github.com/carbon-data-specification/Power-Systems-Data/issues/80)
 
 #### Example
 The following is an example of the endpoint that returns a list of power system resources. This LIST endpoint SHOULD only includes the `id`, `name`, and `type` fields. It MUST not contain fields of undefined size (such as fields that con contain lists or dicts), as this endpoint is meant to be capable of returning several entries.
