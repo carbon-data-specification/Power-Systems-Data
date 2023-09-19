@@ -531,10 +531,10 @@ Content-Type: application/json;charset=UTF-8</p>
   <li><code class="language-plaintext highlighter-rouge">unit</code> - <em>string</em> - (REQUIRED) - For electricity, SHOULD be one of:  [<code class="language-plaintext highlighter-rouge">MW</code>, <code class="language-plaintext highlighter-rouge">kW</code>, <code class="language-plaintext highlighter-rouge">W</code>]</li>
   <li><code class="language-plaintext highlighter-rouge">capacity</code> - <em>Array</em>
     <ul>
-      <li><code class="language-plaintext highlighter-rouge">technology</code> - <em>String</em> - (OPTIONAL) - <em>id</em> of the technology that this fuel type used for generation.
-    - <code class="language-plaintext highlighter-rouge">fuel_source</code> - <em>String</em> - (REQUIRED) - <em>id</em> of the fuel source used for generation.
-    - <code class="language-plaintext highlighter-rouge">value</code> - <em>float</em> - A value of the amount of generation that took place at this PSR using the given <em>technology</em> and <em>fuel_source</em>.
-    -  <code class="language-plaintext highlighter-rouge">startDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED) - The datetime MUST be timezone aware. This allows for the defining of historical capacity values and to indicate when new resources came online.</li>
+      <li><code class="language-plaintext highlighter-rouge">technology</code> - <em>String</em> - (OPTIONAL) - <em>id</em> of the technology that this fuel type used for generation.</li>
+      <li><code class="language-plaintext highlighter-rouge">fuel_source</code> - <em>String</em> - (REQUIRED) - <em>id</em> of the fuel source used for generation.</li>
+      <li><code class="language-plaintext highlighter-rouge">value</code> - <em>float</em> - A value of the amount of generation that took place at this PSR using the given <em>technology</em> and <em>fuel_source</em>.</li>
+      <li><code class="language-plaintext highlighter-rouge">startDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED) - The datetime MUST be timezone aware. This allows for the defining of historical capacity values and to indicate when new resources came online.</li>
       <li><code class="language-plaintext highlighter-rouge">endDatetime</code> - <em>ISO8601 Datetime</em> - (OPTIONAL)  - The datetime MUST be timezone aware. This allows for the defining of historical capacity values and to indicate when old resources came offline. An empty value assumes it is still operational.
 ```
 ==Request==
@@ -576,8 +576,8 @@ Content-Type: application/json;charset=UTF-8</p>
 
 <h5 id="response-object-7">Response Object</h5>
 <ul>
-  <li><code class="language-plaintext highlighter-rouge">id</code> - <em>String</em> - REQUIRED - The <code class="language-plaintext highlighter-rouge">id</code> of the PowerSystemResource associated with this location.
- <code class="language-plaintext highlighter-rouge">unit</code> - <em>String</em> - (REQUIRED) - For electricity, SHOULD be one of:  [<code class="language-plaintext highlighter-rouge">MW</code>, <code class="language-plaintext highlighter-rouge">kW</code>, <code class="language-plaintext highlighter-rouge">W</code>]</li>
+  <li><code class="language-plaintext highlighter-rouge">id</code> - <em>String</em> - REQUIRED - The <code class="language-plaintext highlighter-rouge">id</code> of the PowerSystemResource associated with this location.</li>
+  <li><code class="language-plaintext highlighter-rouge">unit</code> - <em>String</em> - (REQUIRED) - For electricity, SHOULD be one of:  [<code class="language-plaintext highlighter-rouge">MW</code>, <code class="language-plaintext highlighter-rouge">kW</code>, <code class="language-plaintext highlighter-rouge">W</code>]</li>
   <li><code class="language-plaintext highlighter-rouge">transmissionCapacity</code> - <em>Array</em>
     <ul>
       <li><code class="language-plaintext highlighter-rouge">connectedPSR</code> - <em>Object</em>
