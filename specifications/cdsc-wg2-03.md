@@ -356,11 +356,11 @@ The capacity endpoint provides a means for providing capacity information by fue
 - `id` - _string_ - REQUIRED - The `id` of the PowerSystemResource associated with this location.
 - `unit` - _string_ - (REQUIRED) - For electricity, SHOULD be one of:  [`MW`, `kW`, `W`]
 - `capacity` - _Array_
-	 - `technology` - _String_ - (OPTIONAL) - *id* of the technology that this fuel type used for generation.
-	  - `fuel_source` - _String_ - (REQUIRED) - *id* of the fuel source used for generation.
-	  - `value` - _float_ - A value of the amount of generation that took place at this PSR using the given *technology* and *fuel_source*.
-	  -  `startDatetime` - _ISO8601 Datetime_ - (REQUIRED) - The datetime MUST be timezone aware. This allows for the defining of historical capacity values and to indicate when new resources came online.
-	-   `endDatetime` - _ISO8601 Datetime_ - (OPTIONAL)  - The datetime MUST be timezone aware. This allows for the defining of historical capacity values and to indicate when old resources came offline. An empty value assumes it is still operational.
+	- `technology` - _String_ - (OPTIONAL) - *id* of the technology that this fuel type used for generation.
+	- `fuel_source` - _String_ - (REQUIRED) - *id* of the fuel source used for generation.
+	- `value` - _float_ - A value of the amount of generation that took place at this PSR using the given *technology* and *fuel_source*.
+	- `startDatetime` - _ISO8601 Datetime_ - (REQUIRED) - The datetime MUST be timezone aware. This allows for the defining of historical capacity values and to indicate when new resources came online.
+	- `endDatetime` - _ISO8601 Datetime_ - (OPTIONAL)  - The datetime MUST be timezone aware. This allows for the defining of historical capacity values and to indicate when old resources came offline. An empty value assumes it is still operational.
 ```
 ==Request==
 GET /power-system-resources/US-WECC-CISO/topology?numLevels=2 HTTP/1.1
@@ -399,7 +399,7 @@ The topology endpoint provides a means for understanding how each PSR relates to
 
 ##### Response Object
 - `id` - _String_ - REQUIRED - The `id` of the PowerSystemResource associated with this location.
- `unit` - _String_ - (REQUIRED) - For electricity, SHOULD be one of:  [`MW`, `kW`, `W`]
+- `unit` - _String_ - (REQUIRED) - For electricity, SHOULD be one of:  [`MW`, `kW`, `W`]
 - `transmissionCapacity` - _Array_
 	- `connectedPSR` - _Object_ 
 		- `id`  - _String_ The unique identifier representing the *id* of the PSR connected to the requested PSR.
