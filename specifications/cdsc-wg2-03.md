@@ -57,6 +57,7 @@ The following is a list of the endpoints that will be subsequently defined in th
 ```
 # Metadata
 /metadata/topology-types (LIST)
+/metadata/fuel-types (LIST)
 /metadata/technologies (LIST)
 /power-system-resources (LIST) 
 # PSR-Specific Metadata
@@ -83,7 +84,7 @@ ResourceType objects represent a specific hierarchical level of the grid.
 ##### Example
 ```
 ==Request==
-GET metadata/resource-types HTTP/1.1
+GET metadata/topology-types HTTP/1.1
 Host: demoutility.com
 
 ==Response==
@@ -118,8 +119,8 @@ Content-Type: application/json;charset=UTF-8
   "previous": null
 }
 ```
-##### Reference ResourceTypes
-The following table shows an example list of resource types for US and European Grids:
+##### Reference TopologyTypes
+The following table shows an example list of topology types for US and European Grids:
 |Level|US Grid|European Grid|CIM|
 |--|--|--|--|
 |0|Interconnection|Synchronous area|GeographicalRegion |
