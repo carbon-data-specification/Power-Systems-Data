@@ -18,11 +18,9 @@ A good place to start is to look at our website: [https://powersystemsdata.carbo
 
 ## Specifications
 
-* [CDSC-WG2-01 - Grid Topologies](https://powersystemsdata.carbondataspec.org/specs/cdsc-wg2-01/)
-* [CDSC-WG2-02 - Data types](https://powersystemsdata.carbondataspec.org/specs/cdsc-wg2-02/)
 * [CDSC-WG2-03 - API Interface](https://powersystemsdata.carbondataspec.org/specs/cdsc-wg2-03/)
 
-`CDSC-WG2-01 - Grid Topologies` is used to develop a shared terminology for various levels of granularity of grid entities and a convention for describing how those entities relate to each other. `CDSC-WG2-02 - Data Types` describes consensus around data fields that are either required or recommended in order to adequately describe the state of various grid entities. These two specifications are used in the development of `CDSC-WG2-03 - API Interface`, which describes an interface for power systems operators when sharing power system data. 
+`CDSC-WG2-03 - API Interface` is a specification that describes how power system data can be shared across varying levels of spatial granularity. 
 
 ### Join the Working Group
 
