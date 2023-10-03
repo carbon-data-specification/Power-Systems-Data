@@ -57,8 +57,8 @@ The following is a list of the endpoints that will be subsequently defined in th
 ```
 # Metadata
 /metadata/topology-types (LIST)
-/metadata/fuel-types (LIST)
-/metadata/technologies (LIST)
+/metadata/fuel-source/types (LIST)
+/metadata/fuel-source/technologies (LIST)
 /power-system-resources (LIST) 
 # PSR-Specific Metadata
 /power-system-resources/{id}/describe (GET)
@@ -130,7 +130,7 @@ The following table shows an example list of topology types for US and European 
 |4|Generating Plant|Scheduling Area/Sub scheduling area|Feeder,GeneratingUnit|
 |5|Meter (Generator or Load)|Metering Grid Area, MeteringPoint|GeneratingUnit |
 
-#### 3.1.2 Fuel Type (LIST) `metadata/fuel-types`
+#### 3.1.2 Fuel Source - Type (LIST) `metadata/fuel-source/types`
 ***TODO: This depends on if we want to fully adopt AIB or whether we want to allow for a more flexible solution.*** [Github Issue](https://github.com/carbon-data-specification/Power-Systems-Data/issues/72)
 
 ##### Response Object
@@ -150,7 +150,7 @@ Content-Type: application/json;charset=UTF-8
 ```
 ```json
 {
-   "fuel_types": [
+   "types": [
 	   {
 		   "name": "Solar - Photovoltaic - Unspecified",
 		   "external_reference": "EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES",
@@ -166,7 +166,7 @@ Content-Type: application/json;charset=UTF-8
   "previous": null
 }
 ```
-#### 3.1.3 Technology (LIST) `metadata/technologies`
+#### 3.1.3 Fuel Source - Technology (LIST) `metadata/fuel-source/technologies`
 ***TODO: This depends on if we want to fully adopt [AIB](https://www.aib-net.org/sites/default/files/assets/eecs/facts-sheets/AIB-2019-EECSFS-05%20EECS%20Rules%20Fact%20Sheet%2005%20-%20Types%20of%20Energy%20Inputs%20and%20Technologies%20-%20Release%207.7%20v5.pdf) or whether we want to allow for a more flexible solution.*** [Github Issue](https://github.com/carbon-data-specification/Power-Systems-Data/issues/72)
 
 ##### Response Object
@@ -209,7 +209,6 @@ The primary set of endpoints reference PowerSystemResource (PSR) objects. These 
 - `id` - _string_ - (REQUIRED) - The unique identifier representing this resource. It SHOULD be human-readable, and where appropriate, MAY incorporate the `id` of its parent objects in order to easily understand its place in the topology. An example of such an id is `US-WECC-CISO`. The `id` MUST be URL safe. 
 - `type` - _string_ - (REQUIRED) - The id of the resource type for this PowerSystemsResource.
 -  `name` - _string_ - (OPTIONAL) - A descriptive name to provide additional context to the PSR.
-- `location` - _Location_ - (REQUIRED) - A Location object describing where this PSR exists.
 
 ***TODO: Placeholder spot for where we can decide what rules/guidelines/parameters/suggestions would be good for generating human-readable PSR `id`s*** [Github Issue](https://github.com/carbon-data-specification/Power-Systems-Data/issues/80)
 
@@ -357,11 +356,12 @@ The capacity endpoint provides a means for providing capacity information by fue
 - `id` - _string_ - REQUIRED - The `id` of the PowerSystemResource associated with this location.
 - `unit` - _string_ - (REQUIRED) - For electricity, SHOULD be one of:  [`MW`, `kW`, `W`]
 - `capacity` - _Array_
-	- `technology` - _String_ - (OPTIONAL) - *id* of the technology that this fuel type used for generation.
-	- `fuel_source` - _String_ - (REQUIRED) - *id* of the fuel source used for generation.
-	- `value` - _float_ - A value of the amount of generation that took place at this PSR using the given *technology* and *fuel_source*.
-	- `startDatetime` - _ISO8601 Datetime_ - (REQUIRED) - The datetime MUST be timezone aware. This allows for the defining of historical capacity values and to indicate when new resources came online.
-	- `endDatetime` - _ISO8601 Datetime_ - (OPTIONAL)  - The datetime MUST be timezone aware. This allows for the defining of historical capacity values and to indicate when old resources came offline. An empty value assumes it is still operational.
+	 - `fuelSource` - _Object_
+		 - `technology` - _String_ - (OPTIONAL) - *id* of the technology for generating this fuel.
+		  - `type` - _String_ - (REQUIRED) - *id* of the fuel type used for generation.
+	  - `value` - _float_ - A value of the amount of generation that took place at this PSR using the given *technology* and *fuel_source*.
+	  -  `startDatetime` - _ISO8601 Datetime_ - (REQUIRED) - The datetime MUST be timezone aware. This allows for the defining of historical capacity values and to indicate when new resources came online.
+	-   `endDatetime` - _ISO8601 Datetime_ - (OPTIONAL)  - The datetime MUST be timezone aware. This allows for the defining of historical capacity values and to indicate when old resources came offline. An empty value assumes it is still operational.
 ```
 ==Request==
 GET /power-system-resources/US-WECC-CISO/topology?numLevels=2 HTTP/1.1
@@ -377,8 +377,9 @@ Content-Type: application/json;charset=UTF-8
   "unit": "MW",
   "capacity": [
 	  {
-		  "technology": "Thermal - Steam engine - Unspecified",
-		  "fuelSource": "Fossil - Solid - Hard Coal - Unspecified",
+		  "fuelSource": {
+			  "technology": "Thermal - Steam engine - Unspecified",
+			  "type": "Fossil - Solid - Hard Coal - Unspecified",
 		  "value": 500,
 		  "startDatetime": "2015-06-01 00:00:00+00",
 		  "endDatetime": "2021-06-01T0 :00:00+00",
@@ -400,7 +401,7 @@ The topology endpoint provides a means for understanding how each PSR relates to
 
 ##### Response Object
 - `id` - _String_ - REQUIRED - The `id` of the PowerSystemResource associated with this location.
-- `unit` - _String_ - (REQUIRED) - For electricity, SHOULD be one of:  [`MW`, `kW`, `W`]
+ `unit` - _String_ - (REQUIRED) - For electricity, SHOULD be one of:  [`MW`, `kW`, `W`]
 - `transmissionCapacity` - _Array_
 	- `connectedPSR` - _Object_ 
 		- `id`  - _String_ The unique identifier representing the *id* of the PSR connected to the requested PSR.
@@ -449,9 +450,9 @@ A generation object returns a timeseries of values representing energy that was 
 	-  `startDatetime` - _ISO8601 Datetime_ - (REQUIRED) - The datetime MUST be timezone aware.
 	-   `endDatetime` - _ISO8601 Datetime_ - (REQUIRED)  - The datetime MUST be timezone aware.
 	- `value` - _float_ - (REQUIRED) - A value of the amount of generation that took place at this PSR. A positive number indicates generation.
-	- `valueByFuelType` - _Array_ - (REQUIRED) - Lists of fuel types, technologies, and the amount of generation that comes from that fuel type. The unit for these values MUST be the same as that of the `unit` field.
-	  - `technology` - _String_ - (OPTIONAL) - *id* of the technology that this fuel type used for generation.
-	  - `fuel_source` - _String_ - (REQUIRED) - *id* of the fuel source used for generation.
+	- `valueByFuelSource` - _Array_ - (REQUIRED) - Lists of fuel types, technologies, and the amount of generation that comes from that fuel type. The unit for these values MUST be the same as that of the `unit` field.
+	  - `technology` - _String_ - (OPTIONAL) - *id* of the technology that was generated from this fuel.
+	  - `type` - _String_ - (REQUIRED) - *id* of the fuel type used for generation.
 	  - `value` - _float_ - A value of the amount of generation that took place at this PSR using the given *technology* and *fuel_source*.
 
 ```
@@ -472,15 +473,15 @@ Content-Type: application/json;charset=UTF-8
 		  "startDatetime": "2021-06-01 00:00:00+00",
 		  "endDatetime": "2021-06-01 01:00:00+00",
 		  "value": 10.5,
-		  "valueByFuelType": [
+		  "valueByFuelSource": [
 			  {
 			    "technology": "Thermal - Steam engine - Unspecified",
-			    "fuelSource": "Fossil - Solid - Hard Coal - Unspecified",
+			    "type": "Fossil - Solid - Hard Coal - Unspecified",
 			    "value": 5.0
 			  },
 			  {
 			    "technology": "Solar - Photovoltaic - Unspecified",
-			    "fuelSource": "Renewables - Heating and Cooling - Solar",
+			    "type": "Renewables - Heating and Cooling - Solar",
 			    "value": 10.5
 			  },
 			},...
@@ -675,7 +676,7 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-#### PSR Generation `/power-system-resources/{id}/curtailment`
+#### PSR Curtailment `/power-system-resources/{id}/curtailment`
 A curtailment object returns a timeseries of values representing energy that was generated at a PSR, as well as a breakdown of that generation by fuel type.
 
 ##### Request Object
@@ -689,9 +690,9 @@ A curtailment object returns a timeseries of values representing energy that was
 	-  `startDatetime` - _ISO8601 Datetime_ - (REQUIRED) - The datetime MUST be timezone aware.
 	-   `endDatetime` - _ISO8601 Datetime_ - (REQUIRED)  - The datetime MUST be timezone aware.
 	- `value` - _float_ - (REQUIRED) - A value of the amount of curtailment that took place at this PSR. A positive number indicates curtailment.
-	- `valueByFuelType` - _Array_ - (REQUIRED) - Lists of fuel types, technologies, and the amount of curtailment that occurs at that fuel type. The unit for these values MUST be the same as that of the `unit` field.
+	- `valueByFuelSource` - _Array_ - (REQUIRED) - Lists of fuel types, technologies, and the amount of curtailment that occurs at that fuel type. The unit for these values MUST be the same as that of the `unit` field.
 	  - `technology` - _String_ - (OPTIONAL) - *id* of the technology that this fuel type used for curtailment.
-	  - `fuel_source` - _String_ - (REQUIRED) - *id* of the fuel source used for curtailment.
+	  - `type` - _String_ - (REQUIRED) - *id* of the fuel source used for curtailment.
 	  - `value` - _float_ - A value of the amount of curtailment that took place at this PSR using the given *technology* and *fuel_source*.
 
 ```
@@ -712,15 +713,15 @@ Content-Type: application/json;charset=UTF-8
 		  "startDatetime": "2021-06-01 00:00:00+00",
 		  "endDatetime": "2021-06-01 01:00:00+00",
 		  "value": 10.5,
-		  "valueByFuelType": [
+		  "valueByFuelSource": [
 			  {
 			    "technology": "Thermal - Steam engine - Unspecified",
-			    "fuelSource": "Fossil - Solid - Hard Coal - Unspecified",
+			    "type": "Fossil - Solid - Hard Coal - Unspecified",
 			    "value": 5.0
 			  },
 			  {
 			    "technology": "Solar - Photovoltaic - Unspecified",
-			    "fuelSource": "Renewables - Heating and Cooling - Solar",
+			    "type": "Renewables - Heating and Cooling - Solar",
 			    "value": 10.5
 			  },
 			},...
