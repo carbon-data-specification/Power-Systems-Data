@@ -74,9 +74,10 @@ The following is a list of the endpoints that will be subsequently defined in th
 ```
 
 ### 3.1 Metadata<a id="endpoints-metadata" href="#endpoints-metadata" class="permalink">🔗</a>
-ResourceType objects represent a specific hierarchical level of the grid. 
 
-#### 3.1.1 Topology Type (List) `metadata/topology-types`
+TopologyLevel objects represent a specific hierarchical level of the grid. 
+
+#### 3.1.1 Topology Level (List) `metadata/topology-levels`
 
 ##### Response Object
 - `id` - _string_ - (REQUIRED) - The unique identifier representing this resource. It **may** be human-readable, such as `US-WECC-CISO`.
@@ -84,7 +85,7 @@ ResourceType objects represent a specific hierarchical level of the grid.
 ##### Example
 ```
 ==Request==
-GET metadata/topology-types HTTP/1.1
+GET metadata/topology-levels HTTP/1.1
 Host: demoutility.com
 
 ==Response==
@@ -93,7 +94,7 @@ Content-Type: application/json;charset=UTF-8
 ```
 ```json
 {
-"topology_types": [
+"topology_levels": [
 			{
 		     "id": "Interconnection",
 		     "level": 0
@@ -119,8 +120,8 @@ Content-Type: application/json;charset=UTF-8
   "previous": null
 }
 ```
-##### Reference TopologyTypes
-The following table shows an example list of topology types for US and European Grids:
+##### Reference TopologyLevels
+The following table shows an example list of topology levels for US and European Grids:
 |Level|US Grid|European Grid|CIM|
 |--|--|--|--|
 |0|Interconnection|Synchronous area|GeographicalRegion |
@@ -131,12 +132,11 @@ The following table shows an example list of topology types for US and European 
 |5|Meter (Generator or Load)|Metering Grid Area, MeteringPoint|GeneratingUnit |
 
 #### 3.1.2 Fuel Source - Type (LIST) `metadata/fuel-source/types`
-***TODO: This depends on if we want to fully adopt AIB or whether we want to allow for a more flexible solution.*** [Github Issue](https://github.com/carbon-data-specification/Power-Systems-Data/issues/72)
 
 ##### Response Object
 - `name`: - _string_ - (REQUIRED) - A common name to use for the fuel type. If using AIB codes, it should be a concatenation of the three code descriptions with a dash between (i.e. `Solar - Photovoltaic - Unspecified`)
 - `external_reference`: _String_ - (OPTIONAL?) - A reference that provides context for this specific fuel type.
-- `external_id`:  - _String_ - (OPTIONAL?) - A unique code (***AIB code?***) referencing the type of fuel
+- `external_id`:  - _String_ - (OPTIONAL?) - A unique code (such as the AIB code) referencing the type of fuel
 
 ##### Example
 ```
@@ -197,17 +197,68 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-### 3.3 PowerSystemsResources Metadata<a id="endpoints-psrmeta" href="#endpoints-psrmeta" class="permalink">🔗</a>
+### 3.2 PowerSystemsResources Metadata<a id="endpoints-psrmeta" href="#endpoints-psrmeta" class="permalink">🔗</a>
 
-The primary set of endpoints reference PowerSystemResource (PSR) objects. These objects contain several metadata fields as well as timeseries information such as generation, demand, and capacity.
+The primary set of endpoints reference PowerSystemResource (PSR) objects. These objects contain several metadata fields about these PSRs.
 
-#### 3.3.1 PSR List `/power-system-resources`
+#### 3.2.1 PSR Topology (List) `/power-system-resources/{id}/topology`
+
+##### Description
+The topology endpoint provides a means for understanding how each PSR relates to others.  
+
 ##### Request Object
-- `type`: _string_ - (OPTIONAL) - An optional filter to only return PSR objects with the given *type*.
+- `numLevels` - _integer_ - Number of levels above and below the requested PSR to return in the response. A value of *1* means that it will only return that PSR's direct parent and children.
+
+##### Response Object
+- `id` - _string_ - REQUIRED - The `id` of the PowerSystemResource associated with this location.
+- `topology` - _Object_
+	- `parent` - _Object_ - (OPTIONAL)
+		-  `id` - _String_ The unique identifier representing the *id* of the PSR that is one level above in the topology.
+		- `parent` - _Object_ - (OPTIONAL)
+			- ...
+	- `connectedSiblings` - _Array_ - (OPTIONAL)
+		- `id` - _String_ - A unique identifier representing the *id* of a PSR that has some transmission-based connection.
+	  - `connectedSiblings` - _Array_ - (OPTIONAL)
+			- `id` - _String_
+	- `children` - _Array_ - (OPTIONAL)
+		-  `id` - _String_ - A unique identifier representing the *id* of a PSR that is one level below in the topology.
+		- `connectedSiblings` - _Array_ - (OPTIONAL)
+		- `children` - _Array_ - (OPTIONAL)
+			- ...
+```
+==Request==
+GET /power-system-resources/US-WECC-CISO/topology?numLevels=2 HTTP/1.1
+Host: demoutility.com
+
+==Response==
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+```
+```json
+{
+  "id": "US-WECC-CISO",
+  "topology": {
+	  "parent": {"id": "US-WECC"},
+	  "connectedSiblings": {"id": "US-ERCOT"},
+	  "children": [
+			  {"id": "US-WECC-CISO-ABC", "children": []}
+			],
+	},
+  "next": null,
+  "previous": null
+}
+```
+
+#### 3.2.2 PSR (List) `/power-system-resources`
+##### Description
+***TODO: Placeholder to add descriptions [Github Issue](https://github.com/carbon-data-specification/Power-Systems-Data/issues/89)
+
+##### Request Object
+- `level`: _Integer_ - (OPTIONAL) - An optional filter to only return PSR objects with the given *topology level*.
 
 ##### Response Object
 - `id` - _string_ - (REQUIRED) - The unique identifier representing this resource. It SHOULD be human-readable, and where appropriate, MAY incorporate the `id` of its parent objects in order to easily understand its place in the topology. An example of such an id is `US-WECC-CISO`. The `id` MUST be URL safe. 
-- `type` - _string_ - (REQUIRED) - The id of the resource type for this PowerSystemsResource.
+- `level` - _string_ - (REQUIRED) - The id of the topology level for this PSR.
 -  `name` - _string_ - (OPTIONAL) - A descriptive name to provide additional context to the PSR.
 
 ***TODO: Placeholder spot for where we can decide what rules/guidelines/parameters/suggestions would be good for generating human-readable PSR `id`s*** [Github Issue](https://github.com/carbon-data-specification/Power-Systems-Data/issues/80)
@@ -229,24 +280,28 @@ Content-Type: application/json;charset=UTF-8
 			{
 		     "id": "US-WECC",
 		     "name": "Western Electricity Coordinating Council",
-		     "type": "Interconnection"
+		     "level": 0
 			},
 			{
 		     "id": "US-WECC-CISO",
 		     "name": "California ISO",
-		     "type": "Balancing Area"
+		     "level": 1
 			},
 			{
 		     "id": "US-WECC-CISO-ABC-HYDRO",
 		     "name": "Hydropower Plant in ABC",
-		     "type": "Generating Plant"
+		     "level": 2
 			},
 	],
   "next": null,
   "previous": null
 }
 ```
-#### PSR Describe `/power-system-resources/{id}/describe`
+#### 3.2.2 PSR Describe `/power-system-resources/{id}/describe`
+##### Description
+***TODO: Placeholder to add descriptions [Github Issue](https://github.com/carbon-data-specification/Power-Systems-Data/issues/89)
+##### Request Object
+- `id`:  _string_ - OPTIONAL
 
 ##### Response Object
 - `id` - _string_ - REQUIRED - The `id` of the PowerSystemResource associated with this location.
@@ -301,57 +356,11 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-#### PSR Topology `/power-system-resources/{id}/topology`
-
-The topology endpoint provides a means for understanding how each PSR relates to others. 
-
-##### Request Object
-- `numLevels` - _integer_ - Number of levels above and below the requested PSR to return in the response. A value of *1* means that it will only return that PSR's direct parent and children.
-
-##### Response Object
-- `id` - _string_ - REQUIRED - The `id` of the PowerSystemResource associated with this location.
-- `topology` - _Object_
-	- `parent` - _Object_ - (OPTIONAL)
-		-  `id` - _String_ The unique identifier representing the *id* of the PSR that is one level above in the topology.
-		- `parent` - _Object_ - (OPTIONAL)
-			- ...
-	- `connectedSiblings` - _Array_ - (OPTIONAL)
-		- `id` - _String_ - A unique identifier representing the *id* of a PSR that has some transmission-based connection.
-	  - `connectedSiblings` - _Array_ - (OPTIONAL)
-			- `id` - _String_
-	- `children` - _Array_ - (OPTIONAL)
-		-  `id` - _String_ - A unique identifier representing the *id* of a PSR that is one level below in the topology.
-		- `connectedSiblings` - _Array_ - (OPTIONAL)
-		- `children` - _Array_ - (OPTIONAL)
-			- ...
-```
-==Request==
-GET /power-system-resources/US-WECC-CISO/topology?numLevels=2 HTTP/1.1
-Host: demoutility.com
-
-==Response==
-HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
-```
-```json
-{
-  "id": "US-WECC-CISO",
-  "topology": {
-	  "parent": {"id": "US-WECC"},
-	  "connectedSiblings": {"id": "US-ERCOT"},
-	  "children": [
-			  {"id": "US-WECC-CISO-ABC", "children": []}
-			],
-	},
-  "next": null,
-  "previous": null
-}
-```
-
 #### PSR Capacity `/power-system-resources/{id}/capacity`
-
+##### Description
 The capacity endpoint provides a means for providing capacity information by fuel type and technology.
-
+##### Request Object
+- `id` - _string_ - REQUIRED - The `id` of the PowerSystemResource associated with this location.
 ##### Response Object
 - `id` - _string_ - REQUIRED - The `id` of the PowerSystemResource associated with this location.
 - `unit` - _string_ - (REQUIRED) - For electricity, SHOULD be one of:  [`MW`, `kW`, `W`]
@@ -395,10 +404,11 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-#### PSR Topology `/power-system-resources/{id}/transmission-capacity`
-
+#### PSR Transmission Capacity `/power-system-resources/{id}/transmission-capacity`
+##### Description
 The topology endpoint provides a means for understanding how each PSR relates to others. 
-
+##### Request Object
+- `id` - _string_ - REQUIRED - The `id` of the PowerSystemResource associated with this location.
 ##### Response Object
 - `id` - _String_ - REQUIRED - The `id` of the PowerSystemResource associated with this location.
  `unit` - _String_ - (REQUIRED) - For electricity, SHOULD be one of:  [`MW`, `kW`, `W`]
@@ -436,10 +446,13 @@ Content-Type: application/json;charset=UTF-8
 
 ### 3.4 PowerSystemsResources Timeseries Data<a id="endpoints-psrtime" href="#endpoints-psrtime" class="permalink">🔗</a>
 
-#### PSR Generation `/power-system-resources/{id}/generation`
+#### 3.4.1 PSR Generation `/power-system-resources/{id}/generation`
+
+##### Description
 A generation object returns a timeseries of values representing energy that was generated at a PSR, as well as a breakdown of that generation by fuel type.
 
 ##### Request Object
+-  `id` - _string_ - (REQUIRED) - The `id` of the Power System Resource associated with this demand.
 - `startDatetime` - _ISO8601 Datetime_ -  A datetime indicating that the response should return data where the earliest entry's *startDatetime* occurs AT or AFTER the *startDatetime* specified in the request.  
 - `endDatetime` - _ISO8601 Datetime_ -  A datetime indicating that the response should return data where the earliest entry's *endDatetime* occurs AT or BEFORE the *endDatetime* specified in the request.  
 
@@ -492,10 +505,12 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-#### PSR Demand `/power-system-resources/{id}/demand`
+#### 3.4.2 PSR Demand `/power-system-resources/{id}/demand`
+##### Description
 A demand object returns a timeseries of values representing energy that was demanded at a PSR.
 
 ##### Request Object
+-  `id` - _string_ - (REQUIRED) - The `id` of the Power System Resource associated with this demand.
 - `startDatetime` - _ISO8601 Datetime_ -  A datetime indicating that the response should return data where the earliest entry's *startDatetime* occurs AT or AFTER the *startDatetime* specified in the request.  
 - `endDatetime` - _ISO8601 Datetime_ -  A datetime indicating that the response should return data where the earliest entry's *endDatetime* occurs AT or BEFORE the *endDatetime* specified in the request.  
 
@@ -531,10 +546,12 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-#### PSR Imports `/power-system-resources/{id}/imports`
+#### 3.4.3 PSR Imports `/power-system-resources/{id}/imports`
+##### Description
 An import object returns a timeseries of values representing energy that was imported at a PSR. 
 
 ##### Request Object
+-  `id` - _string_ - (REQUIRED) - The `id` of the Power System Resource associated with this demand.
 - `startDatetime` - _ISO8601 Datetime_ -  A datetime indicating that the response should return data where the earliest entry's *startDatetime* occurs AT or AFTER the *startDatetime* specified in the request.  
 - `endDatetime` - _ISO8601 Datetime_ -  A datetime indicating that the response should return data where the earliest entry's *endDatetime* occurs AT or BEFORE the *endDatetime* specified in the request.  
 
@@ -583,10 +600,12 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-#### PSR Exports `/power-system-resources/{id}/exports`
+#### 3.4.4 PSR Exports `/power-system-resources/{id}/exports`
+##### Description
 An export object returns a timeseries of values representing energy that was exported to a PSR. 
 
 ##### Request Object
+-  `id` - _string_ - (REQUIRED) - The `id` of the Power System Resource associated with this demand.
 - `startDatetime` - _ISO8601 Datetime_ -  A datetime indicating that the response should return data where the earliest entry's *startDatetime* occurs AT or AFTER the *startDatetime* specified in the request.  
 - `endDatetime` - _ISO8601 Datetime_ -  A datetime indicating that the response should return data where the earliest entry's *endDatetime* occurs AT or BEFORE the *endDatetime* specified in the request.  
 
@@ -635,10 +654,12 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-#### PSR Prices `/power-system-resources/{id}/price`
+#### 3.4.5 PSR Prices `/power-system-resources/{id}/price`
+##### Description
 A demand object returns a timeseries of values representing energy that was demanded at a PSR.
 
 ##### Request Object
+-  `id` - _string_ - (REQUIRED) - The `id` of the Power System Resource associated with this demand.
 - `startDatetime` - _ISO8601 Datetime_ -  A datetime indicating that the response should return data where the earliest entry's *startDatetime* occurs AT or AFTER the *startDatetime* specified in the request.  
 - `endDatetime` - _ISO8601 Datetime_ -  A datetime indicating that the response should return data where the earliest entry's *endDatetime* occurs AT or BEFORE the *endDatetime* specified in the request.  
 - `timeframe` - _Enum_ - One of `day-ahead`, `hour-ahead`, `real-time`
@@ -676,10 +697,12 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-#### PSR Curtailment `/power-system-resources/{id}/curtailment`
+#### 3.4.6 PSR Curtailment `/power-system-resources/{id}/curtailment`
+##### Description
 A curtailment object returns a timeseries of values representing energy that was generated at a PSR, as well as a breakdown of that generation by fuel type.
 
 ##### Request Object
+-  `id` - _string_ - (REQUIRED) - The `id` of the Power System Resource associated with this demand.
 - `startDatetime` - _ISO8601 Datetime_ -  A datetime indicating that the response should return data where the earliest entry's *startDatetime* occurs AT or AFTER the *startDatetime* specified in the request.  
 - `endDatetime` - _ISO8601 Datetime_ -  A datetime indicating that the response should return data where the earliest entry's *endDatetime* occurs AT or BEFORE the *endDatetime* specified in the request.  
 
