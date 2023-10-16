@@ -13,12 +13,11 @@ This specification is subject to the license, available [here][LICENSE].
 
 ## Contents <a id="table-of-contents" href="#table-of-contents" class="permalink">🔗</a>
 * [1. Foreword](#foreword)  
-* [2. Introduction)(#introduction)
+* [2. Introduction](#introduction)
 * [3. Endpoint Categories](#endpoints)  
-  * [3.1 ResourceType](#endpoints-resourcetype)
-  * [3.2 FuelType](#endpoints-fueltype)
-  * [3.3 PowerSystemResource Metadata](#endpoints-psrmeta)
-  * [3.4 PowerSystemResource Timeseries Data](#endpoints-psrtime)
+  * [3.1 Metadata ](#endpoints-metadata)
+  * [3.2 PowerSystemResource Metadata](#endpoints-psrmeta)
+  * [3.3 PowerSystemResource Timeseries Data](#endpoints-psrtime)
 
 
 ## 1. Foreword <a id="foreword" href="#foreword" class="permalink">🔗</a>
@@ -197,11 +196,11 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-### 3.3 PowerSystemsResources Metadata<a id="endpoints-psrmeta" href="#endpoints-psrmeta" class="permalink">🔗</a>
+### 3.2 PowerSystemsResources Metadata<a id="endpoints-psrmeta" href="#endpoints-psrmeta" class="permalink">🔗</a>
 
 The primary set of endpoints reference PowerSystemResource (PSR) objects. These objects contain several metadata fields as well as timeseries information such as generation, demand, and capacity.
 
-#### 3.3.1 PSR List `/power-system-resources`
+#### 3.2.1 PSR List `/power-system-resources`
 ##### Request Object
 - `type`: _string_ - (OPTIONAL) - An optional filter to only return PSR objects with the given *type*.
 
@@ -246,7 +245,7 @@ Content-Type: application/json;charset=UTF-8
   "previous": null
 }
 ```
-#### PSR Describe `/power-system-resources/{id}/describe`
+#### 3.2.2 PSR Describe `/power-system-resources/{id}/describe`
 
 ##### Response Object
 - `id` - _string_ - REQUIRED - The `id` of the PowerSystemResource associated with this location.
@@ -301,7 +300,7 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-#### PSR Topology `/power-system-resources/{id}/topology`
+#### 3.2.3 PSR Topology `/power-system-resources/{id}/topology`
 
 The topology endpoint provides a means for understanding how each PSR relates to others. 
 
@@ -348,7 +347,7 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-#### PSR Capacity `/power-system-resources/{id}/capacity`
+#### 3.2.4 PSR Capacity `/power-system-resources/{id}/capacity`
 
 The capacity endpoint provides a means for providing capacity information by fuel type and technology.
 
@@ -395,7 +394,7 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-#### PSR Topology `/power-system-resources/{id}/transmission-capacity`
+#### 3.2.5 PSR Topology `/power-system-resources/{id}/transmission-capacity`
 
 The topology endpoint provides a means for understanding how each PSR relates to others. 
 
@@ -434,9 +433,9 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-### 3.4 PowerSystemsResources Timeseries Data<a id="endpoints-psrtime" href="#endpoints-psrtime" class="permalink">🔗</a>
+### 3.3 PowerSystemsResources Timeseries Data<a id="endpoints-psrtime" href="#endpoints-psrtime" class="permalink">🔗</a>
 
-#### PSR Generation `/power-system-resources/{id}/generation`
+#### 3.3.1 PSR Generation `/power-system-resources/{id}/generation`
 A generation object returns a timeseries of values representing energy that was generated at a PSR, as well as a breakdown of that generation by fuel type.
 
 ##### Request Object
@@ -492,7 +491,7 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-#### PSR Demand `/power-system-resources/{id}/demand`
+#### 3.3.2 PSR Demand `/power-system-resources/{id}/demand`
 A demand object returns a timeseries of values representing energy that was demanded at a PSR.
 
 ##### Request Object
@@ -531,7 +530,7 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-#### PSR Imports `/power-system-resources/{id}/imports`
+#### 3.3.3 PSR Imports `/power-system-resources/{id}/imports`
 An import object returns a timeseries of values representing energy that was imported at a PSR. 
 
 ##### Request Object
@@ -583,7 +582,7 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-#### PSR Exports `/power-system-resources/{id}/exports`
+#### 3.3.4 PSR Exports `/power-system-resources/{id}/exports`
 An export object returns a timeseries of values representing energy that was exported to a PSR. 
 
 ##### Request Object
@@ -635,7 +634,7 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-#### PSR Prices `/power-system-resources/{id}/price`
+#### 3.3.5 PSR Prices `/power-system-resources/{id}/price`
 A demand object returns a timeseries of values representing energy that was demanded at a PSR.
 
 ##### Request Object
@@ -676,7 +675,7 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-#### PSR Curtailment `/power-system-resources/{id}/curtailment`
+#### 3.3.6 PSR Curtailment `/power-system-resources/{id}/curtailment`
 A curtailment object returns a timeseries of values representing energy that was generated at a PSR, as well as a breakdown of that generation by fuel type.
 
 ##### Request Object
