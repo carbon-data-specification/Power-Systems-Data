@@ -78,7 +78,7 @@ ResourceType objects represent a specific hierarchical level of the grid.
 #### 3.1.1 Topology Type (List) `metadata/topology-types`
 
 ##### Response Object
-- `id` - _string_ - (REQUIRED) - The unique identifier representing this resource. It **may** be human-readable, such as `US-WECC-CISO`.
+- `id` - _string_ - (REQUIRED) - The unique identifier representing this resource. It **may** be human-readable, such as `Balancing Area`.
 - `level` - int - (OPTIONAL) - A number representing the hierarchy of this resource topology in relation to the other resource types. These levels **shall** include a sequential set of positive integers starting at 0.
 ##### Example
 ```
@@ -198,7 +198,7 @@ Content-Type: application/json;charset=UTF-8
 
 ### 3.2 PowerSystemsResources Metadata<a id="endpoints-psrmeta" href="#endpoints-psrmeta" class="permalink">🔗</a>
 
-The primary set of endpoints reference PowerSystemResource (PSR) objects. These objects contain several metadata fields as well as timeseries information such as generation, demand, and capacity.
+The primary set of endpoints reference PowerSystemResource (PSR) objects. These objects contain several metadata fields as well as **historical timeseries** information such as capacity.
 
 #### 3.2.1 PSR List `/power-system-resources`
 ##### Request Object
@@ -394,9 +394,9 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-#### 3.2.5 PSR Topology `/power-system-resources/{id}/transmission-capacity`
+#### 3.2.5 PSR Transmission Capacity `/power-system-resources/{id}/transmission-capacity`
 
-The topology endpoint provides a means for understanding how each PSR relates to others. 
+The transmission capacity endpoint provides a means for providing transmission line capacity information while understanding how the PSR relates to others. 
 
 ##### Response Object
 - `id` - _String_ - REQUIRED - The `id` of the PowerSystemResource associated with this location.
@@ -434,6 +434,8 @@ Content-Type: application/json;charset=UTF-8
 ```
 
 ### 3.3 PowerSystemsResources Timeseries Data<a id="endpoints-psrtime" href="#endpoints-psrtime" class="permalink">🔗</a>
+
+The primary set of endpoints reference PowerSystemResource (PSR) time-dependent objects. These objects contain meseries information such as generation or demand along with several several metadata fields.
 
 #### 3.3.1 PSR Generation `/power-system-resources/{id}/generation`
 A generation object returns a timeseries of values representing energy that was generated at a PSR, as well as a breakdown of that generation by fuel type.
