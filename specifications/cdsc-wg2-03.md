@@ -359,8 +359,8 @@ The capacity endpoint provides a means for providing capacity information by fue
 	 - `fuelSource` - _Object_
 		 - `technology` - _String_ - (OPTIONAL) - *id* of the technology for generating this fuel.
 		  - `type` - _String_ - (REQUIRED) - *id* of the fuel type used for generation.
-	  - `value` - _float_ - A value of the amount of generation that took place at this PSR using the given *technology* and *fuel_source*.
-	  -  `startDatetime` - _ISO8601 Datetime_ - (REQUIRED) - The datetime MUST be timezone aware. This allows for the defining of historical capacity values and to indicate when new resources came online.
+	- `value` - _float_ - A value of the amount of generation that took place at this PSR using the given *technology* and *fuel_source*.
+	-  `startDatetime` - _ISO8601 Datetime_ - (REQUIRED) - The datetime MUST be timezone aware. This allows for the defining of historical capacity values and to indicate when new resources came online.
 	-   `endDatetime` - _ISO8601 Datetime_ - (OPTIONAL)  - The datetime MUST be timezone aware. This allows for the defining of historical capacity values and to indicate when old resources came offline. An empty value assumes it is still operational.
 ```
 ==Request==
