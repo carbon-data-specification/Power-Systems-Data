@@ -13,12 +13,11 @@ This specification is subject to the license, available [here][LICENSE].
 
 ## Contents <a id="table-of-contents" href="#table-of-contents" class="permalink">🔗</a>
 * [1. Foreword](#foreword)  
-* [2. Introduction)(#introduction)
+* [2. Introduction](#introduction)
 * [3. Endpoint Categories](#endpoints)  
-  * [3.1 ResourceType](#endpoints-resourcetype)
-  * [3.2 FuelType](#endpoints-fueltype)
-  * [3.3 PowerSystemResource Metadata](#endpoints-psrmeta)
-  * [3.4 PowerSystemResource Timeseries Data](#endpoints-psrtime)
+  * [3.1 Metadata ](#endpoints-metadata)
+  * [3.2 PowerSystemResource Metadata](#endpoints-psrmeta)
+  * [3.3 PowerSystemResource Timeseries Data](#endpoints-psrtime)
 
 
 ## 1. Foreword <a id="foreword" href="#foreword" class="permalink">🔗</a>
@@ -79,8 +78,14 @@ TopologyLevel objects represent a specific hierarchical level of the grid.
 
 #### 3.1.1 Topology Level (List) `metadata/topology-levels`
 
+##### Description
+***TODO: Placeholder to add descriptions [Github Issue](https://github.com/carbon-data-specification/Power-Systems-Data/issues/89)
+
+##### Request Object
+***TODO: Placeholder to add request object [Github Issue](https://github.com/carbon-data-specification/Power-Systems-Data/issues/89)
+
 ##### Response Object
-- `id` - _string_ - (REQUIRED) - The unique identifier representing this resource. It **may** be human-readable, such as `US-WECC-CISO`.
+- `id` - _string_ - (REQUIRED) - The unique identifier representing this resource. It **may** be human-readable, such as `Balancing Area`.
 - `level` - int - (OPTIONAL) - A number representing the hierarchy of this resource topology in relation to the other resource types. These levels **shall** include a sequential set of positive integers starting at 0.
 ##### Example
 ```
@@ -133,6 +138,12 @@ The following table shows an example list of topology levels for US and European
 
 #### 3.1.2 Fuel Source - Type (LIST) `metadata/fuel-source/types`
 
+##### Description
+***TODO: Placeholder to add descriptions [Github Issue](https://github.com/carbon-data-specification/Power-Systems-Data/issues/89)
+
+##### Request Object
+***TODO: Placeholder to add request object [Github Issue](https://github.com/carbon-data-specification/Power-Systems-Data/issues/89)
+
 ##### Response Object
 - `name`: - _string_ - (REQUIRED) - A common name to use for the fuel type. If using AIB codes, it should be a concatenation of the three code descriptions with a dash between (i.e. `Solar - Photovoltaic - Unspecified`)
 - `external_reference`: _String_ - (OPTIONAL?) - A reference that provides context for this specific fuel type.
@@ -168,6 +179,12 @@ Content-Type: application/json;charset=UTF-8
 ```
 #### 3.1.3 Fuel Source - Technology (LIST) `metadata/fuel-source/technologies`
 ***TODO: This depends on if we want to fully adopt [AIB](https://www.aib-net.org/sites/default/files/assets/eecs/facts-sheets/AIB-2019-EECSFS-05%20EECS%20Rules%20Fact%20Sheet%2005%20-%20Types%20of%20Energy%20Inputs%20and%20Technologies%20-%20Release%207.7%20v5.pdf) or whether we want to allow for a more flexible solution.*** [Github Issue](https://github.com/carbon-data-specification/Power-Systems-Data/issues/72)
+
+##### Description
+***TODO: Placeholder to add descriptions [Github Issue](https://github.com/carbon-data-specification/Power-Systems-Data/issues/89)
+
+##### Request Object
+***TODO: Placeholder to add request object [Github Issue](https://github.com/carbon-data-specification/Power-Systems-Data/issues/89)
 
 ##### Response Object
 - `name`: - _string_ - (REQUIRED) - A common name to use for the technology. If using AIB codes, it should be a concatenation of the three code descriptions with a dash between (i.e. `Solar - Photovoltaic - Unspecified`)
@@ -250,8 +267,9 @@ Content-Type: application/json;charset=UTF-8
 ```
 
 #### 3.2.2 PSR (List) `/power-system-resources`
+
 ##### Description
-***TODO: Placeholder to add descriptions [Github Issue](https://github.com/carbon-data-specification/Power-Systems-Data/issues/89)
+The primary set of endpoints reference PowerSystemResource (PSR) objects. These objects contain several metadata fields as well as **historical timeseries** information such as capacity.
 
 ##### Request Object
 - `level`: _Integer_ - (OPTIONAL) - An optional filter to only return PSR objects with the given *topology level*.
@@ -297,9 +315,11 @@ Content-Type: application/json;charset=UTF-8
   "previous": null
 }
 ```
-#### 3.2.2 PSR Describe `/power-system-resources/{id}/describe`
+#### 3.2.3 PSR Describe `/power-system-resources/{id}/describe`
+
 ##### Description
 ***TODO: Placeholder to add descriptions [Github Issue](https://github.com/carbon-data-specification/Power-Systems-Data/issues/89)
+
 ##### Request Object
 - `id`:  _string_ - OPTIONAL
 
@@ -356,11 +376,14 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-#### PSR Capacity `/power-system-resources/{id}/capacity`
+#### 3.2.4 PSR Capacity `/power-system-resources/{id}/capacity`
+
 ##### Description
 The capacity endpoint provides a means for providing capacity information by fuel type and technology.
+
 ##### Request Object
 - `id` - _string_ - REQUIRED - The `id` of the PowerSystemResource associated with this location.
+
 ##### Response Object
 - `id` - _string_ - REQUIRED - The `id` of the PowerSystemResource associated with this location.
 - `unit` - _string_ - (REQUIRED) - For electricity, SHOULD be one of:  [`MW`, `kW`, `W`]
@@ -368,8 +391,8 @@ The capacity endpoint provides a means for providing capacity information by fue
 	 - `fuelSource` - _Object_
 		 - `technology` - _String_ - (OPTIONAL) - *id* of the technology for generating this fuel.
 		  - `type` - _String_ - (REQUIRED) - *id* of the fuel type used for generation.
-	  - `value` - _float_ - A value of the amount of generation that took place at this PSR using the given *technology* and *fuel_source*.
-	  -  `startDatetime` - _ISO8601 Datetime_ - (REQUIRED) - The datetime MUST be timezone aware. This allows for the defining of historical capacity values and to indicate when new resources came online.
+	- `value` - _float_ - A value of the amount of generation that took place at this PSR using the given *technology* and *fuel_source*.
+	-  `startDatetime` - _ISO8601 Datetime_ - (REQUIRED) - The datetime MUST be timezone aware. This allows for the defining of historical capacity values and to indicate when new resources came online.
 	-   `endDatetime` - _ISO8601 Datetime_ - (OPTIONAL)  - The datetime MUST be timezone aware. This allows for the defining of historical capacity values and to indicate when old resources came offline. An empty value assumes it is still operational.
 ```
 ==Request==
@@ -404,11 +427,14 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-#### PSR Transmission Capacity `/power-system-resources/{id}/transmission-capacity`
+#### 3.2.5 PSR Transmission Capacity `/power-system-resources/{id}/transmission-capacity`
+
 ##### Description
-The topology endpoint provides a means for understanding how each PSR relates to others. 
+The transmission capacity endpoint provides a means for providing transmission line capacity information while understanding how the PSR relates to others. 
+
 ##### Request Object
 - `id` - _string_ - REQUIRED - The `id` of the PowerSystemResource associated with this location.
+
 ##### Response Object
 - `id` - _String_ - REQUIRED - The `id` of the PowerSystemResource associated with this location.
  `unit` - _String_ - (REQUIRED) - For electricity, SHOULD be one of:  [`MW`, `kW`, `W`]
@@ -444,9 +470,11 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-### 3.4 PowerSystemsResources Timeseries Data<a id="endpoints-psrtime" href="#endpoints-psrtime" class="permalink">🔗</a>
+### 3.3 PowerSystemsResources Timeseries Data<a id="endpoints-psrtime" href="#endpoints-psrtime" class="permalink">🔗</a>
 
-#### 3.4.1 PSR Generation `/power-system-resources/{id}/generation`
+The primary set of endpoints reference PowerSystemResource (PSR) time-dependent objects. These objects contain meseries information such as generation or demand along with several several metadata fields.
+
+#### 3.3.1 PSR Generation `/power-system-resources/{id}/generation`
 
 ##### Description
 A generation object returns a timeseries of values representing energy that was generated at a PSR, as well as a breakdown of that generation by fuel type.
@@ -505,7 +533,8 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-#### 3.4.2 PSR Demand `/power-system-resources/{id}/demand`
+#### 3.3.2 PSR Demand `/power-system-resources/{id}/demand`
+
 ##### Description
 A demand object returns a timeseries of values representing energy that was demanded at a PSR.
 
@@ -546,7 +575,8 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-#### 3.4.3 PSR Imports `/power-system-resources/{id}/imports`
+#### 3.3.3 PSR Imports `/power-system-resources/{id}/imports`
+
 ##### Description
 An import object returns a timeseries of values representing energy that was imported at a PSR. 
 
@@ -600,7 +630,8 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-#### 3.4.4 PSR Exports `/power-system-resources/{id}/exports`
+#### 3.3.4 PSR Exports `/power-system-resources/{id}/exports`
+
 ##### Description
 An export object returns a timeseries of values representing energy that was exported to a PSR. 
 
@@ -654,7 +685,8 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-#### 3.4.5 PSR Prices `/power-system-resources/{id}/price`
+#### 3.3.5 PSR Prices `/power-system-resources/{id}/price`
+
 ##### Description
 A demand object returns a timeseries of values representing energy that was demanded at a PSR.
 
@@ -697,7 +729,8 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-#### 3.4.6 PSR Curtailment `/power-system-resources/{id}/curtailment`
+#### 3.3.6 PSR Curtailment `/power-system-resources/{id}/curtailment`
+
 ##### Description
 A curtailment object returns a timeseries of values representing energy that was generated at a PSR, as well as a breakdown of that generation by fuel type.
 
