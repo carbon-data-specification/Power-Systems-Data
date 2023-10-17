@@ -86,7 +86,7 @@ TopologyLevel objects represent a specific hierarchical level of the grid.
 
 ##### Response Object
 - `id` - _string_ - (REQUIRED) - The unique identifier representing this resource. It **may** be human-readable, such as `Balancing Area`.
-- `level` - int - (OPTIONAL) - A number representing the hierarchy of this resource topology in relation to the other resource types. These levels **shall** include a sequential set of positive integers starting at 0.
+- `level` - int - (REQUIRED) - A number representing the hierarchy of this resource topology in relation to the other resource types. These levels **shall** include a sequential set of positive integers starting at 0.
 ##### Example
 ```
 ==Request==
@@ -139,15 +139,20 @@ The following table shows an example list of topology levels for US and European
 #### 3.1.2 Fuel Source - Type (LIST) `metadata/fuel-source/types`
 
 ##### Description
-***TODO: Placeholder to add descriptions [Github Issue](https://github.com/carbon-data-specification/Power-Systems-Data/issues/89)
+A list of fuel types that are available within this power system.
+
+By default, we assume that fuel type names are taken from [AIB EECS Rule Fact Sheet 5](https://www.aib-net.org/sites/default/files/assets/eecs/facts-sheets/AIB-2019-EECSFS-05%20EECS%20Rules%20Fact%20Sheet%2005%20-%20Types%20of%20Energy%20Inputs%20and%20Technologies%20-%20Release%207.7%20v5.pdf).
 
 ##### Request Object
 ***TODO: Placeholder to add request object [Github Issue](https://github.com/carbon-data-specification/Power-Systems-Data/issues/89)
 
 ##### Response Object
-- `name`: - _string_ - (REQUIRED) - A common name to use for the fuel type. If using AIB codes, it should be a concatenation of the three code descriptions with a dash between (i.e. `Solar - Photovoltaic - Unspecified`)
-- `external_reference`: _String_ - (OPTIONAL?) - A reference that provides context for this specific fuel type.
-- `external_id`:  - _String_ - (OPTIONAL?) - A unique code (such as the AIB code) referencing the type of fuel
+
+- `external_reference`: _String_ - (REQUIRED, default='AIB EECS Rule Fact Sheet 5') - A reference that provides context for this specific fuel type.
+- `external_reference_url`: _String_ - (REQUIRED, default='https://www.aib-net.org/sites/default/files/assets/eecs/facts-sheets/AIB-2019-EECSFS-05%20EECS%20Rules%20Fact%20Sheet%2005%20-%20Types%20of%20Energy%20Inputs%20and%20Technologies%20-%20Release%207.7%20v5.pdf')
+- `types`: -_list_
+	- `name`: - _string_ - (REQUIRED) - A common name to use for the fuel type. If using AIB codes, it should be a concatenation of the three code descriptions with a dash between (i.e. `Solar - Photovoltaic - Unspecified`)
+	- `external_id`:  - _String_ - (REQUIRED) - A unique code (the AIB code if that is the reference) referencing the type of fuel
 
 ##### Example
 ```
@@ -161,15 +166,16 @@ Content-Type: application/json;charset=UTF-8
 ```
 ```json
 {
+   "external_reference": "EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES",
+   "external_reference_url": "https://www.aib-net.org/sites/default/files/assets/eecs/facts-sheets/AIB-2019-EECSFS-05%20EECS%20Rules%20Fact%20Sheet%2005%20-%20Types%20of%20Energy%20Inputs%20and%20Technologies%20-%20Release%207.7%20v5.pdf"
    "types": [
 	   {
 		   "name": "Solar - Photovoltaic - Unspecified",
-		   "external_reference": "EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES",
+		  
 		   "external_id": "T010100"
 	   },
 	   {
 		   "name": "Fossil - Solid - Hard Coal - Unspecified",
-		   "external_reference": "EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES",
 		   "external_id": "F02010100"
 	   },
   ],
