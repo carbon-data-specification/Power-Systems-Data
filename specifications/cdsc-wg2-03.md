@@ -412,14 +412,18 @@ Content-Type: application/json;charset=UTF-8
 		  "fuelSource": {
 			  "technology": "Thermal - Steam engine - Unspecified",
 			  "type": "Fossil - Solid - Hard Coal - Unspecified",
+          },
 		  "value": 500,
 		  "startDatetime": "2015-06-01 00:00:00+00",
 		  "endDatetime": "2021-06-01T0 :00:00+00",
 	  },
-	  	  {
-		  "technology": "Thermal - Steam engine - Unspecified",
-		  "fuelSource": "Fossil - Solid - Hard Coal - Unspecified",
-		  "value": 500
+	  {
+		  "fuelSource": {
+			  "technology": "Thermal - Steam engine - Unspecified",
+			  "type": "Fossil - Solid - Hard Coal - Unspecified",
+          },
+		  "startDatetime": "2010-06-01 00:00:00+00",
+		  "value": 300
 	  },
   ],
   "next": null,
