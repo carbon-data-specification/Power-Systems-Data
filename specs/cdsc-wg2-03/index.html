@@ -142,13 +142,12 @@
 <h2 id="contents-">Contents <a id="table-of-contents" href="#table-of-contents" class="permalink">🔗</a></h2>
 <ul>
   <li><a href="#foreword">1. Foreword</a></li>
-  <li>[2. Introduction)(#introduction)</li>
+  <li><a href="#introduction">2. Introduction</a></li>
   <li><a href="#endpoints">3. Endpoint Categories</a>
     <ul>
-      <li><a href="#endpoints-resourcetype">3.1 ResourceType</a></li>
-      <li><a href="#endpoints-fueltype">3.2 FuelType</a></li>
-      <li><a href="#endpoints-psrmeta">3.3 PowerSystemResource Metadata</a></li>
-      <li><a href="#endpoints-psrtime">3.4 PowerSystemResource Timeseries Data</a></li>
+      <li><a href="#endpoints-metadata">3.1 Metadata </a></li>
+      <li><a href="#endpoints-psrmeta">3.2 PowerSystemResource Metadata</a></li>
+      <li><a href="#endpoints-psrtime">3.3 PowerSystemResource Timeseries Data</a></li>
     </ul>
   </li>
 </ul>
@@ -190,8 +189,8 @@ The main changes compared to the previous edition are as follows:
 <p>The following is a list of the endpoints that will be subsequently defined in this section.</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Metadata
 /metadata/topology-types (LIST)
-/metadata/fuel-types (LIST)
-/metadata/technologies (LIST)
+/metadata/fuel-source/types (LIST)
+/metadata/fuel-source/technologies (LIST)
 /power-system-resources (LIST) 
 # PSR-Specific Metadata
 /power-system-resources/{id}/describe (GET)
@@ -213,7 +212,7 @@ The main changes compared to the previous edition are as follows:
 
 <h5 id="response-object">Response Object</h5>
 <ul>
-  <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - (REQUIRED) - The unique identifier representing this resource. It <strong>may</strong> be human-readable, such as <code class="language-plaintext highlighter-rouge">US-WECC-CISO</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - (REQUIRED) - The unique identifier representing this resource. It <strong>may</strong> be human-readable, such as <code class="language-plaintext highlighter-rouge">Balancing Area</code>.</li>
   <li><code class="language-plaintext highlighter-rouge">level</code> - int - (OPTIONAL) - A number representing the hierarchy of this resource topology in relation to the other resource types. These levels <strong>shall</strong> include a sequential set of positive integers starting at 0.
     <h5 id="example">Example</h5>
     <p>```
@@ -265,7 +264,7 @@ Content-Type: application/json;charset=UTF-8</p>
 |4|Generating Plant|Scheduling Area/Sub scheduling area|Feeder,GeneratingUnit|
 |5|Meter (Generator or Load)|Metering Grid Area, MeteringPoint|GeneratingUnit |</p>
 
-<h4 id="312-fuel-type-list-metadatafuel-types">3.1.2 Fuel Type (LIST) <code class="language-plaintext highlighter-rouge">metadata/fuel-types</code></h4>
+<h4 id="312-fuel-source---type-list-metadatafuel-sourcetypes">3.1.2 Fuel Source - Type (LIST) <code class="language-plaintext highlighter-rouge">metadata/fuel-source/types</code></h4>
 <p><strong><em>TODO: This depends on if we want to fully adopt AIB or whether we want to allow for a more flexible solution.</em></strong> <a href="https://github.com/carbon-data-specification/Power-Systems-Data/issues/72">Github Issue</a></p>
 
 <h5 id="response-object-1">Response Object</h5>
@@ -285,7 +284,7 @@ HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
 </code></pre></div></div>
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-   </span><span class="nl">"fuel_types"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+   </span><span class="nl">"types"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
 	   </span><span class="p">{</span><span class="w">
 		   </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Solar - Photovoltaic - Unspecified"</span><span class="p">,</span><span class="w">
 		   </span><span class="nl">"external_reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES"</span><span class="p">,</span><span class="w">
@@ -301,7 +300,7 @@ Content-Type: application/json;charset=UTF-8
   </span><span class="nl">"previous"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
-<h4 id="313-technology-list-metadatatechnologies">3.1.3 Technology (LIST) <code class="language-plaintext highlighter-rouge">metadata/technologies</code></h4>
+<h4 id="313-fuel-source---technology-list-metadatafuel-sourcetechnologies">3.1.3 Fuel Source - Technology (LIST) <code class="language-plaintext highlighter-rouge">metadata/fuel-source/technologies</code></h4>
 <p><strong><em>TODO: This depends on if we want to fully adopt <a href="https://www.aib-net.org/sites/default/files/assets/eecs/facts-sheets/AIB-2019-EECSFS-05%20EECS%20Rules%20Fact%20Sheet%2005%20-%20Types%20of%20Energy%20Inputs%20and%20Technologies%20-%20Release%207.7%20v5.pdf">AIB</a> or whether we want to allow for a more flexible solution.</em></strong> <a href="https://github.com/carbon-data-specification/Power-Systems-Data/issues/72">Github Issue</a></p>
 
 <h5 id="response-object-2">Response Object</h5>
@@ -332,11 +331,11 @@ Content-Type: application/json;charset=UTF-8
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
 
-<h3 id="33-powersystemsresources-metadata">3.3 PowerSystemsResources Metadata<a id="endpoints-psrmeta" href="#endpoints-psrmeta" class="permalink">🔗</a></h3>
+<h3 id="32-powersystemsresources-metadata">3.2 PowerSystemsResources Metadata<a id="endpoints-psrmeta" href="#endpoints-psrmeta" class="permalink">🔗</a></h3>
 
-<p>The primary set of endpoints reference PowerSystemResource (PSR) objects. These objects contain several metadata fields as well as timeseries information such as generation, demand, and capacity.</p>
+<p>The primary set of endpoints reference PowerSystemResource (PSR) objects. These objects contain several metadata fields as well as <strong>historical timeseries</strong> information such as capacity.</p>
 
-<h4 id="331-psr-list-power-system-resources">3.3.1 PSR List <code class="language-plaintext highlighter-rouge">/power-system-resources</code></h4>
+<h4 id="321-psr-list-power-system-resources">3.2.1 PSR List <code class="language-plaintext highlighter-rouge">/power-system-resources</code></h4>
 <h5 id="request-object">Request Object</h5>
 <ul>
   <li><code class="language-plaintext highlighter-rouge">type</code>: <em>string</em> - (OPTIONAL) - An optional filter to only return PSR objects with the given <em>type</em>.</li>
@@ -347,7 +346,6 @@ Content-Type: application/json;charset=UTF-8
   <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - (REQUIRED) - The unique identifier representing this resource. It SHOULD be human-readable, and where appropriate, MAY incorporate the <code class="language-plaintext highlighter-rouge">id</code> of its parent objects in order to easily understand its place in the topology. An example of such an id is <code class="language-plaintext highlighter-rouge">US-WECC-CISO</code>. The <code class="language-plaintext highlighter-rouge">id</code> MUST be URL safe.</li>
   <li><code class="language-plaintext highlighter-rouge">type</code> - <em>string</em> - (REQUIRED) - The id of the resource type for this PowerSystemsResource.</li>
   <li><code class="language-plaintext highlighter-rouge">name</code> - <em>string</em> - (OPTIONAL) - A descriptive name to provide additional context to the PSR.</li>
-  <li><code class="language-plaintext highlighter-rouge">location</code> - <em>Location</em> - (REQUIRED) - A Location object describing where this PSR exists.</li>
 </ul>
 
 <p><strong><em>TODO: Placeholder spot for where we can decide what rules/guidelines/parameters/suggestions would be good for generating human-readable PSR <code class="language-plaintext highlighter-rouge">id</code>s</em></strong> <a href="https://github.com/carbon-data-specification/Power-Systems-Data/issues/80">Github Issue</a></p>
@@ -384,7 +382,7 @@ Content-Type: application/json;charset=UTF-8
   </span><span class="nl">"previous"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
-<h4 id="psr-describe-power-system-resourcesiddescribe">PSR Describe <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/describe</code></h4>
+<h4 id="322-psr-describe-power-system-resourcesiddescribe">3.2.2 PSR Describe <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/describe</code></h4>
 
 <h5 id="response-object-4">Response Object</h5>
 <ul>
@@ -454,7 +452,7 @@ Content-Type: application/json;charset=UTF-8
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
 
-<h4 id="psr-topology-power-system-resourcesidtopology">PSR Topology <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/topology</code></h4>
+<h4 id="323-psr-topology-power-system-resourcesidtopology">3.2.3 PSR Topology <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/topology</code></h4>
 
 <p>The topology endpoint provides a means for understanding how each PSR relates to others.</p>
 
@@ -522,7 +520,7 @@ Content-Type: application/json;charset=UTF-8</p>
 }
 </code></pre></div></div>
 
-<h4 id="psr-capacity-power-system-resourcesidcapacity">PSR Capacity <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/capacity</code></h4>
+<h4 id="324-psr-capacity-power-system-resourcesidcapacity">3.2.4 PSR Capacity <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/capacity</code></h4>
 
 <p>The capacity endpoint provides a means for providing capacity information by fuel type and technology.</p>
 
@@ -532,8 +530,12 @@ Content-Type: application/json;charset=UTF-8</p>
   <li><code class="language-plaintext highlighter-rouge">unit</code> - <em>string</em> - (REQUIRED) - For electricity, SHOULD be one of:  [<code class="language-plaintext highlighter-rouge">MW</code>, <code class="language-plaintext highlighter-rouge">kW</code>, <code class="language-plaintext highlighter-rouge">W</code>]</li>
   <li><code class="language-plaintext highlighter-rouge">capacity</code> - <em>Array</em>
     <ul>
-      <li><code class="language-plaintext highlighter-rouge">technology</code> - <em>String</em> - (OPTIONAL) - <em>id</em> of the technology that this fuel type used for generation.</li>
-      <li><code class="language-plaintext highlighter-rouge">fuel_source</code> - <em>String</em> - (REQUIRED) - <em>id</em> of the fuel source used for generation.</li>
+      <li><code class="language-plaintext highlighter-rouge">fuelSource</code> - <em>Object</em>
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">technology</code> - <em>String</em> - (OPTIONAL) - <em>id</em> of the technology for generating this fuel.</li>
+          <li><code class="language-plaintext highlighter-rouge">type</code> - <em>String</em> - (REQUIRED) - <em>id</em> of the fuel type used for generation.</li>
+        </ul>
+      </li>
       <li><code class="language-plaintext highlighter-rouge">value</code> - <em>float</em> - A value of the amount of generation that took place at this PSR using the given <em>technology</em> and <em>fuel_source</em>.</li>
       <li><code class="language-plaintext highlighter-rouge">startDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED) - The datetime MUST be timezone aware. This allows for the defining of historical capacity values and to indicate when new resources came online.</li>
       <li><code class="language-plaintext highlighter-rouge">endDatetime</code> - <em>ISO8601 Datetime</em> - (OPTIONAL)  - The datetime MUST be timezone aware. This allows for the defining of historical capacity values and to indicate when old resources came offline. An empty value assumes it is still operational.
@@ -554,8 +556,9 @@ Content-Type: application/json;charset=UTF-8</p>
   "unit": "MW",
   "capacity": [
 	  {
-		  "technology": "Thermal - Steam engine - Unspecified",
-		  "fuelSource": "Fossil - Solid - Hard Coal - Unspecified",
+		  "fuelSource": {
+			  "technology": "Thermal - Steam engine - Unspecified",
+			  "type": "Fossil - Solid - Hard Coal - Unspecified",
 		  "value": 500,
 		  "startDatetime": "2015-06-01 00:00:00+00",
 		  "endDatetime": "2021-06-01T0 :00:00+00",
@@ -571,14 +574,14 @@ Content-Type: application/json;charset=UTF-8</p>
 }
 </code></pre></div></div>
 
-<h4 id="psr-topology-power-system-resourcesidtransmission-capacity">PSR Topology <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/transmission-capacity</code></h4>
+<h4 id="325-psr-transmission-capacity-power-system-resourcesidtransmission-capacity">3.2.5 PSR Transmission Capacity <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/transmission-capacity</code></h4>
 
-<p>The topology endpoint provides a means for understanding how each PSR relates to others.</p>
+<p>The transmission capacity endpoint provides a means for providing transmission line capacity information while understanding how the PSR relates to others.</p>
 
 <h5 id="response-object-7">Response Object</h5>
 <ul>
-  <li><code class="language-plaintext highlighter-rouge">id</code> - <em>String</em> - REQUIRED - The <code class="language-plaintext highlighter-rouge">id</code> of the PowerSystemResource associated with this location.</li>
-  <li><code class="language-plaintext highlighter-rouge">unit</code> - <em>String</em> - (REQUIRED) - For electricity, SHOULD be one of:  [<code class="language-plaintext highlighter-rouge">MW</code>, <code class="language-plaintext highlighter-rouge">kW</code>, <code class="language-plaintext highlighter-rouge">W</code>]</li>
+  <li><code class="language-plaintext highlighter-rouge">id</code> - <em>String</em> - REQUIRED - The <code class="language-plaintext highlighter-rouge">id</code> of the PowerSystemResource associated with this location.
+ <code class="language-plaintext highlighter-rouge">unit</code> - <em>String</em> - (REQUIRED) - For electricity, SHOULD be one of:  [<code class="language-plaintext highlighter-rouge">MW</code>, <code class="language-plaintext highlighter-rouge">kW</code>, <code class="language-plaintext highlighter-rouge">W</code>]</li>
   <li><code class="language-plaintext highlighter-rouge">transmissionCapacity</code> - <em>Array</em>
     <ul>
       <li><code class="language-plaintext highlighter-rouge">connectedPSR</code> - <em>Object</em>
@@ -617,9 +620,11 @@ Content-Type: application/json;charset=UTF-8</p>
 }
 </code></pre></div></div>
 
-<h3 id="34-powersystemsresources-timeseries-data">3.4 PowerSystemsResources Timeseries Data<a id="endpoints-psrtime" href="#endpoints-psrtime" class="permalink">🔗</a></h3>
+<h3 id="33-powersystemsresources-timeseries-data">3.3 PowerSystemsResources Timeseries Data<a id="endpoints-psrtime" href="#endpoints-psrtime" class="permalink">🔗</a></h3>
 
-<h4 id="psr-generation-power-system-resourcesidgeneration">PSR Generation <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/generation</code></h4>
+<p>The primary set of endpoints reference PowerSystemResource (PSR) time-dependent objects. These objects contain meseries information such as generation or demand along with several several metadata fields.</p>
+
+<h4 id="331-psr-generation-power-system-resourcesidgeneration">3.3.1 PSR Generation <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/generation</code></h4>
 <p>A generation object returns a timeseries of values representing energy that was generated at a PSR, as well as a breakdown of that generation by fuel type.</p>
 
 <h5 id="request-object-2">Request Object</h5>
@@ -637,10 +642,10 @@ Content-Type: application/json;charset=UTF-8</p>
       <li><code class="language-plaintext highlighter-rouge">startDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED) - The datetime MUST be timezone aware.</li>
       <li><code class="language-plaintext highlighter-rouge">endDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED)  - The datetime MUST be timezone aware.</li>
       <li><code class="language-plaintext highlighter-rouge">value</code> - <em>float</em> - (REQUIRED) - A value of the amount of generation that took place at this PSR. A positive number indicates generation.</li>
-      <li><code class="language-plaintext highlighter-rouge">valueByFuelType</code> - <em>Array</em> - (REQUIRED) - Lists of fuel types, technologies, and the amount of generation that comes from that fuel type. The unit for these values MUST be the same as that of the <code class="language-plaintext highlighter-rouge">unit</code> field.
+      <li><code class="language-plaintext highlighter-rouge">valueByFuelSource</code> - <em>Array</em> - (REQUIRED) - Lists of fuel types, technologies, and the amount of generation that comes from that fuel type. The unit for these values MUST be the same as that of the <code class="language-plaintext highlighter-rouge">unit</code> field.
         <ul>
-          <li><code class="language-plaintext highlighter-rouge">technology</code> - <em>String</em> - (OPTIONAL) - <em>id</em> of the technology that this fuel type used for generation.</li>
-          <li><code class="language-plaintext highlighter-rouge">fuel_source</code> - <em>String</em> - (REQUIRED) - <em>id</em> of the fuel source used for generation.</li>
+          <li><code class="language-plaintext highlighter-rouge">technology</code> - <em>String</em> - (OPTIONAL) - <em>id</em> of the technology that was generated from this fuel.</li>
+          <li><code class="language-plaintext highlighter-rouge">type</code> - <em>String</em> - (REQUIRED) - <em>id</em> of the fuel type used for generation.</li>
           <li><code class="language-plaintext highlighter-rouge">value</code> - <em>float</em> - A value of the amount of generation that took place at this PSR using the given <em>technology</em> and <em>fuel_source</em>.</li>
         </ul>
       </li>
@@ -664,15 +669,15 @@ Content-Type: application/json;charset=UTF-8
 		  </span><span class="nl">"startDatetime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-06-01 00:00:00+00"</span><span class="p">,</span><span class="w">
 		  </span><span class="nl">"endDatetime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-06-01 01:00:00+00"</span><span class="p">,</span><span class="w">
 		  </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">10.5</span><span class="p">,</span><span class="w">
-		  </span><span class="nl">"valueByFuelType"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+		  </span><span class="nl">"valueByFuelSource"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
 			  </span><span class="p">{</span><span class="w">
 			    </span><span class="nl">"technology"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Thermal - Steam engine - Unspecified"</span><span class="p">,</span><span class="w">
-			    </span><span class="nl">"fuelSource"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fossil - Solid - Hard Coal - Unspecified"</span><span class="p">,</span><span class="w">
+			    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fossil - Solid - Hard Coal - Unspecified"</span><span class="p">,</span><span class="w">
 			    </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">5.0</span><span class="w">
 			  </span><span class="p">},</span><span class="w">
 			  </span><span class="p">{</span><span class="w">
 			    </span><span class="nl">"technology"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Solar - Photovoltaic - Unspecified"</span><span class="p">,</span><span class="w">
-			    </span><span class="nl">"fuelSource"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Renewables - Heating and Cooling - Solar"</span><span class="p">,</span><span class="w">
+			    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Renewables - Heating and Cooling - Solar"</span><span class="p">,</span><span class="w">
 			    </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">10.5</span><span class="w">
 			  </span><span class="p">},</span><span class="w">
 			</span><span class="err">}</span><span class="p">,</span><span class="err">...</span><span class="w">
@@ -683,7 +688,7 @@ Content-Type: application/json;charset=UTF-8
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
 
-<h4 id="psr-demand-power-system-resourcesiddemand">PSR Demand <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/demand</code></h4>
+<h4 id="332-psr-demand-power-system-resourcesiddemand">3.3.2 PSR Demand <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/demand</code></h4>
 <p>A demand object returns a timeseries of values representing energy that was demanded at a PSR.</p>
 
 <h5 id="request-object-3">Request Object</h5>
@@ -728,7 +733,7 @@ Content-Type: application/json;charset=UTF-8</p>
 }
 </code></pre></div></div>
 
-<h4 id="psr-imports-power-system-resourcesidimports">PSR Imports <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/imports</code></h4>
+<h4 id="333-psr-imports-power-system-resourcesidimports">3.3.3 PSR Imports <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/imports</code></h4>
 <p>An import object returns a timeseries of values representing energy that was imported at a PSR.</p>
 
 <h5 id="request-object-4">Request Object</h5>
@@ -789,7 +794,7 @@ Content-Type: application/json;charset=UTF-8</p>
 }
 </code></pre></div></div>
 
-<h4 id="psr-exports-power-system-resourcesidexports">PSR Exports <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/exports</code></h4>
+<h4 id="334-psr-exports-power-system-resourcesidexports">3.3.4 PSR Exports <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/exports</code></h4>
 <p>An export object returns a timeseries of values representing energy that was exported to a PSR.</p>
 
 <h5 id="request-object-5">Request Object</h5>
@@ -850,7 +855,7 @@ Content-Type: application/json;charset=UTF-8</p>
 }
 </code></pre></div></div>
 
-<h4 id="psr-prices-power-system-resourcesidprice">PSR Prices <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/price</code></h4>
+<h4 id="335-psr-prices-power-system-resourcesidprice">3.3.5 PSR Prices <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/price</code></h4>
 <p>A demand object returns a timeseries of values representing energy that was demanded at a PSR.</p>
 
 <h5 id="request-object-6">Request Object</h5>
@@ -897,7 +902,7 @@ Content-Type: application/json;charset=UTF-8</p>
 }
 </code></pre></div></div>
 
-<h4 id="psr-generation-power-system-resourcesidcurtailment">PSR Generation <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/curtailment</code></h4>
+<h4 id="336-psr-curtailment-power-system-resourcesidcurtailment">3.3.6 PSR Curtailment <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/curtailment</code></h4>
 <p>A curtailment object returns a timeseries of values representing energy that was generated at a PSR, as well as a breakdown of that generation by fuel type.</p>
 
 <h5 id="request-object-7">Request Object</h5>
@@ -915,10 +920,10 @@ Content-Type: application/json;charset=UTF-8</p>
       <li><code class="language-plaintext highlighter-rouge">startDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED) - The datetime MUST be timezone aware.</li>
       <li><code class="language-plaintext highlighter-rouge">endDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED)  - The datetime MUST be timezone aware.</li>
       <li><code class="language-plaintext highlighter-rouge">value</code> - <em>float</em> - (REQUIRED) - A value of the amount of curtailment that took place at this PSR. A positive number indicates curtailment.</li>
-      <li><code class="language-plaintext highlighter-rouge">valueByFuelType</code> - <em>Array</em> - (REQUIRED) - Lists of fuel types, technologies, and the amount of curtailment that occurs at that fuel type. The unit for these values MUST be the same as that of the <code class="language-plaintext highlighter-rouge">unit</code> field.
+      <li><code class="language-plaintext highlighter-rouge">valueByFuelSource</code> - <em>Array</em> - (REQUIRED) - Lists of fuel types, technologies, and the amount of curtailment that occurs at that fuel type. The unit for these values MUST be the same as that of the <code class="language-plaintext highlighter-rouge">unit</code> field.
         <ul>
           <li><code class="language-plaintext highlighter-rouge">technology</code> - <em>String</em> - (OPTIONAL) - <em>id</em> of the technology that this fuel type used for curtailment.</li>
-          <li><code class="language-plaintext highlighter-rouge">fuel_source</code> - <em>String</em> - (REQUIRED) - <em>id</em> of the fuel source used for curtailment.</li>
+          <li><code class="language-plaintext highlighter-rouge">type</code> - <em>String</em> - (REQUIRED) - <em>id</em> of the fuel source used for curtailment.</li>
           <li><code class="language-plaintext highlighter-rouge">value</code> - <em>float</em> - A value of the amount of curtailment that took place at this PSR using the given <em>technology</em> and <em>fuel_source</em>.</li>
         </ul>
       </li>
@@ -942,15 +947,15 @@ Content-Type: application/json;charset=UTF-8
 		  </span><span class="nl">"startDatetime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-06-01 00:00:00+00"</span><span class="p">,</span><span class="w">
 		  </span><span class="nl">"endDatetime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-06-01 01:00:00+00"</span><span class="p">,</span><span class="w">
 		  </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">10.5</span><span class="p">,</span><span class="w">
-		  </span><span class="nl">"valueByFuelType"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+		  </span><span class="nl">"valueByFuelSource"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
 			  </span><span class="p">{</span><span class="w">
 			    </span><span class="nl">"technology"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Thermal - Steam engine - Unspecified"</span><span class="p">,</span><span class="w">
-			    </span><span class="nl">"fuelSource"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fossil - Solid - Hard Coal - Unspecified"</span><span class="p">,</span><span class="w">
+			    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fossil - Solid - Hard Coal - Unspecified"</span><span class="p">,</span><span class="w">
 			    </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">5.0</span><span class="w">
 			  </span><span class="p">},</span><span class="w">
 			  </span><span class="p">{</span><span class="w">
 			    </span><span class="nl">"technology"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Solar - Photovoltaic - Unspecified"</span><span class="p">,</span><span class="w">
-			    </span><span class="nl">"fuelSource"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Renewables - Heating and Cooling - Solar"</span><span class="p">,</span><span class="w">
+			    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Renewables - Heating and Cooling - Solar"</span><span class="p">,</span><span class="w">
 			    </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">10.5</span><span class="w">
 			  </span><span class="p">},</span><span class="w">
 			</span><span class="err">}</span><span class="p">,</span><span class="err">...</span><span class="w">
