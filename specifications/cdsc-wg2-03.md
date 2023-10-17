@@ -55,7 +55,7 @@ The following documents are referred to in the text in such a way that some or a
 The following is a list of the endpoints that will be subsequently defined in this section.
 ```
 # Metadata
-/metadata/topology-types (LIST)
+/metadata/topology-levels (LIST)
 /metadata/fuel-source/types (LIST)
 /metadata/fuel-source/technologies (LIST)
 /power-system-resources (LIST) 
