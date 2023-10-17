@@ -206,9 +206,16 @@ The main changes compared to the previous edition are as follows:
 </code></pre></div></div>
 
 <h3 id="31-metadata">3.1 Metadata<a id="endpoints-metadata" href="#endpoints-metadata" class="permalink">🔗</a></h3>
-<p>ResourceType objects represent a specific hierarchical level of the grid.</p>
 
-<h4 id="311-topology-type-list-metadatatopology-types">3.1.1 Topology Type (List) <code class="language-plaintext highlighter-rouge">metadata/topology-types</code></h4>
+<p>TopologyLevel objects represent a specific hierarchical level of the grid.</p>
+
+<h4 id="311-topology-level-list-metadatatopology-levels">3.1.1 Topology Level (List) <code class="language-plaintext highlighter-rouge">metadata/topology-levels</code></h4>
+
+<h5 id="description">Description</h5>
+<p>***TODO: Placeholder to add descriptions <a href="https://github.com/carbon-data-specification/Power-Systems-Data/issues/89">Github Issue</a></p>
+
+<h5 id="request-object">Request Object</h5>
+<p>***TODO: Placeholder to add request object <a href="https://github.com/carbon-data-specification/Power-Systems-Data/issues/89">Github Issue</a></p>
 
 <h5 id="response-object">Response Object</h5>
 <ul>
@@ -217,7 +224,7 @@ The main changes compared to the previous edition are as follows:
     <h5 id="example">Example</h5>
     <p>```
 ==Request==
-GET metadata/topology-types HTTP/1.1
+GET metadata/topology-levels HTTP/1.1
 Host: demoutility.com</p>
   </li>
 </ul>
@@ -227,7 +234,7 @@ HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```json
 {
-"topology_types": [
+"topology_levels": [
 			{
 		     "id": "Interconnection",
 		     "level": 0
@@ -253,8 +260,8 @@ Content-Type: application/json;charset=UTF-8</p>
   "previous": null
 }
 </code></pre></div></div>
-<h5 id="reference-topologytypes">Reference TopologyTypes</h5>
-<p>The following table shows an example list of topology types for US and European Grids:
+<h5 id="reference-topologylevels">Reference TopologyLevels</h5>
+<p>The following table shows an example list of topology levels for US and European Grids:
 |Level|US Grid|European Grid|CIM|
 |–|–|–|–|
 |0|Interconnection|Synchronous area|GeographicalRegion |
@@ -265,13 +272,18 @@ Content-Type: application/json;charset=UTF-8</p>
 |5|Meter (Generator or Load)|Metering Grid Area, MeteringPoint|GeneratingUnit |</p>
 
 <h4 id="312-fuel-source---type-list-metadatafuel-sourcetypes">3.1.2 Fuel Source - Type (LIST) <code class="language-plaintext highlighter-rouge">metadata/fuel-source/types</code></h4>
-<p><strong><em>TODO: This depends on if we want to fully adopt AIB or whether we want to allow for a more flexible solution.</em></strong> <a href="https://github.com/carbon-data-specification/Power-Systems-Data/issues/72">Github Issue</a></p>
+
+<h5 id="description-1">Description</h5>
+<p>***TODO: Placeholder to add descriptions <a href="https://github.com/carbon-data-specification/Power-Systems-Data/issues/89">Github Issue</a></p>
+
+<h5 id="request-object-1">Request Object</h5>
+<p>***TODO: Placeholder to add request object <a href="https://github.com/carbon-data-specification/Power-Systems-Data/issues/89">Github Issue</a></p>
 
 <h5 id="response-object-1">Response Object</h5>
 <ul>
   <li><code class="language-plaintext highlighter-rouge">name</code>: - <em>string</em> - (REQUIRED) - A common name to use for the fuel type. If using AIB codes, it should be a concatenation of the three code descriptions with a dash between (i.e. <code class="language-plaintext highlighter-rouge">Solar - Photovoltaic - Unspecified</code>)</li>
   <li><code class="language-plaintext highlighter-rouge">external_reference</code>: <em>String</em> - (OPTIONAL?) - A reference that provides context for this specific fuel type.</li>
-  <li><code class="language-plaintext highlighter-rouge">external_id</code>:  - <em>String</em> - (OPTIONAL?) - A unique code (<strong><em>AIB code?</em></strong>) referencing the type of fuel</li>
+  <li><code class="language-plaintext highlighter-rouge">external_id</code>:  - <em>String</em> - (OPTIONAL?) - A unique code (such as the AIB code) referencing the type of fuel</li>
 </ul>
 
 <h5 id="example-1">Example</h5>
@@ -303,6 +315,12 @@ Content-Type: application/json;charset=UTF-8
 <h4 id="313-fuel-source---technology-list-metadatafuel-sourcetechnologies">3.1.3 Fuel Source - Technology (LIST) <code class="language-plaintext highlighter-rouge">metadata/fuel-source/technologies</code></h4>
 <p><strong><em>TODO: This depends on if we want to fully adopt <a href="https://www.aib-net.org/sites/default/files/assets/eecs/facts-sheets/AIB-2019-EECSFS-05%20EECS%20Rules%20Fact%20Sheet%2005%20-%20Types%20of%20Energy%20Inputs%20and%20Technologies%20-%20Release%207.7%20v5.pdf">AIB</a> or whether we want to allow for a more flexible solution.</em></strong> <a href="https://github.com/carbon-data-specification/Power-Systems-Data/issues/72">Github Issue</a></p>
 
+<h5 id="description-2">Description</h5>
+<p>***TODO: Placeholder to add descriptions <a href="https://github.com/carbon-data-specification/Power-Systems-Data/issues/89">Github Issue</a></p>
+
+<h5 id="request-object-2">Request Object</h5>
+<p>***TODO: Placeholder to add request object <a href="https://github.com/carbon-data-specification/Power-Systems-Data/issues/89">Github Issue</a></p>
+
 <h5 id="response-object-2">Response Object</h5>
 <ul>
   <li><code class="language-plaintext highlighter-rouge">name</code>: - <em>string</em> - (REQUIRED) - A common name to use for the technology. If using AIB codes, it should be a concatenation of the three code descriptions with a dash between (i.e. <code class="language-plaintext highlighter-rouge">Solar - Photovoltaic - Unspecified</code>)</li>
@@ -333,18 +351,91 @@ Content-Type: application/json;charset=UTF-8
 
 <h3 id="32-powersystemsresources-metadata">3.2 PowerSystemsResources Metadata<a id="endpoints-psrmeta" href="#endpoints-psrmeta" class="permalink">🔗</a></h3>
 
-<p>The primary set of endpoints reference PowerSystemResource (PSR) objects. These objects contain several metadata fields as well as <strong>historical timeseries</strong> information such as capacity.</p>
+<p>The primary set of endpoints reference PowerSystemResource (PSR) objects. These objects contain several metadata fields about these PSRs.</p>
 
-<h4 id="321-psr-list-power-system-resources">3.2.1 PSR List <code class="language-plaintext highlighter-rouge">/power-system-resources</code></h4>
-<h5 id="request-object">Request Object</h5>
+<h4 id="321-psr-topology-list-power-system-resourcesidtopology">3.2.1 PSR Topology (List) <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/topology</code></h4>
+
+<h5 id="description-3">Description</h5>
+<p>The topology endpoint provides a means for understanding how each PSR relates to others.</p>
+
+<h5 id="request-object-3">Request Object</h5>
 <ul>
-  <li><code class="language-plaintext highlighter-rouge">type</code>: <em>string</em> - (OPTIONAL) - An optional filter to only return PSR objects with the given <em>type</em>.</li>
+  <li><code class="language-plaintext highlighter-rouge">numLevels</code> - <em>integer</em> - Number of levels above and below the requested PSR to return in the response. A value of <em>1</em> means that it will only return that PSR’s direct parent and children.</li>
 </ul>
 
 <h5 id="response-object-3">Response Object</h5>
 <ul>
+  <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - REQUIRED - The <code class="language-plaintext highlighter-rouge">id</code> of the PowerSystemResource associated with this location.</li>
+  <li><code class="language-plaintext highlighter-rouge">topology</code> - <em>Object</em>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">parent</code> - <em>Object</em> - (OPTIONAL)
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">id</code> - <em>String</em> The unique identifier representing the <em>id</em> of the PSR that is one level above in the topology.</li>
+          <li><code class="language-plaintext highlighter-rouge">parent</code> - <em>Object</em> - (OPTIONAL)
+            <ul>
+              <li>…</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><code class="language-plaintext highlighter-rouge">connectedSiblings</code> - <em>Array</em> - (OPTIONAL)
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">id</code> - <em>String</em> - A unique identifier representing the <em>id</em> of a PSR that has some transmission-based connection.</li>
+          <li><code class="language-plaintext highlighter-rouge">connectedSiblings</code> - <em>Array</em> - (OPTIONAL)
+    - <code class="language-plaintext highlighter-rouge">id</code> - <em>String</em></li>
+        </ul>
+      </li>
+      <li><code class="language-plaintext highlighter-rouge">children</code> - <em>Array</em> - (OPTIONAL)
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">id</code> - <em>String</em> - A unique identifier representing the <em>id</em> of a PSR that is one level below in the topology.</li>
+          <li><code class="language-plaintext highlighter-rouge">connectedSiblings</code> - <em>Array</em> - (OPTIONAL)</li>
+          <li><code class="language-plaintext highlighter-rouge">children</code> - <em>Array</em> - (OPTIONAL)
+            <ul>
+              <li>…
+```
+==Request==
+GET /power-system-resources/US-WECC-CISO/topology?numLevels=2 HTTP/1.1
+Host: demoutility.com</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>==Response==
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```json
+{
+  "id": "US-WECC-CISO",
+  "topology": {
+	  "parent": {"id": "US-WECC"},
+	  "connectedSiblings": {"id": "US-ERCOT"},
+	  "children": [
+			  {"id": "US-WECC-CISO-ABC", "children": []}
+			],
+	},
+  "next": null,
+  "previous": null
+}
+</code></pre></div></div>
+
+<h4 id="322-psr-list-power-system-resources">3.2.2 PSR (List) <code class="language-plaintext highlighter-rouge">/power-system-resources</code></h4>
+
+<h5 id="description-4">Description</h5>
+<p>The primary set of endpoints reference PowerSystemResource (PSR) objects. These objects contain several metadata fields as well as <strong>historical timeseries</strong> information such as capacity.</p>
+
+<h5 id="request-object-4">Request Object</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">level</code>: <em>Integer</em> - (OPTIONAL) - An optional filter to only return PSR objects with the given <em>topology level</em>.</li>
+</ul>
+
+<h5 id="response-object-4">Response Object</h5>
+<ul>
   <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - (REQUIRED) - The unique identifier representing this resource. It SHOULD be human-readable, and where appropriate, MAY incorporate the <code class="language-plaintext highlighter-rouge">id</code> of its parent objects in order to easily understand its place in the topology. An example of such an id is <code class="language-plaintext highlighter-rouge">US-WECC-CISO</code>. The <code class="language-plaintext highlighter-rouge">id</code> MUST be URL safe.</li>
-  <li><code class="language-plaintext highlighter-rouge">type</code> - <em>string</em> - (REQUIRED) - The id of the resource type for this PowerSystemsResource.</li>
+  <li><code class="language-plaintext highlighter-rouge">level</code> - <em>string</em> - (REQUIRED) - The id of the topology level for this PSR.</li>
   <li><code class="language-plaintext highlighter-rouge">name</code> - <em>string</em> - (OPTIONAL) - A descriptive name to provide additional context to the PSR.</li>
 </ul>
 
@@ -365,26 +456,34 @@ Content-Type: application/json;charset=UTF-8
 			</span><span class="p">{</span><span class="w">
 		     </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US-WECC"</span><span class="p">,</span><span class="w">
 		     </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Western Electricity Coordinating Council"</span><span class="p">,</span><span class="w">
-		     </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Interconnection"</span><span class="w">
+		     </span><span class="nl">"level"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
 			</span><span class="p">},</span><span class="w">
 			</span><span class="p">{</span><span class="w">
 		     </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US-WECC-CISO"</span><span class="p">,</span><span class="w">
 		     </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"California ISO"</span><span class="p">,</span><span class="w">
-		     </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Balancing Area"</span><span class="w">
+		     </span><span class="nl">"level"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
 			</span><span class="p">},</span><span class="w">
 			</span><span class="p">{</span><span class="w">
 		     </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US-WECC-CISO-ABC-HYDRO"</span><span class="p">,</span><span class="w">
 		     </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hydropower Plant in ABC"</span><span class="p">,</span><span class="w">
-		     </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Generating Plant"</span><span class="w">
+		     </span><span class="nl">"level"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
 			</span><span class="p">},</span><span class="w">
 	</span><span class="p">],</span><span class="w">
   </span><span class="nl">"next"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
   </span><span class="nl">"previous"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
-<h4 id="322-psr-describe-power-system-resourcesiddescribe">3.2.2 PSR Describe <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/describe</code></h4>
+<h4 id="323-psr-describe-power-system-resourcesiddescribe">3.2.3 PSR Describe <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/describe</code></h4>
 
-<h5 id="response-object-4">Response Object</h5>
+<h5 id="description-5">Description</h5>
+<p>***TODO: Placeholder to add descriptions <a href="https://github.com/carbon-data-specification/Power-Systems-Data/issues/89">Github Issue</a></p>
+
+<h5 id="request-object-5">Request Object</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">id</code>:  <em>string</em> - OPTIONAL</li>
+</ul>
+
+<h5 id="response-object-5">Response Object</h5>
 <ul>
   <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - REQUIRED - The <code class="language-plaintext highlighter-rouge">id</code> of the PowerSystemResource associated with this location.</li>
   <li><code class="language-plaintext highlighter-rouge">describe</code>
@@ -452,77 +551,15 @@ Content-Type: application/json;charset=UTF-8
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
 
-<h4 id="323-psr-topology-power-system-resourcesidtopology">3.2.3 PSR Topology <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/topology</code></h4>
-
-<p>The topology endpoint provides a means for understanding how each PSR relates to others.</p>
-
-<h5 id="request-object-1">Request Object</h5>
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">numLevels</code> - <em>integer</em> - Number of levels above and below the requested PSR to return in the response. A value of <em>1</em> means that it will only return that PSR’s direct parent and children.</li>
-</ul>
-
-<h5 id="response-object-5">Response Object</h5>
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - REQUIRED - The <code class="language-plaintext highlighter-rouge">id</code> of the PowerSystemResource associated with this location.</li>
-  <li><code class="language-plaintext highlighter-rouge">topology</code> - <em>Object</em>
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">parent</code> - <em>Object</em> - (OPTIONAL)
-        <ul>
-          <li><code class="language-plaintext highlighter-rouge">id</code> - <em>String</em> The unique identifier representing the <em>id</em> of the PSR that is one level above in the topology.</li>
-          <li><code class="language-plaintext highlighter-rouge">parent</code> - <em>Object</em> - (OPTIONAL)
-            <ul>
-              <li>…</li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li><code class="language-plaintext highlighter-rouge">connectedSiblings</code> - <em>Array</em> - (OPTIONAL)
-        <ul>
-          <li><code class="language-plaintext highlighter-rouge">id</code> - <em>String</em> - A unique identifier representing the <em>id</em> of a PSR that has some transmission-based connection.</li>
-          <li><code class="language-plaintext highlighter-rouge">connectedSiblings</code> - <em>Array</em> - (OPTIONAL)
-    - <code class="language-plaintext highlighter-rouge">id</code> - <em>String</em></li>
-        </ul>
-      </li>
-      <li><code class="language-plaintext highlighter-rouge">children</code> - <em>Array</em> - (OPTIONAL)
-        <ul>
-          <li><code class="language-plaintext highlighter-rouge">id</code> - <em>String</em> - A unique identifier representing the <em>id</em> of a PSR that is one level below in the topology.</li>
-          <li><code class="language-plaintext highlighter-rouge">connectedSiblings</code> - <em>Array</em> - (OPTIONAL)</li>
-          <li><code class="language-plaintext highlighter-rouge">children</code> - <em>Array</em> - (OPTIONAL)
-            <ul>
-              <li>…
-```
-==Request==
-GET /power-system-resources/US-WECC-CISO/topology?numLevels=2 HTTP/1.1
-Host: demoutility.com</li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-</ul>
-
-<p>==Response==
-HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```json
-{
-  "id": "US-WECC-CISO",
-  "topology": {
-	  "parent": {"id": "US-WECC"},
-	  "connectedSiblings": {"id": "US-ERCOT"},
-	  "children": [
-			  {"id": "US-WECC-CISO-ABC", "children": []}
-			],
-	},
-  "next": null,
-  "previous": null
-}
-</code></pre></div></div>
-
 <h4 id="324-psr-capacity-power-system-resourcesidcapacity">3.2.4 PSR Capacity <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/capacity</code></h4>
 
+<h5 id="description-6">Description</h5>
 <p>The capacity endpoint provides a means for providing capacity information by fuel type and technology.</p>
+
+<h5 id="request-object-6">Request Object</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - REQUIRED - The <code class="language-plaintext highlighter-rouge">id</code> of the PowerSystemResource associated with this location.</li>
+</ul>
 
 <h5 id="response-object-6">Response Object</h5>
 <ul>
@@ -559,14 +596,18 @@ Content-Type: application/json;charset=UTF-8</p>
 		  "fuelSource": {
 			  "technology": "Thermal - Steam engine - Unspecified",
 			  "type": "Fossil - Solid - Hard Coal - Unspecified",
+          },
 		  "value": 500,
 		  "startDatetime": "2015-06-01 00:00:00+00",
 		  "endDatetime": "2021-06-01T0 :00:00+00",
 	  },
-	  	  {
-		  "technology": "Thermal - Steam engine - Unspecified",
-		  "fuelSource": "Fossil - Solid - Hard Coal - Unspecified",
-		  "value": 500
+	  {
+		  "fuelSource": {
+			  "technology": "Thermal - Steam engine - Unspecified",
+			  "type": "Fossil - Solid - Hard Coal - Unspecified",
+          },
+		  "startDatetime": "2010-06-01 00:00:00+00",
+		  "value": 300
 	  },
   ],
   "next": null,
@@ -576,7 +617,13 @@ Content-Type: application/json;charset=UTF-8</p>
 
 <h4 id="325-psr-transmission-capacity-power-system-resourcesidtransmission-capacity">3.2.5 PSR Transmission Capacity <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/transmission-capacity</code></h4>
 
+<h5 id="description-7">Description</h5>
 <p>The transmission capacity endpoint provides a means for providing transmission line capacity information while understanding how the PSR relates to others.</p>
+
+<h5 id="request-object-7">Request Object</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - REQUIRED - The <code class="language-plaintext highlighter-rouge">id</code> of the PowerSystemResource associated with this location.</li>
+</ul>
 
 <h5 id="response-object-7">Response Object</h5>
 <ul>
@@ -625,10 +672,13 @@ Content-Type: application/json;charset=UTF-8</p>
 <p>The primary set of endpoints reference PowerSystemResource (PSR) time-dependent objects. These objects contain meseries information such as generation or demand along with several several metadata fields.</p>
 
 <h4 id="331-psr-generation-power-system-resourcesidgeneration">3.3.1 PSR Generation <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/generation</code></h4>
+
+<h5 id="description-8">Description</h5>
 <p>A generation object returns a timeseries of values representing energy that was generated at a PSR, as well as a breakdown of that generation by fuel type.</p>
 
-<h5 id="request-object-2">Request Object</h5>
+<h5 id="request-object-8">Request Object</h5>
 <ul>
+  <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - (REQUIRED) - The <code class="language-plaintext highlighter-rouge">id</code> of the Power System Resource associated with this demand.</li>
   <li><code class="language-plaintext highlighter-rouge">startDatetime</code> - <em>ISO8601 Datetime</em> -  A datetime indicating that the response should return data where the earliest entry’s <em>startDatetime</em> occurs AT or AFTER the <em>startDatetime</em> specified in the request.</li>
   <li><code class="language-plaintext highlighter-rouge">endDatetime</code> - <em>ISO8601 Datetime</em> -  A datetime indicating that the response should return data where the earliest entry’s <em>endDatetime</em> occurs AT or BEFORE the <em>endDatetime</em> specified in the request.</li>
 </ul>
@@ -689,10 +739,13 @@ Content-Type: application/json;charset=UTF-8
 </span></code></pre></div></div>
 
 <h4 id="332-psr-demand-power-system-resourcesiddemand">3.3.2 PSR Demand <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/demand</code></h4>
+
+<h5 id="description-9">Description</h5>
 <p>A demand object returns a timeseries of values representing energy that was demanded at a PSR.</p>
 
-<h5 id="request-object-3">Request Object</h5>
+<h5 id="request-object-9">Request Object</h5>
 <ul>
+  <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - (REQUIRED) - The <code class="language-plaintext highlighter-rouge">id</code> of the Power System Resource associated with this demand.</li>
   <li><code class="language-plaintext highlighter-rouge">startDatetime</code> - <em>ISO8601 Datetime</em> -  A datetime indicating that the response should return data where the earliest entry’s <em>startDatetime</em> occurs AT or AFTER the <em>startDatetime</em> specified in the request.</li>
   <li><code class="language-plaintext highlighter-rouge">endDatetime</code> - <em>ISO8601 Datetime</em> -  A datetime indicating that the response should return data where the earliest entry’s <em>endDatetime</em> occurs AT or BEFORE the <em>endDatetime</em> specified in the request.</li>
 </ul>
@@ -734,10 +787,13 @@ Content-Type: application/json;charset=UTF-8</p>
 </code></pre></div></div>
 
 <h4 id="333-psr-imports-power-system-resourcesidimports">3.3.3 PSR Imports <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/imports</code></h4>
+
+<h5 id="description-10">Description</h5>
 <p>An import object returns a timeseries of values representing energy that was imported at a PSR.</p>
 
-<h5 id="request-object-4">Request Object</h5>
+<h5 id="request-object-10">Request Object</h5>
 <ul>
+  <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - (REQUIRED) - The <code class="language-plaintext highlighter-rouge">id</code> of the Power System Resource associated with this demand.</li>
   <li><code class="language-plaintext highlighter-rouge">startDatetime</code> - <em>ISO8601 Datetime</em> -  A datetime indicating that the response should return data where the earliest entry’s <em>startDatetime</em> occurs AT or AFTER the <em>startDatetime</em> specified in the request.</li>
   <li><code class="language-plaintext highlighter-rouge">endDatetime</code> - <em>ISO8601 Datetime</em> -  A datetime indicating that the response should return data where the earliest entry’s <em>endDatetime</em> occurs AT or BEFORE the <em>endDatetime</em> specified in the request.</li>
 </ul>
@@ -795,10 +851,13 @@ Content-Type: application/json;charset=UTF-8</p>
 </code></pre></div></div>
 
 <h4 id="334-psr-exports-power-system-resourcesidexports">3.3.4 PSR Exports <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/exports</code></h4>
+
+<h5 id="description-11">Description</h5>
 <p>An export object returns a timeseries of values representing energy that was exported to a PSR.</p>
 
-<h5 id="request-object-5">Request Object</h5>
+<h5 id="request-object-11">Request Object</h5>
 <ul>
+  <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - (REQUIRED) - The <code class="language-plaintext highlighter-rouge">id</code> of the Power System Resource associated with this demand.</li>
   <li><code class="language-plaintext highlighter-rouge">startDatetime</code> - <em>ISO8601 Datetime</em> -  A datetime indicating that the response should return data where the earliest entry’s <em>startDatetime</em> occurs AT or AFTER the <em>startDatetime</em> specified in the request.</li>
   <li><code class="language-plaintext highlighter-rouge">endDatetime</code> - <em>ISO8601 Datetime</em> -  A datetime indicating that the response should return data where the earliest entry’s <em>endDatetime</em> occurs AT or BEFORE the <em>endDatetime</em> specified in the request.</li>
 </ul>
@@ -856,10 +915,13 @@ Content-Type: application/json;charset=UTF-8</p>
 </code></pre></div></div>
 
 <h4 id="335-psr-prices-power-system-resourcesidprice">3.3.5 PSR Prices <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/price</code></h4>
+
+<h5 id="description-12">Description</h5>
 <p>A demand object returns a timeseries of values representing energy that was demanded at a PSR.</p>
 
-<h5 id="request-object-6">Request Object</h5>
+<h5 id="request-object-12">Request Object</h5>
 <ul>
+  <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - (REQUIRED) - The <code class="language-plaintext highlighter-rouge">id</code> of the Power System Resource associated with this demand.</li>
   <li><code class="language-plaintext highlighter-rouge">startDatetime</code> - <em>ISO8601 Datetime</em> -  A datetime indicating that the response should return data where the earliest entry’s <em>startDatetime</em> occurs AT or AFTER the <em>startDatetime</em> specified in the request.</li>
   <li><code class="language-plaintext highlighter-rouge">endDatetime</code> - <em>ISO8601 Datetime</em> -  A datetime indicating that the response should return data where the earliest entry’s <em>endDatetime</em> occurs AT or BEFORE the <em>endDatetime</em> specified in the request.</li>
   <li><code class="language-plaintext highlighter-rouge">timeframe</code> - <em>Enum</em> - One of <code class="language-plaintext highlighter-rouge">day-ahead</code>, <code class="language-plaintext highlighter-rouge">hour-ahead</code>, <code class="language-plaintext highlighter-rouge">real-time</code></li>
@@ -903,10 +965,13 @@ Content-Type: application/json;charset=UTF-8</p>
 </code></pre></div></div>
 
 <h4 id="336-psr-curtailment-power-system-resourcesidcurtailment">3.3.6 PSR Curtailment <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/curtailment</code></h4>
+
+<h5 id="description-13">Description</h5>
 <p>A curtailment object returns a timeseries of values representing energy that was generated at a PSR, as well as a breakdown of that generation by fuel type.</p>
 
-<h5 id="request-object-7">Request Object</h5>
+<h5 id="request-object-13">Request Object</h5>
 <ul>
+  <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - (REQUIRED) - The <code class="language-plaintext highlighter-rouge">id</code> of the Power System Resource associated with this demand.</li>
   <li><code class="language-plaintext highlighter-rouge">startDatetime</code> - <em>ISO8601 Datetime</em> -  A datetime indicating that the response should return data where the earliest entry’s <em>startDatetime</em> occurs AT or AFTER the <em>startDatetime</em> specified in the request.</li>
   <li><code class="language-plaintext highlighter-rouge">endDatetime</code> - <em>ISO8601 Datetime</em> -  A datetime indicating that the response should return data where the earliest entry’s <em>endDatetime</em> occurs AT or BEFORE the <em>endDatetime</em> specified in the request.</li>
 </ul>
