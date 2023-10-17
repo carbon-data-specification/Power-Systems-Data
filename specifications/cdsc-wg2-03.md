@@ -517,7 +517,7 @@ Content-Type: application/json;charset=UTF-8
 	  {
 		  "startDatetime": "2021-06-01 00:00:00+00",
 		  "endDatetime": "2021-06-01 01:00:00+00",
-		  "value": 10.5,
+		  "value": 15.5,
 		  "valueByFuelSource": [
 			  {
 			    "technology": "Thermal - Steam engine - Unspecified",
