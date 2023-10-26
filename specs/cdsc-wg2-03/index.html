@@ -220,7 +220,7 @@ The main changes compared to the previous edition are as follows:
 <h5 id="response-object">Response Object</h5>
 <ul>
   <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - (REQUIRED) - The unique identifier representing this resource. It <strong>may</strong> be human-readable, such as <code class="language-plaintext highlighter-rouge">Balancing Area</code>.</li>
-  <li><code class="language-plaintext highlighter-rouge">level</code> - int - (OPTIONAL) - A number representing the hierarchy of this resource topology in relation to the other resource types. These levels <strong>shall</strong> include a sequential set of positive integers starting at 0.
+  <li><code class="language-plaintext highlighter-rouge">level</code> - int - (REQUIRED) - A number representing the hierarchy of this resource topology in relation to the other resource types. These levels <strong>shall</strong> include a sequential set of positive integers starting at 0.
     <h5 id="example">Example</h5>
     <p>```
 ==Request==
@@ -274,16 +274,24 @@ Content-Type: application/json;charset=UTF-8</p>
 <h4 id="312-fuel-source---type-list-metadatafuel-sourcetypes">3.1.2 Fuel Source - Type (LIST) <code class="language-plaintext highlighter-rouge">metadata/fuel-source/types</code></h4>
 
 <h5 id="description-1">Description</h5>
-<p>***TODO: Placeholder to add descriptions <a href="https://github.com/carbon-data-specification/Power-Systems-Data/issues/89">Github Issue</a></p>
+<p>A list of fuel types that are available within this power system.</p>
+
+<p>By default, we assume that fuel type names are taken from <a href="https://www.aib-net.org/sites/default/files/assets/eecs/facts-sheets/AIB-2019-EECSFS-05%20EECS%20Rules%20Fact%20Sheet%2005%20-%20Types%20of%20Energy%20Inputs%20and%20Technologies%20-%20Release%207.7%20v5.pdf">AIB EECS Rule Fact Sheet 5</a>.</p>
 
 <h5 id="request-object-1">Request Object</h5>
 <p>***TODO: Placeholder to add request object <a href="https://github.com/carbon-data-specification/Power-Systems-Data/issues/89">Github Issue</a></p>
 
 <h5 id="response-object-1">Response Object</h5>
+
 <ul>
-  <li><code class="language-plaintext highlighter-rouge">name</code>: - <em>string</em> - (REQUIRED) - A common name to use for the fuel type. If using AIB codes, it should be a concatenation of the three code descriptions with a dash between (i.e. <code class="language-plaintext highlighter-rouge">Solar - Photovoltaic - Unspecified</code>)</li>
-  <li><code class="language-plaintext highlighter-rouge">external_reference</code>: <em>String</em> - (OPTIONAL?) - A reference that provides context for this specific fuel type.</li>
-  <li><code class="language-plaintext highlighter-rouge">external_id</code>:  - <em>String</em> - (OPTIONAL?) - A unique code (such as the AIB code) referencing the type of fuel</li>
+  <li><code class="language-plaintext highlighter-rouge">external_reference</code>: <em>String</em> - (REQUIRED, default=’AIB EECS Rule Fact Sheet 5’) - A reference that provides context for this specific fuel type.</li>
+  <li><code class="language-plaintext highlighter-rouge">external_reference_url</code>: <em>String</em> - (REQUIRED, default=’https://www.aib-net.org/sites/default/files/assets/eecs/facts-sheets/AIB-2019-EECSFS-05%20EECS%20Rules%20Fact%20Sheet%2005%20-%20Types%20of%20Energy%20Inputs%20and%20Technologies%20-%20Release%207.7%20v5.pdf’)</li>
+  <li><code class="language-plaintext highlighter-rouge">types</code>: -<em>list</em>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">name</code>: - <em>string</em> - (REQUIRED) - A common name to use for the fuel type. If using AIB codes, it should be a concatenation of the three code descriptions with a dash between (i.e. <code class="language-plaintext highlighter-rouge">Solar - Photovoltaic - Unspecified</code>)</li>
+      <li><code class="language-plaintext highlighter-rouge">external_id</code>:  - <em>String</em> - (REQUIRED) - A unique code (the AIB code if that is the reference) referencing the type of fuel</li>
+    </ul>
+  </li>
 </ul>
 
 <h5 id="example-1">Example</h5>
@@ -296,15 +304,16 @@ HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
 </code></pre></div></div>
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+   </span><span class="nl">"external_reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"external_reference_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.aib-net.org/sites/default/files/assets/eecs/facts-sheets/AIB-2019-EECSFS-05%20EECS%20Rules%20Fact%20Sheet%2005%20-%20Types%20of%20Energy%20Inputs%20and%20Technologies%20-%20Release%207.7%20v5.pdf"</span><span class="w">
    </span><span class="nl">"types"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
 	   </span><span class="p">{</span><span class="w">
 		   </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Solar - Photovoltaic - Unspecified"</span><span class="p">,</span><span class="w">
-		   </span><span class="nl">"external_reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES"</span><span class="p">,</span><span class="w">
+		  
 		   </span><span class="nl">"external_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"T010100"</span><span class="w">
 	   </span><span class="p">},</span><span class="w">
 	   </span><span class="p">{</span><span class="w">
 		   </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fossil - Solid - Hard Coal - Unspecified"</span><span class="p">,</span><span class="w">
-		   </span><span class="nl">"external_reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES"</span><span class="p">,</span><span class="w">
 		   </span><span class="nl">"external_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"F02010100"</span><span class="w">
 	   </span><span class="p">},</span><span class="w">
   </span><span class="p">],</span><span class="w">
@@ -718,7 +727,7 @@ Content-Type: application/json;charset=UTF-8
 	  </span><span class="p">{</span><span class="w">
 		  </span><span class="nl">"startDatetime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-06-01 00:00:00+00"</span><span class="p">,</span><span class="w">
 		  </span><span class="nl">"endDatetime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-06-01 01:00:00+00"</span><span class="p">,</span><span class="w">
-		  </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">10.5</span><span class="p">,</span><span class="w">
+		  </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">15.5</span><span class="p">,</span><span class="w">
 		  </span><span class="nl">"valueByFuelSource"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
 			  </span><span class="p">{</span><span class="w">
 			    </span><span class="nl">"technology"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Thermal - Steam engine - Unspecified"</span><span class="p">,</span><span class="w">
