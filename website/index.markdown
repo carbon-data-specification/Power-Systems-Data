@@ -13,6 +13,8 @@ part of the
 [Carbon Data Specification Consortium (CDSC)](https://www.lfenergy.org/projects/carbon-data-specification-cds/),
 an [LF Energy](https://www.lfenergy.org/) project.
 
+If you would like to see an API demonstration of this specification, you can go [here](https://carbon-data-specification.onrender.com/docs) (this is currently being served on a free plan, so it may take up to a minute for it to load when you first click this link).
+
 ## Scope
 
 __An open specification for raw electric power system data to facilitate a systematic and more accurate approach to report grid emissions.__

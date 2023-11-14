@@ -1,8 +1,12 @@
 # Power Systems Data Working Group
 
-This repository is dedicated to the [Power Systems Data Working Group](https://powersystemsdata.carbondataspec.org/).
+This repository is dedicated to the [Power Systems Data Working Group](https://powersystemsdata.carbondataspec.org/). This is the working space for this group. 
 
-## Goal
+If you are interested in reviewing the latest version of the specification itself, you can go [here](https://powersystemsdata.carbondataspec.org/specs/cdsc-wg2-03/). 
+
+If you would like to see an API demonstration of this specification, you can go [here](https://carbon-data-specification.onrender.com/docs) (this is currently being served on a free plan, so it may take up to a minute for it to load when you first click this link).
+
+## Goal of Working Group
 
 > The Power Systems Data Working Group aims to define an open specification for raw electric power system data to facilitate a systematic and more accurate approach to report grid emissions.
 
