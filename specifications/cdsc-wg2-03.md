@@ -1,15 +1,7 @@
 # _CDSC-WG2-03 - Endpoints_ 
 
 Version: _0.0.1_
-
 Status: Pre-Draft
- 
-© _________________
-
-This specification is subject to the Community Specification License 1.0, available at [https://github.com/CommunitySpecification/1.0](https://github.com/CommunitySpecification/1.0).
-© _________________
-
-This specification is subject to the license, available [here][LICENSE].
 
 ## Contents <a id="table-of-contents" href="#table-of-contents" class="permalink">🔗</a>
 * [1. Foreword](#foreword)  
@@ -26,15 +18,7 @@ Attention is drawn to the possibility that some of the elements of this document
 
 Any trade name used in this document is information given for the convenience of users and does not constitute an endorsement.
 
-This document was prepared by [Insert name of group].
-
-This second/third/… edition cancels and replaces the first/second/… edition (#####:####), which has been technically revised.
-The main changes compared to the previous edition are as follows:
-—	xxx xxxxxxx xxx xxxx
-
-Known patent licensing exclusions are available in the specification’s repository’s Notices.md file.
-
-Any feedback or questions on this document should be directed to specifications repository, located at _________________.
+This document was prepared by the Power Systems Data Working Group of the Carbon Data Specification Consortium.
 
 THESE MATERIALS ARE PROVIDED “AS IS.” The Contributors and Licensees expressly disclaim any warranties (express, implied, or otherwise), including implied warranties of merchantability, non-infringement, fitness for a particular purpose, or title, related to the materials.  The entire risk as to implementing or otherwise using the materials is assumed by the implementer and user. IN NO EVENT WILL THE CONTRIBUTORS OR LICENSEES BE LIABLE TO ANY OTHER PARTY FOR LOST PROFITS OR ANY FORM OF INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES OF ANY CHARACTER FROM ANY CAUSES OF ACTION OF ANY KIND WITH RESPECT TO THIS DELIVERABLE OR ITS GOVERNING AGREEMENT, WHETHER BASED ON BREACH OF CONTRACT, TORT (INCLUDING NEGLIGENCE), OR OTHERWISE, AND WHETHER OR NOT THE OTHER MEMBER HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
@@ -79,14 +63,14 @@ TopologyLevel objects represent a specific hierarchical level of the grid.
 #### 3.1.1 Topology Level (List) `metadata/topology-levels`
 
 ##### Description
-***TODO: Placeholder to add descriptions [Github Issue](https://github.com/carbon-data-specification/Power-Systems-Data/issues/89)
+A list of named topology levels and their relation to each other.
 
 ##### Request Object
-***TODO: Placeholder to add request object [Github Issue](https://github.com/carbon-data-specification/Power-Systems-Data/issues/89)
+N/A
 
 ##### Response Object
 - `id` - _string_ - (REQUIRED) - The unique identifier representing this resource. It **may** be human-readable, such as `Balancing Area`.
-- `level` - int - (REQUIRED) - A number representing the hierarchy of this resource topology in relation to the other resource types. These levels **shall** include a sequential set of positive integers starting at 0.
+- `level` - int - (OPTIONAL) - A number representing the hierarchy of this resource topology in relation to the other resource types. These levels **shall** include a sequential set of positive integers starting at 0.
 ##### Example
 ```
 ==Request==
@@ -100,26 +84,26 @@ Content-Type: application/json;charset=UTF-8
 ```json
 {
 "topology_levels": [
-			{
-		     "id": "Interconnection",
-		     "level": 0
-			},
-			{
-		     "id": "Balancing Area",
-		     "level": 1
-			},
-		  {
-		     "id": " Generating Plant",
-		     "level": 2
-			},
-			{
-		     "id": " Generating Unit",
-		     "level": 3
-			},
-		  {
-		     "id": " Consumption Unit",
-		     "level": 3
-			},
+		{
+			"id": "Interconnection",
+			"level": 0
+		},
+		{
+			"id": "Balancing Area",
+			"level": 1
+		},
+		{
+			"id": " Generating Plant",
+			"level": 2
+		},
+		{
+			"id": " Generating Unit",
+			"level": 3
+		},
+		{
+			"id": " Consumption Unit",
+			"level": 3
+		},
 	],
   "next": null,
   "previous": null
@@ -139,20 +123,15 @@ The following table shows an example list of topology levels for US and European
 #### 3.1.2 Fuel Source - Type (LIST) `metadata/fuel-source/types`
 
 ##### Description
-A list of fuel types that are available within this power system.
-
-By default, we assume that fuel type names are taken from [AIB EECS Rule Fact Sheet 5](https://www.aib-net.org/sites/default/files/assets/eecs/facts-sheets/AIB-2019-EECSFS-05%20EECS%20Rules%20Fact%20Sheet%2005%20-%20Types%20of%20Energy%20Inputs%20and%20Technologies%20-%20Release%207.7%20v5.pdf).
+The different fuel source types that exist within this system. AIB codes SHOULD be used to enumerate these types.
 
 ##### Request Object
-***TODO: Placeholder to add request object [Github Issue](https://github.com/carbon-data-specification/Power-Systems-Data/issues/89)
+N/A
 
 ##### Response Object
-
-- `external_reference`: _String_ - (REQUIRED, default='AIB EECS Rule Fact Sheet 5') - A reference that provides context for this specific fuel type.
-- `external_reference_url`: _String_ - (REQUIRED, default='https://www.aib-net.org/sites/default/files/assets/eecs/facts-sheets/AIB-2019-EECSFS-05%20EECS%20Rules%20Fact%20Sheet%2005%20-%20Types%20of%20Energy%20Inputs%20and%20Technologies%20-%20Release%207.7%20v5.pdf')
-- `types`: -_list_
-	- `name`: - _string_ - (REQUIRED) - A common name to use for the fuel type. If using AIB codes, it should be a concatenation of the three code descriptions with a dash between (i.e. `Solar - Photovoltaic - Unspecified`)
-	- `external_id`:  - _String_ - (REQUIRED) - A unique code (the AIB code if that is the reference) referencing the type of fuel
+- `name`: - _string_ - (REQUIRED) - A common name to use for the fuel type. If using AIB codes, it should be a concatenation of the three code descriptions with a dash between (i.e. `Solar - Photovoltaic - Unspecified`)
+- `external_reference`: _String_ - (OPTIONAL?) - A reference that provides context for this specific fuel type.
+- `external_id`:  - _String_ - (OPTIONAL?) - A unique code (such as the AIB code) referencing the type of fuel
 
 ##### Example
 ```
@@ -166,16 +145,15 @@ Content-Type: application/json;charset=UTF-8
 ```
 ```json
 {
-   "external_reference": "EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES",
-   "external_reference_url": "https://www.aib-net.org/sites/default/files/assets/eecs/facts-sheets/AIB-2019-EECSFS-05%20EECS%20Rules%20Fact%20Sheet%2005%20-%20Types%20of%20Energy%20Inputs%20and%20Technologies%20-%20Release%207.7%20v5.pdf"
    "types": [
 	   {
 		   "name": "Solar - Photovoltaic - Unspecified",
-		  
+		   "external_reference": "EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES",
 		   "external_id": "T010100"
 	   },
 	   {
 		   "name": "Fossil - Solid - Hard Coal - Unspecified",
+		   "external_reference": "EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES",
 		   "external_id": "F02010100"
 	   },
   ],
@@ -184,18 +162,16 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 #### 3.1.3 Fuel Source - Technology (LIST) `metadata/fuel-source/technologies`
-***TODO: This depends on if we want to fully adopt [AIB](https://www.aib-net.org/sites/default/files/assets/eecs/facts-sheets/AIB-2019-EECSFS-05%20EECS%20Rules%20Fact%20Sheet%2005%20-%20Types%20of%20Energy%20Inputs%20and%20Technologies%20-%20Release%207.7%20v5.pdf) or whether we want to allow for a more flexible solution.*** [Github Issue](https://github.com/carbon-data-specification/Power-Systems-Data/issues/72)
 
 ##### Description
-***TODO: Placeholder to add descriptions [Github Issue](https://github.com/carbon-data-specification/Power-Systems-Data/issues/89)
+The different fuel source technologies that exist within this system. AIB codes SHOULD be used to enumerate these types.
 
 ##### Request Object
-***TODO: Placeholder to add request object [Github Issue](https://github.com/carbon-data-specification/Power-Systems-Data/issues/89)
+N/A
 
 ##### Response Object
-- `name`: - _string_ - (REQUIRED) - A common name to use for the technology. If using AIB codes, it should be a concatenation of the three code descriptions with a dash between (i.e. `Solar - Photovoltaic - Unspecified`)
-- `externalReference`: _Dict_ - (OPTIONAL?) - A reference that provides context for this specific technology. ***TODO: This can be more specifically defined if we decide to go with AIB*** [Github Issue](https://github.com/carbon-data-specification/Power-Systems-Data/issues/72)
-
+- `name`: - _string_ - (REQUIRED) - A common name to use for the technology. It _SHOULD_ use AIB Codes, and if so, it _SHALL_ be a concatenation of the three code descriptions with a dash between (i.e. `Solar - Photovoltaic - Unspecified`)
+- `externalReference`: _Dict_ - (REQUIRED) - A reference that provides context for this specific technology. This _SHOULD_ reference an AIB code.
 
 ```json
 {
@@ -258,18 +234,25 @@ HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
 ```
 ```json
-{
+`{
   "id": "US-WECC-CISO",
   "topology": {
-	  "parent": {"id": "US-WECC"},
-	  "connectedSiblings": {"id": "US-ERCOT"},
-	  "children": [
-			  {"id": "US-WECC-CISO-ABC", "children": []}
-			],
-	},
+    "parent": {
+      "id": "US-WECC"
+    },
+    "connectedSiblings": {
+      "id": "US-ERCOT"
+    },
+    "children": [
+      {
+        "id": "US-WECC-CISO-ABC",
+        "children": []
+      }
+    ]
+  },
   "next": null,
   "previous": null
-}
+}` 
 ```
 
 #### 3.2.2 PSR (List) `/power-system-resources`
@@ -285,8 +268,6 @@ The primary set of endpoints reference PowerSystemResource (PSR) objects. These 
 - `level` - _string_ - (REQUIRED) - The id of the topology level for this PSR.
 -  `name` - _string_ - (OPTIONAL) - A descriptive name to provide additional context to the PSR.
 
-***TODO: Placeholder spot for where we can decide what rules/guidelines/parameters/suggestions would be good for generating human-readable PSR `id`s*** [Github Issue](https://github.com/carbon-data-specification/Power-Systems-Data/issues/80)
-
 #### Example
 The following is an example of the endpoint that returns a list of power system resources. This LIST endpoint SHOULD only includes the `id`, `name`, and `type` fields. It MUST not contain fields of undefined size (such as fields that con contain lists or dicts), as this endpoint is meant to be capable of returning several entries.
 ```
@@ -300,23 +281,23 @@ Content-Type: application/json;charset=UTF-8
 ```
 ```json
 {
-"power_system_resources": [
-			{
-		     "id": "US-WECC",
-		     "name": "Western Electricity Coordinating Council",
-		     "level": 0
-			},
-			{
-		     "id": "US-WECC-CISO",
-		     "name": "California ISO",
-		     "level": 1
-			},
-			{
-		     "id": "US-WECC-CISO-ABC-HYDRO",
-		     "name": "Hydropower Plant in ABC",
-		     "level": 2
-			},
-	],
+  "power_system_resources": [
+    {
+      "id": "US-WECC",
+      "name": "Western Electricity Coordinating Council",
+      "level": 0
+    },
+    {
+      "id": "US-WECC-CISO",
+      "name": "California ISO",
+      "level": 1
+    },
+    {
+      "id": "US-WECC-CISO-ABC-HYDRO",
+      "name": "Hydropower Plant in ABC",
+      "level": 2
+    }
+  ],
   "next": null,
   "previous": null
 }
@@ -324,10 +305,10 @@ Content-Type: application/json;charset=UTF-8
 #### 3.2.3 PSR Describe `/power-system-resources/{id}/describe`
 
 ##### Description
-***TODO: Placeholder to add descriptions [Github Issue](https://github.com/carbon-data-specification/Power-Systems-Data/issues/89)
+Descriptive information, such as geography and other metadata, for a given Power System Resource.
 
 ##### Request Object
-- `id`:  _string_ - OPTIONAL
+- `id` - _string_ - REQUIRED - The `id` of the PowerSystemResource associated with this location.
 
 ##### Response Object
 - `id` - _string_ - REQUIRED - The `id` of the PowerSystemResource associated with this location.
@@ -363,20 +344,22 @@ Content-Type: application/json;charset=UTF-8
   "id": "US-WECC-CISO",
   "describe": {
     "location": {
-	    "geojson": {
-		    "type": "FeatureCollection",
-		    "features": [
-		    {
-	           "type": "Feature",
-	           "geometry": {
-	               "type": "Polygon",
-	               "coordinates": [
-	                   [[-122.376131, 42.009499],...]
-	               ]
-			       }
-			  },
-		  ]
-		},
+      "geojson": {
+        "type": "FeatureCollection",
+        "features": [
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Polygon",
+              "coordinates": [
+                [[-122.376131, 42.009499], ...]
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
   "next": null,
   "previous": null
 }
@@ -414,23 +397,23 @@ Content-Type: application/json;charset=UTF-8
   "id": "US-WECC-CISO",
   "unit": "MW",
   "capacity": [
-	  {
-		  "fuelSource": {
-			  "technology": "Thermal - Steam engine - Unspecified",
-			  "type": "Fossil - Solid - Hard Coal - Unspecified",
-          },
-		  "value": 500,
-		  "startDatetime": "2015-06-01 00:00:00+00",
-		  "endDatetime": "2021-06-01T0 :00:00+00",
-	  },
-	  {
-		  "fuelSource": {
-			  "technology": "Thermal - Steam engine - Unspecified",
-			  "type": "Fossil - Solid - Hard Coal - Unspecified",
-          },
-		  "startDatetime": "2010-06-01 00:00:00+00",
-		  "value": 300
-	  },
+    {
+      "fuelSource": {
+        "technology": "Thermal - Steam engine - Unspecified",
+        "type": "Fossil - Solid - Hard Coal - Unspecified"
+      },
+      "value": 500,
+      "startDatetime": "2015-06-01 00:00:00+00",
+      "endDatetime": "2021-06-01T00:00:00+00"
+    },
+    {
+      "fuelSource": {
+        "technology": "Thermal - Steam engine - Unspecified",
+        "type": "Fossil - Solid - Hard Coal - Unspecified"
+      },
+      "startDatetime": "2010-06-01 00:00:00+00",
+      "value": 300
+    }
   ],
   "next": null,
   "previous": null
@@ -517,29 +500,31 @@ Content-Type: application/json;charset=UTF-8
 ```
 ```json
 {
-	"id": "US-WECC-CISO",
-	"unit": "MWh",
-	"generation": [
-	  {
-		  "startDatetime": "2021-06-01 00:00:00+00",
-		  "endDatetime": "2021-06-01 01:00:00+00",
-		  "value": 15.5,
-		  "valueByFuelSource": [
-			  {
-			    "technology": "Thermal - Steam engine - Unspecified",
-			    "type": "Fossil - Solid - Hard Coal - Unspecified",
-			    "value": 5.0
-			  },
-			  {
-			    "technology": "Solar - Photovoltaic - Unspecified",
-			    "type": "Renewables - Heating and Cooling - Solar",
-			    "value": 10.5
-			  },
-			},...
-	  }
-	],
-	"next": null,
-	"previous": null
+  "id": "US-WECC-CISO",
+  "unit": "MWh",
+  "generation": [
+    {
+      "startDatetime": "2021-06-01 00:00:00+00",
+      "endDatetime": "2021-06-01 01:00:00+00",
+      "value": 10.5,
+      "valueByFuelSource": [
+        {
+          "technology": "Thermal - Steam engine - Unspecified",
+          "type": "Fossil - Solid - Hard Coal - Unspecified",
+          "value": 5.0
+        },
+        {
+          "technology": "Solar - Photovoltaic - Unspecified",
+          "type": "Renewables - Heating and Cooling - Solar",
+          "value": 10.5
+        },
+        // Additional entries for other fuel sources if available
+      ]
+    }
+    // Additional entries for other time periods if available
+  ],
+  "next": null,
+  "previous": null
 }
 ```
 
@@ -571,18 +556,20 @@ Content-Type: application/json;charset=UTF-8
 ```
 ```json
 {
-	"id": "US-WECC-CISO",
-	"unit": "MWh",
-	"demand": [
-	  {
-		  "startDatetime": "2021-06-01 00:00:00+00",
-		  "endDatetime": "2021-06-01 01:00:00+00",
-		  "value": 10.5,
-	  },...
-	],
-	"next": null,
-	"previous": null
+  "id": "US-WECC-CISO",
+  "unit": "MWh",
+  "demand": [
+    {
+      "startDatetime": "2021-06-01 00:00:00+00",
+      "endDatetime": "2021-06-01 01:00:00+00",
+      "value": 10.5
+    },
+    // Additional entries for other time periods if available
+  ],
+  "next": null,
+  "previous": null
 }
+
 ```
 
 #### 3.3.3 PSR Imports `/power-system-resources/{id}/imports`
@@ -616,27 +603,29 @@ Content-Type: application/json;charset=UTF-8
 ```
 ```json
 {
-	"id": "US-WECC-CISO",
-	"unit": "MWh",
-	"imports": [
-	  {
-		  "startDatetime": "2021-06-01 00:00:00+00",
-		  "endDatetime": "2021-06-01 01:00:00+00",
-		  "value": 10.5,
-		   "importByConnectedPSR": [
-			  {
-			    "connectedPSR": "US-WECC-LADWP",
-			    "value": 5.5
-			  },
-			  {
-			    "connectedPSR": "US-WECC-BANC",
-			    "value": 5
-			  },
-			},...
-	  },...
-	],
-	"next": null,
-	"previous": null
+  "id": "US-WECC-CISO",
+  "unit": "MWh",
+  "imports": [
+    {
+      "startDatetime": "2021-06-01 00:00:00+00",
+      "endDatetime": "2021-06-01 01:00:00+00",
+      "value": 10.5,
+      "importByConnectedPSR": [
+        {
+          "connectedPSR": "US-WECC-LADWP",
+          "value": 5.5
+        },
+        {
+          "connectedPSR": "US-WECC-BANC",
+          "value": 5
+        },
+        // Additional entries for other connected PSRs if available
+      ]
+    },
+    // Additional entries for other time periods if available
+  ],
+  "next": null,
+  "previous": null
 }
 ```
 
@@ -671,28 +660,31 @@ Content-Type: application/json;charset=UTF-8
 ```
 ```json
 {
-	"id": "US-WECC-CISO",
-	"unit": "MWh",
-	"exports": [
-	  {
-		  "startDatetime": "2021-06-01 00:00:00+00",
-		  "endDatetime": "2021-06-01 01:00:00+00",
-		  "value": 10.5,
-		   "exportByConnectedPSR": [
-			  {
-			    "connectedPSR": "US-WECC-LADWP",
-			    "value": 5.5
-			  },
-			  {
-			    "connectedPSR": "US-WECC-BANC",
-			    "value": 5.0
-			  },
-			},...
-	  },...
-	],
-	"next": null,
-	"previous": null
+  "id": "US-WECC-CISO",
+  "unit": "MWh",
+  "exports": [
+    {
+      "startDatetime": "2021-06-01 00:00:00+00",
+      "endDatetime": "2021-06-01 01:00:00+00",
+      "value": 10.5,
+      "exportByConnectedPSR": [
+        {
+          "connectedPSR": "US-WECC-LADWP",
+          "value": 5.5
+        },
+        {
+          "connectedPSR": "US-WECC-BANC",
+          "value": 5.0
+        },
+        // Additional entries for other connected PSRs if available
+      ]
+    },
+    // Additional entries for other time periods if available
+  ],
+  "next": null,
+  "previous": null
 }
+
 ```
 
 #### 3.3.5 PSR Prices `/power-system-resources/{id}/price`
@@ -725,17 +717,18 @@ Content-Type: application/json;charset=UTF-8
 ```
 ```json
 {
-	"id": "US-WECC-CISO",
-	"unit": "USD",
-	"price": [
-	  {
-		  "startDatetime": "2021-06-01 00:00:00+00",
-		  "endDatetime": "2021-06-01 01:00:00+00",
-		  "value": 10.5,
-	  },...
-	],
-	"next": null,
-	"previous": null
+  "id": "US-WECC-CISO",
+  "unit": "USD",
+  "price": [
+    {
+      "startDatetime": "2021-06-01 00:00:00+00",
+      "endDatetime": "2021-06-01 01:00:00+00",
+      "value": 10.5
+    },
+    // Additional entries for other time periods if available
+  ],
+  "next": null,
+  "previous": null
 }
 ```
 
@@ -772,28 +765,30 @@ Content-Type: application/json;charset=UTF-8
 ```
 ```json
 {
-	"id": "US-WECC-CISO",
-	"unit": "MWh",
-	"curtailment": [
-	  {
-		  "startDatetime": "2021-06-01 00:00:00+00",
-		  "endDatetime": "2021-06-01 01:00:00+00",
-		  "value": 10.5,
-		  "valueByFuelSource": [
-			  {
-			    "technology": "Thermal - Steam engine - Unspecified",
-			    "type": "Fossil - Solid - Hard Coal - Unspecified",
-			    "value": 5.0
-			  },
-			  {
-			    "technology": "Solar - Photovoltaic - Unspecified",
-			    "type": "Renewables - Heating and Cooling - Solar",
-			    "value": 10.5
-			  },
-			},...
-	  }
-	],
-	"next": null,
-	"previous": null
+  "id": "US-WECC-CISO",
+  "unit": "MWh",
+  "curtailment": [
+    {
+      "startDatetime": "2021-06-01 00:00:00+00",
+      "endDatetime": "2021-06-01 01:00:00+00",
+      "value": 10.5,
+      "valueByFuelSource": [
+        {
+          "technology": "Thermal - Steam engine - Unspecified",
+          "type": "Fossil - Solid - Hard Coal - Unspecified",
+          "value": 5.0
+        },
+        {
+          "technology": "Solar - Photovoltaic - Unspecified",
+          "type": "Renewables - Heating and Cooling - Solar",
+          "value": 10.5
+        },
+        // Additional entries for other fuel sources if available
+      ]
+    }
+    // Additional entries for other time periods if available
+  ],
+  "next": null,
+  "previous": null
 }
 ```
