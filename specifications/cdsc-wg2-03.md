@@ -115,7 +115,7 @@ Content-Type: application/json;charset=UTF-8
 ##### Reference TopologyLevels
 The following table shows an example list of topology levels for US and European Grids:
 
-<table border=1>
+<table border=1 style="border-collapse: collapse; border-spacing: 0;">
   <thead>
     <tr>
       <th>Level</th>

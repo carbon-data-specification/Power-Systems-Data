@@ -8,9 +8,7 @@ meta_description: Linux Foundation Energy - Carbon Data Specification Consortium
 
 # API Interface
 
-Looking for a more human-readable summary of this specification? Check out our [overview]({{ "/specs/cdsc-wg1-03/overview" | relative_url }}).
-
-Below is a rendering of the original specification source: [{{ site.github_specs_base_url }}/cdsc-wg2-03.md]({{ site.github_specs_base_url }}/cdsc-wg2-03.md)
+Below is a rendering of this specification in our github repository: [{{ site.github_specs_base_url }}/cdsc-wg2-03.md]({{ site.github_specs_base_url }}/cdsc-wg2-03.md)
 
 ---
 
