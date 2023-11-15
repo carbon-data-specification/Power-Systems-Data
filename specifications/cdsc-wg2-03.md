@@ -164,6 +164,8 @@ The following table shows an example list of topology levels for US and European
   </tbody>
 </table>
 
+This table can be used as a starting point for naming different levels in a given system.
+
 #### 3.1.2 Fuel Source - Type (LIST) `metadata/fuel-source/types`
 
 ##### Description
