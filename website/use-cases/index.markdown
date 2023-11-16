@@ -75,6 +75,19 @@ To make impactful clean energy siting decisions and to measure the carbon impact
 
 * Organisations with climate goals that can target their clean energy investments to grids with higher emissions.
 
+## Use Case 4: Measurement of Decarbonization Projects <a id="use-case-decarb-projects" href="#use-case-decarb-projects" class="permalink">🔗</a>
+
+Decarbonization can be accelerated through the accurate measuring of the impacts of various decarbonization projects, such as HVAC electrification and energy efficiency measures.  
+
+### Needs
+
+To make trustworthy claims on the impact of decarbonization projects, access to accurate and detailed grid data is required to calculate the carbon impacts based on changes in energy consumption. 
+
+### Example users
+
+* Organisations conducting measurement and verification of decarbonization projects.
+
+* Organisations managing registries for carbon offsets or energy attribute certificates.
 
 ## Use cases NOT in scope for this working group <a id="not-in-scope" href="#not-in-scope" class="permalink">🔗</a>
 
