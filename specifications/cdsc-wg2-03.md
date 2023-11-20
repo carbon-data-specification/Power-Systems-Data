@@ -1,4 +1,4 @@
-# _CDSC-WG2-03 - Endpoints_ 
+># _CDSC-WG2-03 - Endpoints_ 
 
 Version: _0.0.1_
 Status: Pre-Draft
@@ -200,13 +200,13 @@ Content-Type: application/json;charset=UTF-8
    "types": [
 	   {
 		   "name": "Solar - Photovoltaic - Unspecified",
-		   "external_reference": "EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES",
-		   "external_id": "T010100"
+		   "sourceDocument": "EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES",
+		   "aibCode": "T010100"
 	   },
 	   {
 		   "name": "Fossil - Solid - Hard Coal - Unspecified",
 		   "external_reference": "EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES",
-		   "external_id": "F02010100"
+		   "aibCode": "F02010100"
 	   },
   ],
   "next": null,
