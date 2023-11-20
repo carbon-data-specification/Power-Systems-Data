@@ -199,15 +199,16 @@ Content-Type: application/json;charset=UTF-8
 {
    "types": [
 	   {
-		   "name": "Solar - Photovoltaic - Unspecified",
-		   "sourceDocument": "EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES",
-		   "aibCode": "T010100"
-	   },
-	   {
 		   "name": "Fossil - Solid - Hard Coal - Unspecified",
 		   "external_reference": "EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES",
 		   "aibCode": "F02010100"
 	   },
+     {
+		   "name": "Mechanical source or other - Wind - Unspecified",
+		   "sourceDocument": "EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES",
+			 "aibCode": "F01050100"
+		},
+	   
   ],
   "next": null,
   "previous": null
@@ -243,19 +244,20 @@ Content-Type: application/json;charset=UTF-8
 {
    "technologies": [
 	   {
-		   "name": "Mechanical source or other - Wind - Unspecified",
-		   "externalReference": {
-			   "sourceDocument": "EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES",
-			   "aibCode": "F01050100"
-		   }
-	   },
-	   {
 		   "name": "Thermal - Steam engine - Unspecified",
 		   "externalReference": {
 			   "sourceDocument": "EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES",
 			   "aibCode": "T050900"
 			 }
 	   },
+
+     {
+		   "name": "Solar - Photovoltaic - Unspecified",
+       "externalReference": {
+		      "sourceDocument": "EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES",
+		      "aibCode": "T010100"
+       }
+     },
   ],
   "next": null,
   "previous": null
