@@ -43,11 +43,13 @@ The following is a list of the endpoints that will be subsequently defined in th
 /metadata/fuel-source/types (LIST)
 /metadata/fuel-source/technologies (LIST)
 /power-system-resources (LIST) 
+
 # PSR-Specific Metadata
 /power-system-resources/{id}/describe (GET)
 /power-system-resources/{id}/capacity (GET)
 /power-system-resources/{id}/transmission-capacity (GET)
 /power-system-resources/{id}/topology (GET)
+
 # Timeseries Data
 /power-system-resources/{id}/timeseries/generation (GET)
 /power-system-resources/{id}/timeseries/demand (GET)
@@ -95,15 +97,15 @@ Content-Type: application/json;charset=UTF-8
 			"level": 1
 		},
 		{
-			"id": " Generating Plant",
+			"id": "Generating Plant",
 			"level": 2
 		},
 		{
-			"id": " Generating Unit",
+			"id": "Generating Unit",
 			"level": 3
 		},
 		{
-			"id": " Consumption Unit",
+			"id": "Consumption Unit",
 			"level": 3
 		},
 	],
@@ -171,7 +173,7 @@ This table can be used as a starting point for naming different levels in a give
 
 ##### Description
 
-The different fuel source types that exist within this system. AIB codes SHOULD be used to enumerate these types.
+The different fuel source types that exist within this system. AIB codes **should** be used to enumerate these types.
 
 ##### Request Object
 
@@ -218,7 +220,7 @@ Content-Type: application/json;charset=UTF-8
 
 ##### Description
 
-The different fuel source technologies that exist within this system. AIB codes SHOULD be used to enumerate these types.
+The different fuel source technologies that exist within this system. AIB codes **should** be used to enumerate these types.
 
 ##### Request Object
 
@@ -226,8 +228,8 @@ N/A
 
 ##### Response Object
 
-- `name`: - _string_ - (REQUIRED) - A common name to use for the technology. It _SHOULD_ use AIB Codes, and if so, it _SHALL_ be a concatenation of the three code descriptions with a dash between (i.e. `Solar - Photovoltaic - Unspecified`)
-- `externalReference`: _Dict_ - (REQUIRED) - A reference that provides context for this specific technology. This _SHOULD_ reference an AIB code.
+- `name`: - _string_ - (REQUIRED) - A common name to use for the technology. It **should** use AIB Codes, and if so, it **shall** be a concatenation of the three code descriptions with a dash between (i.e. `Solar - Photovoltaic - Unspecified`)
+- `externalReference`: _Dict_ - (REQUIRED) - A reference that provides context for this specific technology. This **should** reference an AIB code.
 
 ```
 ==Request==
@@ -335,12 +337,12 @@ The primary set of endpoints reference PowerSystemResource (PSR) objects. These 
 - `level`: _Integer_ - (OPTIONAL) - An optional filter to only return PSR objects with the given *topology level*.
 
 ##### Response Object
-- `id` - _string_ - (REQUIRED) - The unique identifier representing this resource. It SHOULD be human-readable, and where appropriate, MAY incorporate the `id` of its parent objects in order to easily understand its place in the topology. An example of such an id is `US-WECC-CISO`. The `id` MUST be URL safe. 
+- `id` - _string_ - (REQUIRED) - The unique identifier representing this resource. It **should** be human-readable, and where appropriate, **may** incorporate the `id` of its parent objects in order to easily understand its place in the topology. An example of such an id is `US-WECC-CISO`. The `id` **must** be URL safe. 
 - `level` - _string_ - (REQUIRED) - The id of the topology level for this PSR.
 -  `name` - _string_ - (OPTIONAL) - A descriptive name to provide additional context to the PSR.
 
 #### Example
-The following is an example of the endpoint that returns a list of power system resources. This LIST endpoint SHOULD only includes the `id`, `name`, and `type` fields. It MUST not contain fields of undefined size (such as fields that con contain lists or dicts), as this endpoint is meant to be capable of returning several entries.
+The following is an example of the endpoint that returns a list of power system resources. This LIST endpoint **should** only includes the `id`, `name`, and `type` fields. It **must** not contain fields of undefined size (such as fields that con contain lists or dicts), as this endpoint is meant to be capable of returning several entries.
 
 ```
 ==Request==
@@ -457,14 +459,14 @@ The capacity endpoint provides a means for providing capacity information by fue
 ##### Response Object
 
 - `id` - _string_ - REQUIRED - The `id` of the PowerSystemResource associated with this location.
-- `unit` - _string_ - (REQUIRED) - For electricity, SHOULD be one of:  [`MW`, `kW`, `W`]
+- `unit` - _string_ - (REQUIRED) - For electricity, **should** be one of:  [`MW`, `kW`, `W`]
 - `capacity` - _Array_
 	 - `fuelSource` - _Object_
 		 - `technology` - _String_ - (OPTIONAL) - *id* of the technology for generating this fuel.
 		  - `type` - _String_ - (REQUIRED) - *id* of the fuel type used for generation.
 	- `value` - _float_ - A value of the amount of generation that took place at this PSR using the given *technology* and *fuel_source*.
-	-  `startDatetime` - _ISO8601 Datetime_ - (REQUIRED) - The datetime MUST be timezone aware. This allows for the defining of historical capacity values and to indicate when new resources came online.
-	-   `endDatetime` - _ISO8601 Datetime_ - (OPTIONAL)  - The datetime MUST be timezone aware. This allows for the defining of historical capacity values and to indicate when old resources came offline. An empty value assumes it is still operational.
+	-  `startDatetime` - _ISO8601 Datetime_ - (REQUIRED) - The datetime **must** be timezone aware. This allows for the defining of historical capacity values and to indicate when new resources came online.
+	-   `endDatetime` - _ISO8601 Datetime_ - (OPTIONAL)  - The datetime **must** be timezone aware. This allows for the defining of historical capacity values and to indicate when old resources came offline. An empty value assumes it is still operational.
 
 ```
 ==Request==
@@ -517,7 +519,7 @@ The transmission capacity endpoint provides a means for providing transmission l
 ##### Response Object
 
 - `id` - _String_ - REQUIRED - The `id` of the PowerSystemResource associated with this location.
- `unit` - _String_ - (REQUIRED) - For electricity, SHOULD be one of:  [`MW`, `kW`, `W`]
+ `unit` - _String_ - (REQUIRED) - For electricity, **should** be one of:  [`MW`, `kW`, `W`]
 - `transmissionCapacity` - _Array_
 	- `connectedPSR` - _Object_ 
 		- `id`  - _String_ The unique identifier representing the *id* of the PSR connected to the requested PSR.
@@ -571,12 +573,12 @@ A generation object returns a timeseries of values representing energy that was 
 ##### Response Object
 
 -  `id` - _string_ - (REQUIRED) - The `id` of the Power System Resource associated with this unit of generation.
-- `unit` - _string_ - (REQUIRED) - For electricity, MUST be one of:  [`MWh`, `kWh`, `Wh`]
+- `unit` - _string_ - (REQUIRED) - For electricity, **must** be one of:  [`MWh`, `kWh`, `Wh`]
 - `generation` - _Array_
-	-  `startDatetime` - _ISO8601 Datetime_ - (REQUIRED) - The datetime MUST be timezone aware.
-	-   `endDatetime` - _ISO8601 Datetime_ - (REQUIRED)  - The datetime MUST be timezone aware.
+	-  `startDatetime` - _ISO8601 Datetime_ - (REQUIRED) - The datetime **must** be timezone aware.
+	-   `endDatetime` - _ISO8601 Datetime_ - (REQUIRED)  - The datetime **must** be timezone aware.
 	- `value` - _float_ - (REQUIRED) - A value of the amount of generation that took place at this PSR. A positive number indicates generation.
-	- `valueByFuelSource` - _Array_ - (REQUIRED) - Lists of fuel types, technologies, and the amount of generation that comes from that fuel type. The unit for these values MUST be the same as that of the `unit` field.
+	- `valueByFuelSource` - _Array_ - (REQUIRED) - Lists of fuel types, technologies, and the amount of generation that comes from that fuel type. The unit for these values **must** be the same as that of the `unit` field.
 	  - `technology` - _String_ - (OPTIONAL) - *id* of the technology that was generated from this fuel.
 	  - `type` - _String_ - (REQUIRED) - *id* of the fuel type used for generation.
 	  - `value` - _float_ - A value of the amount of generation that took place at this PSR using the given *technology* and *fuel_source*.
@@ -636,10 +638,10 @@ A demand object returns a timeseries of values representing energy that was dema
 ##### Response Object
 
 -  `id` - _string_ - (REQUIRED) - The `id` of the Power System Resource associated with this demand.
-- 	`unit` - _string_ - (REQUIRED) - For electricity, SHOULD be one of:  [`MWh`, `kWh`, `Wh`]
+- 	`unit` - _string_ - (REQUIRED) - For electricity, **should** be one of:  [`MWh`, `kWh`, `Wh`]
 - `demand` - _Array_
-	-  `startDatetime` - _ISO8601 Datetime_ - (REQUIRED) - The datetime MUST be timezone aware.
-	-   `endDatetime` - _ISO8601 Datetime_ - (REQUIRED)  - The datetime MUST be timezone aware.
+	-  `startDatetime` - _ISO8601 Datetime_ - (REQUIRED) - The datetime **must** be timezone aware.
+	-   `endDatetime` - _ISO8601 Datetime_ - (REQUIRED)  - The datetime **must** be timezone aware.
 	- `value` - _float_ - (REQUIRED) - A value of the amount of demand that took place at this PSR. A positive number indicates demand that was needed. A negative number represents energy that was generated by un-registered demand-side resources.
 
 ```
@@ -684,12 +686,12 @@ An import object returns a timeseries of values representing energy that was imp
 ##### Response Object
 
 -  `id` - _string_ - (REQUIRED) - The `id` of the Power System Resource associated with this import.
-- 	`unit` - _string_ - (REQUIRED) - For electricity, SHOULD be one of:  [`MWh`, `kWh`, `Wh`]
+- 	`unit` - _string_ - (REQUIRED) - For electricity, **should** be one of:  [`MWh`, `kWh`, `Wh`]
 - `imports` - _Array_
-	-  `startDatetime` - _ISO8601 Datetime_ - (REQUIRED) - The datetime MUST be timezone aware.
-	-   `endDatetime` - _ISO8601 Datetime_ - (REQUIRED)  - The datetime MUST be timezone aware.
+	-  `startDatetime` - _ISO8601 Datetime_ - (REQUIRED) - The datetime **must** be timezone aware.
+	-   `endDatetime` - _ISO8601 Datetime_ - (REQUIRED)  - The datetime **must** be timezone aware.
 	- `value` - _positive float_ - (REQUIRED) - A value of the amount of energy imported by this PSR. The value must be 0 or a positive value (exports should be provided in the other endpoint).
-	  - `valueByConnectedPSR` - _Array_ - (REQUIRED) - Key-value pairs of the connected PSR that this PSR is importing energy from and the amount of energy that comes from that PSR. The unit for these values MUST be the same as that of the `unit` field.
+	  - `valueByConnectedPSR` - _Array_ - (REQUIRED) - Key-value pairs of the connected PSR that this PSR is importing energy from and the amount of energy that comes from that PSR. The unit for these values **must** be the same as that of the `unit` field.
 	  - `connectedPSR` - _String_
 	  - `value` - _positive float_ - A value of the amount of energy imported from the `connectedPSR`. he value must be 0 or a positive value (exports should be provided in the other endpoint).
 
@@ -746,12 +748,12 @@ An export object returns a timeseries of values representing energy that was exp
 ##### Response Object
 
 -  `id` - _string_ - (REQUIRED) - The `id` of the Power System Resource associated with this export.
-- 	`unit` - _string_ - (REQUIRED) - For electricity, SHOULD be one of:  [`MWh`, `kWh`, `Wh`]
+- 	`unit` - _string_ - (REQUIRED) - For electricity, **should** be one of:  [`MWh`, `kWh`, `Wh`]
 - `exports` - _Array_
-	-  `startDatetime` - _ISO8601 Datetime_ - (REQUIRED) - The datetime MUST be timezone aware.
-	-   `endDatetime` - _ISO8601 Datetime_ - (REQUIRED)  - The datetime MUST be timezone aware.
+	-  `startDatetime` - _ISO8601 Datetime_ - (REQUIRED) - The datetime **must** be timezone aware.
+	-   `endDatetime` - _ISO8601 Datetime_ - (REQUIRED)  - The datetime **must** be timezone aware.
 	- `value` - _positive float_ - (REQUIRED) - A value of the amount of energy exported by this PSR. The value must be 0 or a positive value (imports should be provided in the other endpoint).
-	  - `valueByConnectedPSR` - _Array_ - (REQUIRED) - Key-value pairs of the connected PSR that this PSR is exporting energy to and the amount of energy that comes from that PSR. The unit for these values MUST be the same as that of the `unit` field.
+	  - `valueByConnectedPSR` - _Array_ - (REQUIRED) - Key-value pairs of the connected PSR that this PSR is exporting energy to and the amount of energy that comes from that PSR. The unit for these values **must** be the same as that of the `unit` field.
 	  - `connectedPSR` - _String_
 	  - `value` - _positive float_ - A value of the amount of energy exported to the `connectedPSR`. The value must be 0 or a positive value (exports should be provided in the other endpoint).
 
@@ -812,8 +814,8 @@ A demand object returns a timeseries of values representing energy that was dema
 - 	`unit` - _string_ - (REQUIRED) - Should be a a currency code in accordance with the [ISO 4217](https://www.iso.org/iso-4217-currency-codes.html) standard. 
 - `timeframe` - _String_ The selected `timeframe` from the request object
 - `demand` - _Array_
-	-  `startDatetime` - _ISO8601 Datetime_ - (REQUIRED) - The datetime MUST be timezone aware.
-	-   `endDatetime` - _ISO8601 Datetime_ - (REQUIRED)  - The datetime MUST be timezone aware.
+	-  `startDatetime` - _ISO8601 Datetime_ - (REQUIRED) - The datetime **must** be timezone aware.
+	-   `endDatetime` - _ISO8601 Datetime_ - (REQUIRED)  - The datetime **must** be timezone aware.
 	- `value` - _float_ - (REQUIRED) - A value of the price of energy  took place at this PSR. 
 
 ```
@@ -858,12 +860,12 @@ A curtailment object returns a timeseries of values representing energy that was
 ##### Response Object
 
 -  `id` - _string_ - (REQUIRED) - The `id` of the Power System Resource associated with this unit of curtailment.
-- `unit` - _string_ - (REQUIRED) - For electricity, MUST be one of:  [`MWh`, `kWh`, `Wh`]
+- `unit` - _string_ - (REQUIRED) - For electricity, **must** be one of:  [`MWh`, `kWh`, `Wh`]
 - `generation` - _Array_
-	-  `startDatetime` - _ISO8601 Datetime_ - (REQUIRED) - The datetime MUST be timezone aware.
-	-   `endDatetime` - _ISO8601 Datetime_ - (REQUIRED)  - The datetime MUST be timezone aware.
+	-  `startDatetime` - _ISO8601 Datetime_ - (REQUIRED) - The datetime **must** be timezone aware.
+	-   `endDatetime` - _ISO8601 Datetime_ - (REQUIRED)  - The datetime **must** be timezone aware.
 	- `value` - _float_ - (REQUIRED) - A value of the amount of curtailment that took place at this PSR. A positive number indicates curtailment.
-	- `valueByFuelSource` - _Array_ - (REQUIRED) - Lists of fuel types, technologies, and the amount of curtailment that occurs at that fuel type. The unit for these values MUST be the same as that of the `unit` field.
+	- `valueByFuelSource` - _Array_ - (REQUIRED) - Lists of fuel types, technologies, and the amount of curtailment that occurs at that fuel type. The unit for these values **must** be the same as that of the `unit` field.
 	  - `technology` - _String_ - (OPTIONAL) - *id* of the technology that this fuel type used for curtailment.
 	  - `type` - _String_ - (REQUIRED) - *id* of the fuel source used for curtailment.
 	  - `value` - _float_ - A value of the amount of curtailment that took place at this PSR using the given *technology* and *fuel_source*.
