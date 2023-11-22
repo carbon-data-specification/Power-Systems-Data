@@ -530,9 +530,9 @@ The transmission capacity endpoint provides a means for providing transmission l
  `unit` - _String_ - (REQUIRED) - For electricity, SHOULD be one of:  [`MW`, `kW`, `W`]
 - `transmissionCapacity` - _Array_
 	- `connectedPSR` - _Object_ 
-    - `unit` - _String_ - (REQUIRED) - For electricity, SHOULD be one of:  [`MW`, `kW`, `W`]  
 		- `id`  - _String_ The unique identifier representing the *id* of the PSR connected to the requested PSR.
-	 - `value` - _float_ - A value of the amount of transmission capacity available between the two PSRs. 
+  - `unit` - _String_ - (REQUIRED) - For electricity, SHOULD be one of:  [`MW`, `kW`, `W`]  
+  - `value` - _float_ - A value of the amount of transmission capacity available between the two PSRs. 
 
 ```
 ==Request==
