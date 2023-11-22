@@ -469,7 +469,7 @@ The capacity endpoint provides a means for providing capacity information by fue
 
 ```
 ==Request==
-GET /power-system-resources/US-WECC-CISO/topology?numLevels=2 HTTP/1.1
+GET /power-system-resources/US-WECC-CISO/capacity HTTP/1.1
 Host: demoutility.com
 
 ==Response==
