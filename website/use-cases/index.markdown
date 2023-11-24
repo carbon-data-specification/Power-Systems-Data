@@ -75,7 +75,7 @@ To make impactful clean energy siting decisions and to measure the carbon impact
 
 * Organisations with climate goals that can target their clean energy investments to grids with higher emissions.
 
-## Use Case 4: Electrification, Storage, and Energy Efficiency Projects <a id="use-case-decarb-projects" href="#use-case-decarb-projects" class="permalink">🔗</a>
+## Use Case 4: Electrification and Energy Efficiency Projects <a id="use-case-decarb-projects" href="#use-case-decarb-projects" class="permalink">🔗</a>
 
 Decarbonization can be accelerated through the accurate measurement of the impacts of various demand-side decarbonization projects, such as HVAC electrification and energy efficiency measures.  
 
