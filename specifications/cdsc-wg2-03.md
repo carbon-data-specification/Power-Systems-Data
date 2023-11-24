@@ -1,4 +1,4 @@
-># _CDSC-WG2-03 - Endpoints_ 
+# _CDSC-WG2-03 - Endpoints_ 
 
 Version: _0.0.1_
 Status: Pre-Draft
