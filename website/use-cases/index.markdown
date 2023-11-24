@@ -81,7 +81,7 @@ Decarbonization can be accelerated through the accurate measurement of the impac
 
 ### Needs
 
-To make trustworthy claims on the impact of decarbonization projects, access to accurate and detailed grid data is required to calculate the carbon impacts based on changes in energy consumption. 
+To make trustworthy claims on the impact of decarbonization projects, access to accurate and detailed grid data is required to calculate the carbon impacts based on changes in electricity consumption. 
 
 ### Example users
 
