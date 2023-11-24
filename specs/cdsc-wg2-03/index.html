@@ -173,9 +173,9 @@ Status: Pre-Draft</p>
 /metadata/topology-levels (LIST)
 /metadata/fuel-source/types (LIST)
 /metadata/fuel-source/technologies (LIST)
-/power-system-resources (LIST) 
 
 # PSR-Specific Metadata
+/power-system-resources (LIST) 
 /power-system-resources/{id}/describe (GET)
 /power-system-resources/{id}/capacity (GET)
 /power-system-resources/{id}/transmission-capacity (GET)
@@ -333,15 +333,16 @@ Content-Type: application/json;charset=UTF-8
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
    </span><span class="nl">"types"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
 	   </span><span class="p">{</span><span class="w">
-		   </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Solar - Photovoltaic - Unspecified"</span><span class="p">,</span><span class="w">
-		   </span><span class="nl">"external_reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES"</span><span class="p">,</span><span class="w">
-		   </span><span class="nl">"external_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"T010100"</span><span class="w">
-	   </span><span class="p">},</span><span class="w">
-	   </span><span class="p">{</span><span class="w">
 		   </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fossil - Solid - Hard Coal - Unspecified"</span><span class="p">,</span><span class="w">
 		   </span><span class="nl">"external_reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES"</span><span class="p">,</span><span class="w">
-		   </span><span class="nl">"external_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"F02010100"</span><span class="w">
+		   </span><span class="nl">"aibCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"F02010100"</span><span class="w">
 	   </span><span class="p">},</span><span class="w">
+     </span><span class="p">{</span><span class="w">
+		   </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mechanical source or other - Wind - Unspecified"</span><span class="p">,</span><span class="w">
+		   </span><span class="nl">"sourceDocument"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES"</span><span class="p">,</span><span class="w">
+			 </span><span class="nl">"aibCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"F01050100"</span><span class="w">
+		</span><span class="p">},</span><span class="w">
+	   
   </span><span class="p">],</span><span class="w">
   </span><span class="nl">"next"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
   </span><span class="nl">"previous"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
@@ -377,19 +378,20 @@ Content-Type: application/json;charset=UTF-8
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
    </span><span class="nl">"technologies"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
 	   </span><span class="p">{</span><span class="w">
-		   </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mechanical source or other - Wind - Unspecified"</span><span class="p">,</span><span class="w">
-		   </span><span class="nl">"externalReference"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-			   </span><span class="nl">"sourceDocument"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES"</span><span class="p">,</span><span class="w">
-			   </span><span class="nl">"aibCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"F01050100"</span><span class="w">
-		   </span><span class="p">}</span><span class="w">
-	   </span><span class="p">},</span><span class="w">
-	   </span><span class="p">{</span><span class="w">
 		   </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Thermal - Steam engine - Unspecified"</span><span class="p">,</span><span class="w">
 		   </span><span class="nl">"externalReference"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
 			   </span><span class="nl">"sourceDocument"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES"</span><span class="p">,</span><span class="w">
 			   </span><span class="nl">"aibCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"T050900"</span><span class="w">
 			 </span><span class="p">}</span><span class="w">
 	   </span><span class="p">},</span><span class="w">
+
+     </span><span class="p">{</span><span class="w">
+		   </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Solar - Photovoltaic - Unspecified"</span><span class="p">,</span><span class="w">
+       </span><span class="nl">"externalReference"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+		      </span><span class="nl">"sourceDocument"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES"</span><span class="p">,</span><span class="w">
+		      </span><span class="nl">"aibCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"T010100"</span><span class="w">
+       </span><span class="p">}</span><span class="w">
+     </span><span class="p">},</span><span class="w">
   </span><span class="p">],</span><span class="w">
   </span><span class="nl">"next"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
   </span><span class="nl">"previous"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
@@ -400,19 +402,71 @@ Content-Type: application/json;charset=UTF-8
 
 <p>The primary set of endpoints reference PowerSystemResource (PSR) objects. These objects contain several metadata fields about these PSRs.</p>
 
-<h4 id="321-psr-topology-list-power-system-resourcesidtopology">3.2.1 PSR Topology (List) <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/topology</code></h4>
+<h4 id="321-psr-list-power-system-resources">3.2.1 PSR (List) <code class="language-plaintext highlighter-rouge">/power-system-resources</code></h4>
 
 <h5 id="description-3">Description</h5>
+<p>The primary set of endpoints reference PowerSystemResource (PSR) objects. These objects contain several metadata fields as well as <strong>historical timeseries</strong> information such as capacity.</p>
+
+<h5 id="request-object-3">Request Object</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">level</code>: <em>Integer</em> - (OPTIONAL) - An optional filter to only return PSR objects with the given <em>topology level</em>.</li>
+</ul>
+
+<h5 id="response-object-3">Response Object</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - (REQUIRED) - The unique identifier representing this resource. It <strong>should</strong> be human-readable, and where appropriate, <strong>may</strong> incorporate the <code class="language-plaintext highlighter-rouge">id</code> of its parent objects in order to easily understand its place in the topology. An example of such an id is <code class="language-plaintext highlighter-rouge">US-WECC-CISO</code>. The <code class="language-plaintext highlighter-rouge">id</code> <strong>must</strong> be URL safe.</li>
+  <li><code class="language-plaintext highlighter-rouge">level</code> - <em>string</em> - (REQUIRED) - The id of the topology level for this PSR.</li>
+  <li><code class="language-plaintext highlighter-rouge">name</code> - <em>string</em> - (OPTIONAL) - A descriptive name to provide additional context to the PSR.</li>
+</ul>
+
+<h4 id="example-2">Example</h4>
+<p>The following is an example of the endpoint that returns a list of power system resources. This LIST endpoint <strong>should</strong> only includes the <code class="language-plaintext highlighter-rouge">id</code>, <code class="language-plaintext highlighter-rouge">name</code>, and <code class="language-plaintext highlighter-rouge">type</code> fields. It <strong>must</strong> not contain fields of undefined size (such as fields that con contain lists or dicts), as this endpoint is meant to be capable of returning several entries.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>==Request==
+GET /power-system-resources HTTP/1.1
+Host: demoutility.com
+
+==Response==
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+</code></pre></div></div>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"power_system_resources"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US-WECC"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Western Electricity Coordinating Council"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"level"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US-WECC-CISO"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"California ISO"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"level"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US-WECC-CISO-ABC-HYDRO"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hydropower Plant in ABC"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"level"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"next"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"previous"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h4 id="322-psr-topology-list-power-system-resourcesidtopology">3.2.2 PSR Topology (List) <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/topology</code></h4>
+
+<h5 id="description-4">Description</h5>
 
 <p>The topology endpoint provides a means for understanding how each PSR relates to others.</p>
 
-<h5 id="request-object-3">Request Object</h5>
+<h5 id="request-object-4">Request Object</h5>
 
 <ul>
   <li><code class="language-plaintext highlighter-rouge">numLevels</code> - <em>integer</em> - Number of levels above and below the requested PSR to return in the response. A value of <em>1</em> means that it will only return that PSR’s direct parent and children.</li>
 </ul>
 
-<h5 id="response-object-3">Response Object</h5>
+<h5 id="response-object-4">Response Object</h5>
 
 <ul>
   <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - REQUIRED - The <code class="language-plaintext highlighter-rouge">id</code> of the PowerSystemResource associated with this location.</li>
@@ -481,58 +535,6 @@ Content-Type: application/json;charset=UTF-8
   </span><span class="nl">"next"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
   </span><span class="nl">"previous"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
 </span><span class="p">}</span><span class="err">`</span><span class="w"> 
-</span></code></pre></div></div>
-
-<h4 id="322-psr-list-power-system-resources">3.2.2 PSR (List) <code class="language-plaintext highlighter-rouge">/power-system-resources</code></h4>
-
-<h5 id="description-4">Description</h5>
-<p>The primary set of endpoints reference PowerSystemResource (PSR) objects. These objects contain several metadata fields as well as <strong>historical timeseries</strong> information such as capacity.</p>
-
-<h5 id="request-object-4">Request Object</h5>
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">level</code>: <em>Integer</em> - (OPTIONAL) - An optional filter to only return PSR objects with the given <em>topology level</em>.</li>
-</ul>
-
-<h5 id="response-object-4">Response Object</h5>
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - (REQUIRED) - The unique identifier representing this resource. It <strong>should</strong> be human-readable, and where appropriate, <strong>may</strong> incorporate the <code class="language-plaintext highlighter-rouge">id</code> of its parent objects in order to easily understand its place in the topology. An example of such an id is <code class="language-plaintext highlighter-rouge">US-WECC-CISO</code>. The <code class="language-plaintext highlighter-rouge">id</code> <strong>must</strong> be URL safe.</li>
-  <li><code class="language-plaintext highlighter-rouge">level</code> - <em>string</em> - (REQUIRED) - The id of the topology level for this PSR.</li>
-  <li><code class="language-plaintext highlighter-rouge">name</code> - <em>string</em> - (OPTIONAL) - A descriptive name to provide additional context to the PSR.</li>
-</ul>
-
-<h4 id="example-2">Example</h4>
-<p>The following is an example of the endpoint that returns a list of power system resources. This LIST endpoint <strong>should</strong> only includes the <code class="language-plaintext highlighter-rouge">id</code>, <code class="language-plaintext highlighter-rouge">name</code>, and <code class="language-plaintext highlighter-rouge">type</code> fields. It <strong>must</strong> not contain fields of undefined size (such as fields that con contain lists or dicts), as this endpoint is meant to be capable of returning several entries.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>==Request==
-GET /power-system-resources HTTP/1.1
-Host: demoutility.com
-
-==Response==
-HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
-</code></pre></div></div>
-
-<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"power_system_resources"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US-WECC"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Western Electricity Coordinating Council"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"level"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US-WECC-CISO"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"California ISO"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"level"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US-WECC-CISO-ABC-HYDRO"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hydropower Plant in ABC"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"level"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="nl">"next"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"previous"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
-</span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
 
 <h4 id="323-psr-describe-power-system-resourcesiddescribe">3.2.3 PSR Describe <code class="language-plaintext highlighter-rouge">/power-system-resources/{id}/describe</code></h4>
