@@ -77,7 +77,7 @@ To make impactful clean energy siting decisions and to measure the carbon impact
 
 ## Use Case 4: Measurement of Decarbonization Projects <a id="use-case-decarb-projects" href="#use-case-decarb-projects" class="permalink">🔗</a>
 
-Decarbonization can be accelerated through the accurate measuring of the impacts of various decarbonization projects, such as HVAC electrification and energy efficiency measures.  
+Decarbonization can be accelerated through the accurate measurement of the impacts of various decarbonization projects, such as HVAC electrification and energy efficiency measures.  
 
 ### Needs
 
