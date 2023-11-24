@@ -174,11 +174,13 @@ Status: Pre-Draft</p>
 /metadata/fuel-source/types (LIST)
 /metadata/fuel-source/technologies (LIST)
 /power-system-resources (LIST) 
+
 # PSR-Specific Metadata
 /power-system-resources/{id}/describe (GET)
 /power-system-resources/{id}/capacity (GET)
 /power-system-resources/{id}/transmission-capacity (GET)
 /power-system-resources/{id}/topology (GET)
+
 # Timeseries Data
 /power-system-resources/{id}/timeseries/generation (GET)
 /power-system-resources/{id}/timeseries/demand (GET)
@@ -202,7 +204,7 @@ Status: Pre-Draft</p>
 <h5 id="response-object">Response Object</h5>
 <ul>
   <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - (REQUIRED) - The unique identifier representing this resource. It <strong>may</strong> be human-readable, such as <code class="language-plaintext highlighter-rouge">Balancing Area</code>.</li>
-  <li><code class="language-plaintext highlighter-rouge">level</code> - int - (OPTIONAL) - A number representing the hierarchy of this resource topology in relation to the other resource types. These levels <strong>shall</strong> include a sequential set of positive integers starting at 0.
+  <li><code class="language-plaintext highlighter-rouge">level</code> - <em>int</em> - (OPTIONAL) - A number representing the hierarchy of this resource topology in relation to the other resource types. These levels <strong>shall</strong> include a sequential set of positive integers starting at 0.
     <h5 id="example">Example</h5>
   </li>
 </ul>
@@ -227,15 +229,15 @@ Content-Type: application/json;charset=UTF-8
 			</span><span class="nl">"level"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
 		</span><span class="p">},</span><span class="w">
 		</span><span class="p">{</span><span class="w">
-			</span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">" Generating Plant"</span><span class="p">,</span><span class="w">
+			</span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Generating Plant"</span><span class="p">,</span><span class="w">
 			</span><span class="nl">"level"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
 		</span><span class="p">},</span><span class="w">
 		</span><span class="p">{</span><span class="w">
-			</span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">" Generating Unit"</span><span class="p">,</span><span class="w">
+			</span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Generating Unit"</span><span class="p">,</span><span class="w">
 			</span><span class="nl">"level"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w">
 		</span><span class="p">},</span><span class="w">
 		</span><span class="p">{</span><span class="w">
-			</span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">" Consumption Unit"</span><span class="p">,</span><span class="w">
+			</span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Consumption Unit"</span><span class="p">,</span><span class="w">
 			</span><span class="nl">"level"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w">
 		</span><span class="p">},</span><span class="w">
 	</span><span class="p">],</span><span class="w">
@@ -303,7 +305,7 @@ Content-Type: application/json;charset=UTF-8
 
 <h5 id="description-1">Description</h5>
 
-<p>The different fuel source types that exist within this system. AIB codes SHOULD be used to enumerate these types.</p>
+<p>The different fuel source types that exist within this system. AIB codes <strong>should</strong> be used to enumerate these types.</p>
 
 <h5 id="request-object-1">Request Object</h5>
 
@@ -313,8 +315,8 @@ Content-Type: application/json;charset=UTF-8
 
 <ul>
   <li><code class="language-plaintext highlighter-rouge">name</code>: - <em>string</em> - (REQUIRED) - A common name to use for the fuel type. If using AIB codes, it should be a concatenation of the three code descriptions with a dash between (i.e. <code class="language-plaintext highlighter-rouge">Solar - Photovoltaic - Unspecified</code>)</li>
-  <li><code class="language-plaintext highlighter-rouge">external_reference</code>: <em>String</em> - (OPTIONAL?) - A reference that provides context for this specific fuel type.</li>
-  <li><code class="language-plaintext highlighter-rouge">external_id</code>:  - <em>String</em> - (OPTIONAL?) - A unique code (such as the AIB code) referencing the type of fuel</li>
+  <li><code class="language-plaintext highlighter-rouge">external_reference</code>: <em>string</em> - (OPTIONAL?) - A reference that provides context for this specific fuel type.</li>
+  <li><code class="language-plaintext highlighter-rouge">external_id</code>:  - <em>string</em> - (OPTIONAL?) - A unique code (such as the AIB code) referencing the type of fuel</li>
 </ul>
 
 <h5 id="example-1">Example</h5>
@@ -350,7 +352,7 @@ Content-Type: application/json;charset=UTF-8
 
 <h5 id="description-2">Description</h5>
 
-<p>The different fuel source technologies that exist within this system. AIB codes SHOULD be used to enumerate these types.</p>
+<p>The different fuel source technologies that exist within this system. AIB codes <strong>should</strong> be used to enumerate these types.</p>
 
 <h5 id="request-object-2">Request Object</h5>
 
@@ -359,8 +361,8 @@ Content-Type: application/json;charset=UTF-8
 <h5 id="response-object-2">Response Object</h5>
 
 <ul>
-  <li><code class="language-plaintext highlighter-rouge">name</code>: - <em>string</em> - (REQUIRED) - A common name to use for the technology. It <em>SHOULD</em> use AIB Codes, and if so, it <em>SHALL</em> be a concatenation of the three code descriptions with a dash between (i.e. <code class="language-plaintext highlighter-rouge">Solar - Photovoltaic - Unspecified</code>)</li>
-  <li><code class="language-plaintext highlighter-rouge">externalReference</code>: <em>Dict</em> - (REQUIRED) - A reference that provides context for this specific technology. This <em>SHOULD</em> reference an AIB code.</li>
+  <li><code class="language-plaintext highlighter-rouge">name</code>: - <em>string</em> - (REQUIRED) - A common name to use for the technology. It <strong>should</strong> use AIB Codes, and if so, it <strong>shall</strong> be a concatenation of the three code descriptions with a dash between (i.e. <code class="language-plaintext highlighter-rouge">Solar - Photovoltaic - Unspecified</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">externalReference</code>: <em>Dict</em> - (REQUIRED) - A reference that provides context for this specific technology. This <strong>should</strong> reference an AIB code.</li>
 </ul>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>==Request==
@@ -418,7 +420,7 @@ Content-Type: application/json;charset=UTF-8
     <ul>
       <li><code class="language-plaintext highlighter-rouge">parent</code> - <em>Object</em> - (OPTIONAL)
         <ul>
-          <li><code class="language-plaintext highlighter-rouge">id</code> - <em>String</em> The unique identifier representing the <em>id</em> of the PSR that is one level above in the topology.</li>
+          <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> The unique identifier representing the <em>id</em> of the PSR that is one level above in the topology.</li>
           <li><code class="language-plaintext highlighter-rouge">parent</code> - <em>Object</em> - (OPTIONAL)
             <ul>
               <li>…</li>
@@ -428,14 +430,17 @@ Content-Type: application/json;charset=UTF-8
       </li>
       <li><code class="language-plaintext highlighter-rouge">connectedSiblings</code> - <em>Array</em> - (OPTIONAL)
         <ul>
-          <li><code class="language-plaintext highlighter-rouge">id</code> - <em>String</em> - A unique identifier representing the <em>id</em> of a PSR that has some transmission-based connection.</li>
+          <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - A unique identifier representing the <em>id</em> of a PSR that has some transmission-based connection.</li>
           <li><code class="language-plaintext highlighter-rouge">connectedSiblings</code> - <em>Array</em> - (OPTIONAL)
-    - <code class="language-plaintext highlighter-rouge">id</code> - <em>String</em></li>
+            <ul>
+              <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em></li>
+            </ul>
+          </li>
         </ul>
       </li>
       <li><code class="language-plaintext highlighter-rouge">children</code> - <em>Array</em> - (OPTIONAL)
         <ul>
-          <li><code class="language-plaintext highlighter-rouge">id</code> - <em>String</em> - A unique identifier representing the <em>id</em> of a PSR that is one level below in the topology.</li>
+          <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - A unique identifier representing the <em>id</em> of a PSR that is one level below in the topology.</li>
           <li><code class="language-plaintext highlighter-rouge">connectedSiblings</code> - <em>Array</em> - (OPTIONAL)</li>
           <li><code class="language-plaintext highlighter-rouge">children</code> - <em>Array</em> - (OPTIONAL)
             <ul>
@@ -490,13 +495,13 @@ Content-Type: application/json;charset=UTF-8
 
 <h5 id="response-object-4">Response Object</h5>
 <ul>
-  <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - (REQUIRED) - The unique identifier representing this resource. It SHOULD be human-readable, and where appropriate, MAY incorporate the <code class="language-plaintext highlighter-rouge">id</code> of its parent objects in order to easily understand its place in the topology. An example of such an id is <code class="language-plaintext highlighter-rouge">US-WECC-CISO</code>. The <code class="language-plaintext highlighter-rouge">id</code> MUST be URL safe.</li>
+  <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - (REQUIRED) - The unique identifier representing this resource. It <strong>should</strong> be human-readable, and where appropriate, <strong>may</strong> incorporate the <code class="language-plaintext highlighter-rouge">id</code> of its parent objects in order to easily understand its place in the topology. An example of such an id is <code class="language-plaintext highlighter-rouge">US-WECC-CISO</code>. The <code class="language-plaintext highlighter-rouge">id</code> <strong>must</strong> be URL safe.</li>
   <li><code class="language-plaintext highlighter-rouge">level</code> - <em>string</em> - (REQUIRED) - The id of the topology level for this PSR.</li>
   <li><code class="language-plaintext highlighter-rouge">name</code> - <em>string</em> - (OPTIONAL) - A descriptive name to provide additional context to the PSR.</li>
 </ul>
 
 <h4 id="example-2">Example</h4>
-<p>The following is an example of the endpoint that returns a list of power system resources. This LIST endpoint SHOULD only includes the <code class="language-plaintext highlighter-rouge">id</code>, <code class="language-plaintext highlighter-rouge">name</code>, and <code class="language-plaintext highlighter-rouge">type</code> fields. It MUST not contain fields of undefined size (such as fields that con contain lists or dicts), as this endpoint is meant to be capable of returning several entries.</p>
+<p>The following is an example of the endpoint that returns a list of power system resources. This LIST endpoint <strong>should</strong> only includes the <code class="language-plaintext highlighter-rouge">id</code>, <code class="language-plaintext highlighter-rouge">name</code>, and <code class="language-plaintext highlighter-rouge">type</code> fields. It <strong>must</strong> not contain fields of undefined size (such as fields that con contain lists or dicts), as this endpoint is meant to be capable of returning several entries.</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>==Request==
 GET /power-system-resources HTTP/1.1
@@ -631,18 +636,18 @@ Content-Type: application/json;charset=UTF-8
 
 <ul>
   <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - REQUIRED - The <code class="language-plaintext highlighter-rouge">id</code> of the PowerSystemResource associated with this location.</li>
-  <li><code class="language-plaintext highlighter-rouge">unit</code> - <em>string</em> - (REQUIRED) - For electricity, SHOULD be one of:  [<code class="language-plaintext highlighter-rouge">MW</code>, <code class="language-plaintext highlighter-rouge">kW</code>, <code class="language-plaintext highlighter-rouge">W</code>]</li>
+  <li><code class="language-plaintext highlighter-rouge">unit</code> - <em>string</em> - (REQUIRED) - For electricity, <strong>should</strong> be one of:  [<code class="language-plaintext highlighter-rouge">MW</code>, <code class="language-plaintext highlighter-rouge">kW</code>, <code class="language-plaintext highlighter-rouge">W</code>]</li>
   <li><code class="language-plaintext highlighter-rouge">capacity</code> - <em>Array</em>
     <ul>
       <li><code class="language-plaintext highlighter-rouge">fuelSource</code> - <em>Object</em>
         <ul>
-          <li><code class="language-plaintext highlighter-rouge">technology</code> - <em>String</em> - (OPTIONAL) - <em>id</em> of the technology for generating this fuel.</li>
-          <li><code class="language-plaintext highlighter-rouge">type</code> - <em>String</em> - (REQUIRED) - <em>id</em> of the fuel type used for generation.</li>
+          <li><code class="language-plaintext highlighter-rouge">technology</code> - <em>string</em> - (OPTIONAL) - <em>id</em> of the technology for generating this fuel.</li>
+          <li><code class="language-plaintext highlighter-rouge">type</code> - <em>string</em> - (REQUIRED) - <em>id</em> of the fuel type used for generation.</li>
         </ul>
       </li>
       <li><code class="language-plaintext highlighter-rouge">value</code> - <em>float</em> - A value of the amount of generation that took place at this PSR using the given <em>technology</em> and <em>fuel_source</em>.</li>
-      <li><code class="language-plaintext highlighter-rouge">startDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED) - The datetime MUST be timezone aware. This allows for the defining of historical capacity values and to indicate when new resources came online.</li>
-      <li><code class="language-plaintext highlighter-rouge">endDatetime</code> - <em>ISO8601 Datetime</em> - (OPTIONAL)  - The datetime MUST be timezone aware. This allows for the defining of historical capacity values and to indicate when old resources came offline. An empty value assumes it is still operational.</li>
+      <li><code class="language-plaintext highlighter-rouge">startDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED) - The datetime <strong>must</strong> be timezone aware. This allows for the defining of historical capacity values and to indicate when new resources came online.</li>
+      <li><code class="language-plaintext highlighter-rouge">endDatetime</code> - <em>ISO8601 Datetime</em> - (OPTIONAL)  - The datetime <strong>must</strong> be timezone aware. This allows for the defining of historical capacity values and to indicate when old resources came offline. An empty value assumes it is still operational.</li>
     </ul>
   </li>
 </ul>
@@ -698,13 +703,13 @@ Content-Type: application/json;charset=UTF-8
 <h5 id="response-object-7">Response Object</h5>
 
 <ul>
-  <li><code class="language-plaintext highlighter-rouge">id</code> - <em>String</em> - REQUIRED - The <code class="language-plaintext highlighter-rouge">id</code> of the PowerSystemResource associated with this location.
- <code class="language-plaintext highlighter-rouge">unit</code> - <em>String</em> - (REQUIRED) - For electricity, SHOULD be one of:  [<code class="language-plaintext highlighter-rouge">MW</code>, <code class="language-plaintext highlighter-rouge">kW</code>, <code class="language-plaintext highlighter-rouge">W</code>]</li>
+  <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - REQUIRED - The <code class="language-plaintext highlighter-rouge">id</code> of the PowerSystemResource associated with this location.</li>
+  <li><code class="language-plaintext highlighter-rouge">unit</code> - <em>string</em> - (REQUIRED) - For electricity, <strong>should</strong> be one of:  [<code class="language-plaintext highlighter-rouge">MW</code>, <code class="language-plaintext highlighter-rouge">kW</code>, <code class="language-plaintext highlighter-rouge">W</code>]</li>
   <li><code class="language-plaintext highlighter-rouge">transmissionCapacity</code> - <em>Array</em>
     <ul>
       <li><code class="language-plaintext highlighter-rouge">connectedPSR</code> - <em>Object</em>
         <ul>
-          <li><code class="language-plaintext highlighter-rouge">id</code>  - <em>String</em> The unique identifier representing the <em>id</em> of the PSR connected to the requested PSR.</li>
+          <li><code class="language-plaintext highlighter-rouge">id</code>  - <em>string</em> The unique identifier representing the <em>id</em> of the PSR connected to the requested PSR.</li>
         </ul>
       </li>
       <li><code class="language-plaintext highlighter-rouge">value</code> - <em>float</em> - A value of the amount of transmission capacity available between the two PSRs.</li>
@@ -761,16 +766,16 @@ Content-Type: application/json;charset=UTF-8
 
 <ul>
   <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - (REQUIRED) - The <code class="language-plaintext highlighter-rouge">id</code> of the Power System Resource associated with this unit of generation.</li>
-  <li><code class="language-plaintext highlighter-rouge">unit</code> - <em>string</em> - (REQUIRED) - For electricity, MUST be one of:  [<code class="language-plaintext highlighter-rouge">MWh</code>, <code class="language-plaintext highlighter-rouge">kWh</code>, <code class="language-plaintext highlighter-rouge">Wh</code>]</li>
+  <li><code class="language-plaintext highlighter-rouge">unit</code> - <em>string</em> - (REQUIRED) - For electricity, <strong>must</strong> be one of:  [<code class="language-plaintext highlighter-rouge">MWh</code>, <code class="language-plaintext highlighter-rouge">kWh</code>, <code class="language-plaintext highlighter-rouge">Wh</code>]</li>
   <li><code class="language-plaintext highlighter-rouge">generation</code> - <em>Array</em>
     <ul>
-      <li><code class="language-plaintext highlighter-rouge">startDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED) - The datetime MUST be timezone aware.</li>
-      <li><code class="language-plaintext highlighter-rouge">endDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED)  - The datetime MUST be timezone aware.</li>
+      <li><code class="language-plaintext highlighter-rouge">startDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED) - The datetime <strong>must</strong> be timezone aware.</li>
+      <li><code class="language-plaintext highlighter-rouge">endDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED)  - The datetime <strong>must</strong> be timezone aware.</li>
       <li><code class="language-plaintext highlighter-rouge">value</code> - <em>float</em> - (REQUIRED) - A value of the amount of generation that took place at this PSR. A positive number indicates generation.</li>
-      <li><code class="language-plaintext highlighter-rouge">valueByFuelSource</code> - <em>Array</em> - (REQUIRED) - Lists of fuel types, technologies, and the amount of generation that comes from that fuel type. The unit for these values MUST be the same as that of the <code class="language-plaintext highlighter-rouge">unit</code> field.
+      <li><code class="language-plaintext highlighter-rouge">valueByFuelSource</code> - <em>Array</em> - (REQUIRED) - Lists of fuel types, technologies, and the amount of generation that comes from that fuel type. The unit for these values <strong>must</strong> be the same as that of the <code class="language-plaintext highlighter-rouge">unit</code> field.
         <ul>
-          <li><code class="language-plaintext highlighter-rouge">technology</code> - <em>String</em> - (OPTIONAL) - <em>id</em> of the technology that was generated from this fuel.</li>
-          <li><code class="language-plaintext highlighter-rouge">type</code> - <em>String</em> - (REQUIRED) - <em>id</em> of the fuel type used for generation.</li>
+          <li><code class="language-plaintext highlighter-rouge">technology</code> - <em>string</em> - (OPTIONAL) - <em>id</em> of the technology that was generated from this fuel.</li>
+          <li><code class="language-plaintext highlighter-rouge">type</code> - <em>string</em> - (REQUIRED) - <em>id</em> of the fuel type used for generation.</li>
           <li><code class="language-plaintext highlighter-rouge">value</code> - <em>float</em> - A value of the amount of generation that took place at this PSR using the given <em>technology</em> and <em>fuel_source</em>.</li>
         </ul>
       </li>
@@ -834,11 +839,11 @@ Content-Type: application/json;charset=UTF-8
 
 <ul>
   <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - (REQUIRED) - The <code class="language-plaintext highlighter-rouge">id</code> of the Power System Resource associated with this demand.</li>
-  <li><code class="language-plaintext highlighter-rouge">unit</code> - <em>string</em> - (REQUIRED) - For electricity, SHOULD be one of:  [<code class="language-plaintext highlighter-rouge">MWh</code>, <code class="language-plaintext highlighter-rouge">kWh</code>, <code class="language-plaintext highlighter-rouge">Wh</code>]</li>
+  <li><code class="language-plaintext highlighter-rouge">unit</code> - <em>string</em> - (REQUIRED) - For electricity, <strong>should</strong> be one of:  [<code class="language-plaintext highlighter-rouge">MWh</code>, <code class="language-plaintext highlighter-rouge">kWh</code>, <code class="language-plaintext highlighter-rouge">Wh</code>]</li>
   <li><code class="language-plaintext highlighter-rouge">demand</code> - <em>Array</em>
     <ul>
-      <li><code class="language-plaintext highlighter-rouge">startDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED) - The datetime MUST be timezone aware.</li>
-      <li><code class="language-plaintext highlighter-rouge">endDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED)  - The datetime MUST be timezone aware.</li>
+      <li><code class="language-plaintext highlighter-rouge">startDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED) - The datetime <strong>must</strong> be timezone aware.</li>
+      <li><code class="language-plaintext highlighter-rouge">endDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED)  - The datetime <strong>must</strong> be timezone aware.</li>
       <li><code class="language-plaintext highlighter-rouge">value</code> - <em>float</em> - (REQUIRED) - A value of the amount of demand that took place at this PSR. A positive number indicates demand that was needed. A negative number represents energy that was generated by un-registered demand-side resources.</li>
     </ul>
   </li>
@@ -887,15 +892,15 @@ Content-Type: application/json;charset=UTF-8
 
 <ul>
   <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - (REQUIRED) - The <code class="language-plaintext highlighter-rouge">id</code> of the Power System Resource associated with this import.</li>
-  <li><code class="language-plaintext highlighter-rouge">unit</code> - <em>string</em> - (REQUIRED) - For electricity, SHOULD be one of:  [<code class="language-plaintext highlighter-rouge">MWh</code>, <code class="language-plaintext highlighter-rouge">kWh</code>, <code class="language-plaintext highlighter-rouge">Wh</code>]</li>
+  <li><code class="language-plaintext highlighter-rouge">unit</code> - <em>string</em> - (REQUIRED) - For electricity, <strong>should</strong> be one of:  [<code class="language-plaintext highlighter-rouge">MWh</code>, <code class="language-plaintext highlighter-rouge">kWh</code>, <code class="language-plaintext highlighter-rouge">Wh</code>]</li>
   <li><code class="language-plaintext highlighter-rouge">imports</code> - <em>Array</em>
     <ul>
-      <li><code class="language-plaintext highlighter-rouge">startDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED) - The datetime MUST be timezone aware.</li>
-      <li><code class="language-plaintext highlighter-rouge">endDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED)  - The datetime MUST be timezone aware.</li>
+      <li><code class="language-plaintext highlighter-rouge">startDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED) - The datetime <strong>must</strong> be timezone aware.</li>
+      <li><code class="language-plaintext highlighter-rouge">endDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED)  - The datetime <strong>must</strong> be timezone aware.</li>
       <li><code class="language-plaintext highlighter-rouge">value</code> - <em>positive float</em> - (REQUIRED) - A value of the amount of energy imported by this PSR. The value must be 0 or a positive value (exports should be provided in the other endpoint).
         <ul>
-          <li><code class="language-plaintext highlighter-rouge">valueByConnectedPSR</code> - <em>Array</em> - (REQUIRED) - Key-value pairs of the connected PSR that this PSR is importing energy from and the amount of energy that comes from that PSR. The unit for these values MUST be the same as that of the <code class="language-plaintext highlighter-rouge">unit</code> field.</li>
-          <li><code class="language-plaintext highlighter-rouge">connectedPSR</code> - <em>String</em></li>
+          <li><code class="language-plaintext highlighter-rouge">valueByConnectedPSR</code> - <em>Array</em> - (REQUIRED) - Key-value pairs of the connected PSR that this PSR is importing energy from and the amount of energy that comes from that PSR. The unit for these values <strong>must</strong> be the same as that of the <code class="language-plaintext highlighter-rouge">unit</code> field.</li>
+          <li><code class="language-plaintext highlighter-rouge">connectedPSR</code> - <em>string</em></li>
           <li><code class="language-plaintext highlighter-rouge">value</code> - <em>positive float</em> - A value of the amount of energy imported from the <code class="language-plaintext highlighter-rouge">connectedPSR</code>. he value must be 0 or a positive value (exports should be provided in the other endpoint).</li>
         </ul>
       </li>
@@ -957,15 +962,15 @@ Content-Type: application/json;charset=UTF-8
 
 <ul>
   <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - (REQUIRED) - The <code class="language-plaintext highlighter-rouge">id</code> of the Power System Resource associated with this export.</li>
-  <li><code class="language-plaintext highlighter-rouge">unit</code> - <em>string</em> - (REQUIRED) - For electricity, SHOULD be one of:  [<code class="language-plaintext highlighter-rouge">MWh</code>, <code class="language-plaintext highlighter-rouge">kWh</code>, <code class="language-plaintext highlighter-rouge">Wh</code>]</li>
+  <li><code class="language-plaintext highlighter-rouge">unit</code> - <em>string</em> - (REQUIRED) - For electricity, <strong>should</strong> be one of:  [<code class="language-plaintext highlighter-rouge">MWh</code>, <code class="language-plaintext highlighter-rouge">kWh</code>, <code class="language-plaintext highlighter-rouge">Wh</code>]</li>
   <li><code class="language-plaintext highlighter-rouge">exports</code> - <em>Array</em>
     <ul>
-      <li><code class="language-plaintext highlighter-rouge">startDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED) - The datetime MUST be timezone aware.</li>
-      <li><code class="language-plaintext highlighter-rouge">endDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED)  - The datetime MUST be timezone aware.</li>
+      <li><code class="language-plaintext highlighter-rouge">startDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED) - The datetime <strong>must</strong> be timezone aware.</li>
+      <li><code class="language-plaintext highlighter-rouge">endDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED)  - The datetime <strong>must</strong> be timezone aware.</li>
       <li><code class="language-plaintext highlighter-rouge">value</code> - <em>positive float</em> - (REQUIRED) - A value of the amount of energy exported by this PSR. The value must be 0 or a positive value (imports should be provided in the other endpoint).
         <ul>
-          <li><code class="language-plaintext highlighter-rouge">valueByConnectedPSR</code> - <em>Array</em> - (REQUIRED) - Key-value pairs of the connected PSR that this PSR is exporting energy to and the amount of energy that comes from that PSR. The unit for these values MUST be the same as that of the <code class="language-plaintext highlighter-rouge">unit</code> field.</li>
-          <li><code class="language-plaintext highlighter-rouge">connectedPSR</code> - <em>String</em></li>
+          <li><code class="language-plaintext highlighter-rouge">valueByConnectedPSR</code> - <em>Array</em> - (REQUIRED) - Key-value pairs of the connected PSR that this PSR is exporting energy to and the amount of energy that comes from that PSR. The unit for these values <strong>must</strong> be the same as that of the <code class="language-plaintext highlighter-rouge">unit</code> field.</li>
+          <li><code class="language-plaintext highlighter-rouge">connectedPSR</code> - <em>string</em></li>
           <li><code class="language-plaintext highlighter-rouge">value</code> - <em>positive float</em> - A value of the amount of energy exported to the <code class="language-plaintext highlighter-rouge">connectedPSR</code>. The value must be 0 or a positive value (exports should be provided in the other endpoint).</li>
         </ul>
       </li>
@@ -1029,11 +1034,11 @@ Content-Type: application/json;charset=UTF-8
 <ul>
   <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - (REQUIRED) - The <code class="language-plaintext highlighter-rouge">id</code> of the Power System Resource associated with this demand.</li>
   <li><code class="language-plaintext highlighter-rouge">unit</code> - <em>string</em> - (REQUIRED) - Should be a a currency code in accordance with the <a href="https://www.iso.org/iso-4217-currency-codes.html">ISO 4217</a> standard.</li>
-  <li><code class="language-plaintext highlighter-rouge">timeframe</code> - <em>String</em> The selected <code class="language-plaintext highlighter-rouge">timeframe</code> from the request object</li>
+  <li><code class="language-plaintext highlighter-rouge">timeframe</code> - <em>string</em> The selected <code class="language-plaintext highlighter-rouge">timeframe</code> from the request object</li>
   <li><code class="language-plaintext highlighter-rouge">demand</code> - <em>Array</em>
     <ul>
-      <li><code class="language-plaintext highlighter-rouge">startDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED) - The datetime MUST be timezone aware.</li>
-      <li><code class="language-plaintext highlighter-rouge">endDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED)  - The datetime MUST be timezone aware.</li>
+      <li><code class="language-plaintext highlighter-rouge">startDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED) - The datetime <strong>must</strong> be timezone aware.</li>
+      <li><code class="language-plaintext highlighter-rouge">endDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED)  - The datetime <strong>must</strong> be timezone aware.</li>
       <li><code class="language-plaintext highlighter-rouge">value</code> - <em>float</em> - (REQUIRED) - A value of the price of energy  took place at this PSR.</li>
     </ul>
   </li>
@@ -1082,16 +1087,16 @@ Content-Type: application/json;charset=UTF-8
 
 <ul>
   <li><code class="language-plaintext highlighter-rouge">id</code> - <em>string</em> - (REQUIRED) - The <code class="language-plaintext highlighter-rouge">id</code> of the Power System Resource associated with this unit of curtailment.</li>
-  <li><code class="language-plaintext highlighter-rouge">unit</code> - <em>string</em> - (REQUIRED) - For electricity, MUST be one of:  [<code class="language-plaintext highlighter-rouge">MWh</code>, <code class="language-plaintext highlighter-rouge">kWh</code>, <code class="language-plaintext highlighter-rouge">Wh</code>]</li>
+  <li><code class="language-plaintext highlighter-rouge">unit</code> - <em>string</em> - (REQUIRED) - For electricity, <strong>must</strong> be one of:  [<code class="language-plaintext highlighter-rouge">MWh</code>, <code class="language-plaintext highlighter-rouge">kWh</code>, <code class="language-plaintext highlighter-rouge">Wh</code>]</li>
   <li><code class="language-plaintext highlighter-rouge">generation</code> - <em>Array</em>
     <ul>
-      <li><code class="language-plaintext highlighter-rouge">startDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED) - The datetime MUST be timezone aware.</li>
-      <li><code class="language-plaintext highlighter-rouge">endDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED)  - The datetime MUST be timezone aware.</li>
+      <li><code class="language-plaintext highlighter-rouge">startDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED) - The datetime <strong>must</strong> be timezone aware.</li>
+      <li><code class="language-plaintext highlighter-rouge">endDatetime</code> - <em>ISO8601 Datetime</em> - (REQUIRED)  - The datetime <strong>must</strong> be timezone aware.</li>
       <li><code class="language-plaintext highlighter-rouge">value</code> - <em>float</em> - (REQUIRED) - A value of the amount of curtailment that took place at this PSR. A positive number indicates curtailment.</li>
-      <li><code class="language-plaintext highlighter-rouge">valueByFuelSource</code> - <em>Array</em> - (REQUIRED) - Lists of fuel types, technologies, and the amount of curtailment that occurs at that fuel type. The unit for these values MUST be the same as that of the <code class="language-plaintext highlighter-rouge">unit</code> field.
+      <li><code class="language-plaintext highlighter-rouge">valueByFuelSource</code> - <em>Array</em> - (REQUIRED) - Lists of fuel types, technologies, and the amount of curtailment that occurs at that fuel type. The unit for these values <strong>must</strong> be the same as that of the <code class="language-plaintext highlighter-rouge">unit</code> field.
         <ul>
-          <li><code class="language-plaintext highlighter-rouge">technology</code> - <em>String</em> - (OPTIONAL) - <em>id</em> of the technology that this fuel type used for curtailment.</li>
-          <li><code class="language-plaintext highlighter-rouge">type</code> - <em>String</em> - (REQUIRED) - <em>id</em> of the fuel source used for curtailment.</li>
+          <li><code class="language-plaintext highlighter-rouge">technology</code> - <em>string</em> - (OPTIONAL) - <em>id</em> of the technology that this fuel type used for curtailment.</li>
+          <li><code class="language-plaintext highlighter-rouge">type</code> - <em>string</em> - (REQUIRED) - <em>id</em> of the fuel source used for curtailment.</li>
           <li><code class="language-plaintext highlighter-rouge">value</code> - <em>float</em> - A value of the amount of curtailment that took place at this PSR using the given <em>technology</em> and <em>fuel_source</em>.</li>
         </ul>
       </li>
