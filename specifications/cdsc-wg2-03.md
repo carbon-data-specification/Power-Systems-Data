@@ -42,9 +42,9 @@ The following is a list of the endpoints that will be subsequently defined in th
 /metadata/topology-levels (LIST)
 /metadata/fuel-source/types (LIST)
 /metadata/fuel-source/technologies (LIST)
-/power-system-resources (LIST) 
 
 # PSR-Specific Metadata
+/power-system-resources (LIST) 
 /power-system-resources/{id}/describe (GET)
 /power-system-resources/{id}/capacity (GET)
 /power-system-resources/{id}/transmission-capacity (GET)
@@ -201,15 +201,16 @@ Content-Type: application/json;charset=UTF-8
 {
    "types": [
 	   {
-		   "name": "Solar - Photovoltaic - Unspecified",
-		   "external_reference": "EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES",
-		   "external_id": "T010100"
-	   },
-	   {
 		   "name": "Fossil - Solid - Hard Coal - Unspecified",
 		   "external_reference": "EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES",
-		   "external_id": "F02010100"
+		   "aibCode": "F02010100"
 	   },
+     {
+		   "name": "Mechanical source or other - Wind - Unspecified",
+		   "sourceDocument": "EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES",
+			 "aibCode": "F01050100"
+		},
+	   
   ],
   "next": null,
   "previous": null
@@ -245,19 +246,20 @@ Content-Type: application/json;charset=UTF-8
 {
    "technologies": [
 	   {
-		   "name": "Mechanical source or other - Wind - Unspecified",
-		   "externalReference": {
-			   "sourceDocument": "EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES",
-			   "aibCode": "F01050100"
-		   }
-	   },
-	   {
 		   "name": "Thermal - Steam engine - Unspecified",
 		   "externalReference": {
 			   "sourceDocument": "EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES",
 			   "aibCode": "T050900"
 			 }
 	   },
+
+     {
+		   "name": "Solar - Photovoltaic - Unspecified",
+       "externalReference": {
+		      "sourceDocument": "EECS Rules Fact Sheet 5 TYPES OF ENERGY INPUTS AND TECHNOLOGIES",
+		      "aibCode": "T010100"
+       }
+     },
   ],
   "next": null,
   "previous": null
@@ -268,7 +270,57 @@ Content-Type: application/json;charset=UTF-8
 
 The primary set of endpoints reference PowerSystemResource (PSR) objects. These objects contain several metadata fields about these PSRs.
 
-#### 3.2.1 PSR Topology (List) `/power-system-resources/{id}/topology`
+#### 3.2.1 PSR (List) `/power-system-resources`
+
+##### Description
+The primary set of endpoints reference PowerSystemResource (PSR) objects. These objects contain several metadata fields as well as **historical timeseries** information such as capacity.
+
+##### Request Object
+- `level`: _Integer_ - (OPTIONAL) - An optional filter to only return PSR objects with the given *topology level*.
+
+##### Response Object
+- `id` - _string_ - (REQUIRED) - The unique identifier representing this resource. It **should** be human-readable, and where appropriate, **may** incorporate the `id` of its parent objects in order to easily understand its place in the topology. An example of such an id is `US-WECC-CISO`. The `id` **must** be URL safe. 
+- `level` - _string_ - (REQUIRED) - The id of the topology level for this PSR.
+- `name` - _string_ - (OPTIONAL) - A descriptive name to provide additional context to the PSR.
+
+#### Example
+The following is an example of the endpoint that returns a list of power system resources. This LIST endpoint **should** only includes the `id`, `name`, and `type` fields. It **must** not contain fields of undefined size (such as fields that con contain lists or dicts), as this endpoint is meant to be capable of returning several entries.
+
+```
+==Request==
+GET /power-system-resources HTTP/1.1
+Host: demoutility.com
+
+==Response==
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+```
+
+```json
+{
+  "power_system_resources": [
+    {
+      "id": "US-WECC",
+      "name": "Western Electricity Coordinating Council",
+      "level": 0
+    },
+    {
+      "id": "US-WECC-CISO",
+      "name": "California ISO",
+      "level": 1
+    },
+    {
+      "id": "US-WECC-CISO-ABC-HYDRO",
+      "name": "Hydropower Plant in ABC",
+      "level": 2
+    }
+  ],
+  "next": null,
+  "previous": null
+}
+```
+
+#### 3.2.2 PSR Topology (List) `/power-system-resources/{id}/topology`
 
 ##### Description
 
@@ -326,56 +378,6 @@ Content-Type: application/json;charset=UTF-8
   "next": null,
   "previous": null
 }` 
-```
-
-#### 3.2.2 PSR (List) `/power-system-resources`
-
-##### Description
-The primary set of endpoints reference PowerSystemResource (PSR) objects. These objects contain several metadata fields as well as **historical timeseries** information such as capacity.
-
-##### Request Object
-- `level`: _Integer_ - (OPTIONAL) - An optional filter to only return PSR objects with the given *topology level*.
-
-##### Response Object
-- `id` - _string_ - (REQUIRED) - The unique identifier representing this resource. It **should** be human-readable, and where appropriate, **may** incorporate the `id` of its parent objects in order to easily understand its place in the topology. An example of such an id is `US-WECC-CISO`. The `id` **must** be URL safe. 
-- `level` - _string_ - (REQUIRED) - The id of the topology level for this PSR.
-- `name` - _string_ - (OPTIONAL) - A descriptive name to provide additional context to the PSR.
-
-#### Example
-The following is an example of the endpoint that returns a list of power system resources. This LIST endpoint **should** only includes the `id`, `name`, and `type` fields. It **must** not contain fields of undefined size (such as fields that con contain lists or dicts), as this endpoint is meant to be capable of returning several entries.
-
-```
-==Request==
-GET /power-system-resources HTTP/1.1
-Host: demoutility.com
-
-==Response==
-HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
-```
-
-```json
-{
-  "power_system_resources": [
-    {
-      "id": "US-WECC",
-      "name": "Western Electricity Coordinating Council",
-      "level": 0
-    },
-    {
-      "id": "US-WECC-CISO",
-      "name": "California ISO",
-      "level": 1
-    },
-    {
-      "id": "US-WECC-CISO-ABC-HYDRO",
-      "name": "Hydropower Plant in ABC",
-      "level": 2
-    }
-  ],
-  "next": null,
-  "previous": null
-}
 ```
 
 #### 3.2.3 PSR Describe `/power-system-resources/{id}/describe`
