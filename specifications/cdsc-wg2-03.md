@@ -461,18 +461,18 @@ The capacity endpoint provides a means for providing capacity information by fue
 ##### Response Object
 
 - `id` - _string_ - REQUIRED - The `id` of the PowerSystemResource associated with this location.
-- `unit` - _string_ - (REQUIRED) - For electricity, **should** be one of:  [`MW`, `kW`, `W`]
-- `capacity` - _Array_
-	 - `fuelSource` - _Object_
-		 - `technology` - _string_ - (OPTIONAL) - *id* of the technology for generating this fuel.
-		  - `type` - _string_ - (REQUIRED) - *id* of the fuel type used for generation.
-	- `value` - _float_ - A value of the amount of generation that took place at this PSR using the given *technology* and *fuel_source*.
-	- `startDatetime` - _ISO8601 Datetime_ - (REQUIRED) - The datetime **must** be timezone aware. This allows for the defining of historical capacity values and to indicate when new resources came online.
-	- `endDatetime` - _ISO8601 Datetime_ - (OPTIONAL)  - The datetime **must** be timezone aware. This allows for the defining of historical capacity values and to indicate when old resources came offline. An empty value assumes it is still operational.
+ - `fuelSource` - _Array_ - Generating units in the given PowerSystemResource
+   - `technology` - _string_ - (OPTIONAL) - *id* of the technology for generating this fuel.
+    - `type` - _string_ - (REQUIRED) - *id* of the fuel type used for generation.
+    - `unit` - _string_ - (REQUIRED) - For electricity, **should** be one of:  [`MW`, `kW`, `W`]
+    - `capacity` - _Array_
+      - `value` - _float_ - A value of the amount of generation that took place at this PSR using the given *technology* and *fuel_source*.
+      - `startDatetime` - _ISO8601 Datetime_ - (REQUIRED) - The datetime **must** be timezone aware. This allows for the defining of historical capacity values and to indicate when new resources came online.
+      - `endDatetime` - _ISO8601 Datetime_ - (OPTIONAL)  - The datetime **must** be timezone aware. This allows for the defining of historical capacity values and to indicate when old resources came offline. An empty value assumes it is still operational.
 
 ```
 ==Request==
-GET /power-system-resources/US-WECC-CISO/topology?numLevels=2 HTTP/1.1
+GET /power-system-resources/US-WECC-CISO/capacity HTTP/1.1
 Host: demoutility.com
 
 ==Response==
@@ -483,26 +483,35 @@ Content-Type: application/json;charset=UTF-8
 ```json
 {
   "id": "US-WECC-CISO",
-  "unit": "MW",
-  "capacity": [
+  "fuelSource": [
     {
-      "fuelSource": {
-        "technology": "Thermal - Steam engine - Unspecified",
-        "type": "Fossil - Solid - Hard Coal - Unspecified"
-      },
-      "value": 500,
-      "startDatetime": "2015-06-01 00:00:00+00",
-      "endDatetime": "2021-06-01T00:00:00+00"
+      "technology": "Thermal - Steam engine - Unspecified",
+      "type": "Fossil - Solid - Hard Coal - Unspecified",
+      "unit": "MW",
+      "capacity":[
+        {
+          "value":500,
+        "startDatetime": "2021-06-01T00:00:00+00",
+        },
+       {
+          "value":200,
+        "startDatetime": "2015-06-01 00:00:00+00",
+        "endDatetime": "2021-06-01T00:00:00+00"
+        }
+      ]
     },
     {
-      "fuelSource": {
-        "technology": "Thermal - Steam engine - Unspecified",
-        "type": "Fossil - Solid - Hard Coal - Unspecified"
+      "technology": "Renewable-Heat-Solar-Unespecified",
+      "type": "Solar-Photovoltaic-Classic silicon",
+      "unit": "MW",
+      "capacity":[
+        {
+          "value": 200,
+          "startDatetime": "2010-06-01 00:00:00+00"
+        }
+      ]
       },
-      "startDatetime": "2010-06-01 00:00:00+00",
-      "value": 300
-    }
-  ],
+  ]
   "next": null,
   "previous": null
 }
@@ -521,12 +530,11 @@ The transmission capacity endpoint provides a means for providing transmission l
 ##### Response Object
 
 - `id` - _string_ - REQUIRED - The `id` of the PowerSystemResource associated with this location.
-- `unit` - _string_ - (REQUIRED) - For electricity, **should** be one of:  [`MW`, `kW`, `W`]
 - `transmissionCapacity` - _Array_
 	- `connectedPSR` - _Object_ 
-		- `id`  - _string_ The unique identifier representing the *id* of the PSR connected to the requested PSR.
-	 - `value` - _float_ - A value of the amount of transmission capacity available between the two PSRs. 
-
+		- `id`  - _String_ The unique identifier representing the *id* of the PSR connected to the requested PSR.
+  - `unit` - _String_ - REQUIRED - For electricity, SHOULD be one of:  [`MW`, `kW`, `W`]  
+  - `value` - _float_ - A value of the amount of transmission capacity available between the two PSRs. 
 ```
 ==Request==
 GET /power-system-resources/US-WECC-CISO/transmission-capacity HTTP/1.1
@@ -540,16 +548,17 @@ Content-Type: application/json;charset=UTF-8
 ```json
 {
   "id": "US-WECC-CISO",
-  "unit": "MW",
   "transmissionCapacity": [
-	  {
-		  "connectedPSR": {"id": "US-WECC-NEVP"},
-		  "value": 100
-	  },
-	  {
-		  "connectedPSR": {"id": "US-WECC-ABCD"},
-		  "value": 50
-	  },...
+    {
+      "unit":"MW",
+      "connectedPSR": {"id": "US-WECC-NEVP"},
+      "value": 100
+    },
+    {
+      "unit":"MW",
+      "connectedPSR": {"id": "US-WECC-ABCD"},
+      "value": 50
+    },...
 	],
   "next": null,
   "previous": null
